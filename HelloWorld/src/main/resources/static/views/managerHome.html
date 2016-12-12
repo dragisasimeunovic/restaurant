@@ -1,0 +1,71 @@
+<div ng-controller="managerController">
+<md-toolbar class="md-small-tall" style="background: gray;">
+      <div class="md-toolbar-tools">
+        <!-- <md-button aria-label="Go Back">
+          Go Back
+        </md-button> -->
+        <h2>
+          <span>BSA Restaurants</span>
+        </h2>
+        <span flex></span>
+       
+        <md-button class="md-primary md-hue-1" aria-label="Learn More" ng-click="activeTab=0; setRestaurantsListVisible();" >
+          Restaurants
+        </md-button>
+        
+        
+        <md-button class="md-primary md-hue-1" aria-label="Learn More" ng-click="activeTab=1">
+          Add Employed
+        </md-button>
+        <md-button class="md-primary md-hue-1" aria-label="Learn More" ng-click="activeTab=5">
+          Add Offerer
+        </md-button>
+        <md-button class="md-primary md-hue-1" aria-label="Learn More" ng-click="activeTab=6">
+          All Employed
+        </md-button>
+          
+        
+       	<md-button class="md-primary md-hue-1" aria-label="Learn More" ng-click="activeTab=2">
+          Add List of Groceries
+        </md-button>
+        
+        <md-button class="md-icon-button" aria-label="Favorite" ng-click="activeTab=3">
+          <md-icon md-svg-icon="images/team.svg" style="color: greenyellow;"></md-icon>
+        </md-button>
+        
+        <md-button class="md-primary md-hue-1"  aria-label="Learn More" ng-click="activeTab=4">
+          LOGout
+        </md-button>
+      </div>
+    </md-toolbar>
+    
+    <div ng-show="activeTab==0">
+    <div ng-include="'views/restaurants.html'"></div>
+    </div>
+    
+    <div ng-show="activeTab==1">
+    <div ng-include="'views/addEmployed.html'"></div>
+    </div>
+    
+    <div ng-show="activeTab==2">
+    <div ng-include="'views/friends.html'"></div>
+    </div>
+      <div ng-show="activeTab==3">
+    <div ng-include="'views/profile.html'"></div>
+    </div>
+    
+    <div ng-show="activeTab==4">
+    <div ng-include="'views/friends.html'"></div>
+    </div>
+    
+    <div ng-show="activeTab==5">
+    <div ng-include="'views/addOfferer.html'"></div>
+    </div>
+    
+     <div ng-show="activeTab==6">
+    <div ng-include="'views/AllEmployeds.html'"></div>
+    </div>
+    
+  </div>
+    
+ 
