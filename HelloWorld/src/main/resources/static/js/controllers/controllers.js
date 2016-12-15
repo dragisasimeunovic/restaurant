@@ -16,6 +16,7 @@ app.controller('registrationController', ['$scope','$location', 'registrationSer
 	var probaaa = {};
 	var proba2 =[];
 	var proba3 = {};
+	var proba4 = {};
 	
 	
 }]);
