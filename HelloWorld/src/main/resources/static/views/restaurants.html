@@ -7,7 +7,8 @@
     <img alt="{{ restaurant.ime }}" ng-src="images/restoran1.jpg" class="md-avatar" />
     <p>{{ restaurant.ime }}</p>
     
-    <md-icon md-svg-src="images/delete.svg" ng-click="doSecondaryAction($event)" aria-label="Send Email" class="md-secondary md-hue-3" ></md-icon>
+  <md-icon md-svg-src="images/edit.svg" ng-click="doSecondaryAction($event)" aria-label="Send Email" class="md-secondary md-hue-3" ></md-icon>
+  <md-icon md-svg-src="images/delete.svg" ng-click="doEdit($event)" aria-label="Edit" class="md-secondary md-hue-3" ></md-icon>
   </md-list-item>
 </md-list>
 <!-- </div> -->
@@ -17,9 +18,13 @@
 Ovo je restoran <br> 
 Ime: {{ime}} <br>
 Tip: {{tip}}
-joooj
+
 <br>
 <md-button class="md-raised md-primary" ng-click="">Edit Restaurant</md-button>
+
+
+
+
 
 </div>
 

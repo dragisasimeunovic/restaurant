@@ -92,12 +92,12 @@ app.controller('registrationRestaurantController', ['$scope','$location', 'regis
 
 app.controller('LoginController',['$scope', 'loginService','$location', function($scope, loginService, $location){
 	$scope.login = function(){
+		/*
+		$scope.emailLogin = "men1@g.com";
+		$scope.passwordLogin = "m";*/
 		
-		//$scope.emailLogin = "men1@g.com";
-		//$scope.passwordLogin = "m";
 		
-		
-		var email = $scope.emailLogin;
+		var email = $scpe.emailLogin;
 		var lozinka = $scope.passwordLogin;
 		loginService.login(email).then(function(response){
 			if(response.data == ''){
@@ -256,7 +256,7 @@ app.controller('managerController', ['$scope','managerService', function($scope,
 	
 }])
 
-app.controller('managerRestaurantsController',['$scope','restaurantsService', 'managerService', function($scope,restaurantsService, managerService){
+app.controller('managerRestaurantsController',['$scope','restaurantsService', 'managerService','$location', function($scope,restaurantsService, managerService,$location){
 	
 	$scope.restaurantsListDiv = managerService.isListActive ; //on je sad true na samom pocetku
     
@@ -276,6 +276,10 @@ app.controller('managerRestaurantsController',['$scope','restaurantsService', 'm
 		$scope.ime = restaurant.ime;
 		$scope.tip = restaurant.tip;
 		
+	}
+	
+	$scope.doEdit = function (ev){
+		$location.path("/restaurantManager");
 	}
 	
 }]);
@@ -315,6 +319,9 @@ app.config(function($routeProvider) {
     })
     .when("/managerHome", {
         templateUrl : "views/managerHome.html"
+    })
+    .when("/restaurantManager", {
+        templateUrl : "views/restaurantManager.html"
     })
     .when("/managerHome/addEmployed", {
         templateUrl : "views/managerHome/addEmployed.html"
