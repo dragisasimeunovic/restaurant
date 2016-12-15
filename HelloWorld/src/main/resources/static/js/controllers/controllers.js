@@ -8,11 +8,10 @@ app.controller('registrationController', ['$scope','$location', 'registrationSer
 		registrationService.register(ime, prezime, email, lozinka).then(function(response){
 			$location.path("/");
 		});
-		
-	$scope.backToLogin = function(){
-		$location.path("/proba");
 	}
-		
+	
+	$scope.backToLogin = function(){
+		$location.path("/");
 	}
 	
 	
