@@ -92,10 +92,9 @@ app.controller('registrationRestaurantController', ['$scope','$location', 'regis
 
 app.controller('LoginController',['$scope', 'loginService','$location', function($scope, loginService, $location){
 	$scope.login = function(){
-		
+		/*
 		$scope.emailLogin = "men1@g.com";
-		$scope.passwordLogin = "m";
-		
+		$scope.passwordLogin = "m";*/
 		
 		var email = $scope.emailLogin;
 		var lozinka = $scope.passwordLogin;
