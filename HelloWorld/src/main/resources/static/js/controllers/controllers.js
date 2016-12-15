@@ -96,8 +96,7 @@ app.controller('LoginController',['$scope', 'loginService','$location', function
 		$scope.emailLogin = "men1@g.com";
 		$scope.passwordLogin = "m";*/
 		
-		
-		var email = $scpe.emailLogin;
+		var email = $scope.emailLogin;
 		var lozinka = $scope.passwordLogin;
 		loginService.login(email).then(function(response){
 			if(response.data == ''){

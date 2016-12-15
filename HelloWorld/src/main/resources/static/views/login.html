@@ -1,31 +1,36 @@
-<br>
-<br> 
-<div>
-<div   ng-controller="LoginController" class="col-md-6 col-md-offset-5" style="background: rgb(35,47,70);" md-whiteframe="3"  >
-<!-- Neka slika -->
-<br>
-<p style="font-size:15px; border-style:solid; width:100px ; color:rgb(226,217,133);"> BSA  <br> Restaurants </p> 
-<!-- <p style="text-align:;"> Restaurants </p> --> <br> <br>
-<input type="text" ng-model="emailLogin" placeholder="Email" required>
-<br>
-<input type="text" ng-model="passwordLogin" placeholder="Pasword" required><br><br>
-<button type="submit" style="height:30px;width:170px ; background-color:rgb(226,217,133);" ng-click="login()">Sing In</button>
-<br> <br>
-<p style="font-size:10px ; color:rgb(226,217,133);" > Not a member? </p> 
+<div layout="row" data-role="page" style="background:url('images/wp.jpeg'); background-repeat: no-repeat; background-size: 100% 100%; height: 100%; width: 100%">
+	<div flex="50">
+		
+	</div>
 
-<button type="submit" class="md-primary" ng-click="register()">Sing Up</button>
+	<div flex="50" layout="row" layout-align="center center">
+	<div ng-controller="LoginController" style="background: rgb(35,47,70); height: 500px; width: 400px;" align="center">
+		<!-- Neka slika -->
+		<br>
+		<p style="font-size:15px; border-style:solid; width:100px ; color:rgb(226,217,133);"> BSA  <br> Restaurants </p> 
+		<!-- <p style="text-align:;"> Restaurants </p> --> <br> <br>
+		<input type="text" ng-model="emailLogin" placeholder="Email" required>
+		<br>
+		<input type="text" ng-model="passwordLogin" placeholder="Pasword" required><br><br>
+		<button type="submit" style="height:30px;width:170px ; background-color:rgb(226,217,133);" ng-click="login()">Sing In</button>
+		<br> <br>
+		<p style="font-size:10px ; color:rgb(226,217,133);" > Not a member? </p> 
 
-<br> <br>
-<p style="font-size:10px ; color:rgb(226,217,133);"> Don't want to complete the form? </p>
-<p>------------------.------------------ </p>
+		<button type="submit" class="md-primary" ng-click="register()">Sing Up</button>
 
-<button type="submit" class="btn btn-success" style="height:30px;width:170px">Sing In using Facebook</button> 
-<br>
-<p> or </p>
-<button type="submit" class="btn btn-success" style="height:30px;width:170px">Sing In using Google ac</button>
-<br>
- </div>
+		<br> <br>
+		<p style="font-size:10px ; color:rgb(226,217,133);"> Don't want to complete the form? </p>
+		<p>------------------.------------------ </p>
 
+		<button type="submit" class="btn btn-success" style="height:30px;width:170px">Sing In using Facebook</button> 
+		<br>
+		<p> or </p>
+		<button type="submit" class="btn btn-success" style="height:30px;width:170px">Sing In using Google ac</button>
+		
+ 	</div>
+	</div>
+	
+	
 </div>
  
 
