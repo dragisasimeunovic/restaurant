@@ -9,6 +9,10 @@ app.controller('registrationController', ['$scope','$location', 'registrationSer
 			$location.path("/");
 		});
 		
+	$scope.backToLogin = function(){
+		$location.path("/proba");
+	}
+		
 	}
 	
 	
