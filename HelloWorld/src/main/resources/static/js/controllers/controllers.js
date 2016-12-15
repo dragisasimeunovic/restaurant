@@ -13,6 +13,7 @@ app.controller('registrationController', ['$scope','$location', 'registrationSer
 	$scope.backToLogin = function(){
 		$location.path("/");
 	}
+	var probaaa = {};
 	
 	
 }]);
