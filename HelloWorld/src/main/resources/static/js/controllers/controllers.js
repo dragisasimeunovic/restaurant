@@ -28,6 +28,8 @@ app.controller('registrationManagerController', ['$scope','$location', 'registra
 		});
 		
 	}
+	var proba1 = [];
+	var proba2 = {};
 	
 	
 }]);
