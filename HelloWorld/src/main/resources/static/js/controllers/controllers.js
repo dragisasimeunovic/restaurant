@@ -14,6 +14,8 @@ app.controller('registrationController', ['$scope','$location', 'registrationSer
 		$location.path("/");
 	}
 	var probaaa = {};
+	var proba2 =[];
+	var proba3 = {};
 	
 	
 }]);
