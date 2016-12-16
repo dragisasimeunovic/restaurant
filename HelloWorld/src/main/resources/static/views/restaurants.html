@@ -1,19 +1,19 @@
  <div ng-controller="managerRestaurantsController"> 
  
  <!-- <div > -->
- <md-list ng-cloak ng-show="restaurantsListDiv">
- <md-subheader class="md-no-sticky">Restaurants</md-subheader>
+ <md-list>
+ <md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky">  Restaurants </md-subheader>
   <md-list-item ng-repeat="restaurant in restaurants" ng-click="goToRestaurant(restaurant, $event)" class="noright">
-    <img alt="{{ restaurant.ime }}" ng-src="images/restoran1.jpg" class="md-avatar" />
-    <p>{{ restaurant.ime }}</p>
+    <img alt="{{ restaurant.ime }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
+    <p style="color:white"> {{ restaurant.ime }}</p>
     
-  <md-icon md-svg-src="images/edit.svg" ng-click="doSecondaryAction($event)" aria-label="Send Email" class="md-secondary md-hue-3" ></md-icon>
-  <md-icon md-svg-src="images/delete.svg" ng-click="doEdit($event)" aria-label="Edit" class="md-secondary md-hue-3" ></md-icon>
+  <md-icon md-svg-src="images/garbage.svg" ng-click="doSecondaryAction($event)" aria-label="Send Email" class="md-secondary md-hue-3" ></md-icon>
+  
   </md-list-item>
 </md-list>
 <!-- </div> -->
 
-<div ng-show="restaurantAboutDiv" ng-cloak>
+<!-- <div ng-show="restaurantAboutDiv">
 
 Ovo je restoran <br> 
 Ime: {{ime}} <br>
@@ -26,7 +26,7 @@ Tip: {{tip}}
 
 
 
-</div>
+</div> -->
 
 
 

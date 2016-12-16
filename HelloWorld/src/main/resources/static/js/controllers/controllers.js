@@ -13,12 +13,7 @@ app.controller('registrationController', ['$scope','$location', 'registrationSer
 	$scope.backToLogin = function(){
 		$location.path("/");
 	}
-	var probaaa = {};
-	var proba2 =[];
-	var proba3 = {};
-	var proba4 = {};
-	
-	
+
 }]);
 app.controller('registrationManagerController', ['$scope','$location', 'registrationManagerService', function($scope,$location,registrationManagerService){
 	$scope.registerManager = function(){
@@ -81,7 +76,7 @@ app.controller('registrationEmployedController', ['$scope','$location', 'registr
 }]);
 
 
-app.controller('registrationRestaurantController', ['$scope','$location', 'registrationRestaurantService', function($scope,$location,registrationRestaurantService){
+app.controller('registrationRestaurantController', ['$scope','$location', 'registrationRestaurantService','menuService', function($scope,$location,registrationRestaurantService,menuService){
 	alert("ReggRest")
 	$scope.registerRestaurant = function(){
 		alert("ReggRest")
@@ -89,6 +84,9 @@ app.controller('registrationRestaurantController', ['$scope','$location', 'regis
 		var tip = $scope.type;
 		registrationRestaurantService.registerRestaurant(ime,tip).then(function(response){
 			$location.path("/admin");
+			menuService.addMenu(response.data.id).then(function(response){
+				alert("Uspesno dodat meni");
+			});
 		});
 		
 	}
@@ -101,9 +99,9 @@ app.controller('registrationRestaurantController', ['$scope','$location', 'regis
 
 app.controller('LoginController',['$scope', 'loginService','$location', function($scope, loginService, $location){
 	$scope.login = function(){
-		/*
+		
 		$scope.emailLogin = "men1@g.com";
-		$scope.passwordLogin = "m";*/
+		$scope.passwordLogin = "m";
 		
 		var email = $scope.emailLogin;
 		var lozinka = $scope.passwordLogin;
@@ -258,16 +256,18 @@ app.controller('adminController',['$scope','$location', function($scope,$locatio
 	}
 }]);
 
-app.controller('managerController', ['$scope','managerService', function($scope, managerService) {
+app.controller('managerController', ['$scope','managerService','$location', function($scope, managerService,$location) {
 	
-	//managerService.isListActive = true;
+	$scope.backToLogin = function(){
+		$location.path("/");
+	}
 	
-}])
+}]);
 
-app.controller('managerRestaurantsController',['$scope','restaurantsService', 'managerService','$location', function($scope,restaurantsService, managerService,$location){
+app.controller('managerRestaurantsController',['$scope','restaurantsService', 'managerService','$location','$mdDialog', function($scope,restaurantsService, managerService,$location, $mdDialog){
 	
-	$scope.restaurantsListDiv = managerService.isListActive ; //on je sad true na samom pocetku
-    
+	
+    $scope.isOpen = false;
 	
 	$scope.restaurantAboutDiv = false;
 	restaurantsService.getAllRestaurants().then(function(response){
@@ -276,20 +276,31 @@ app.controller('managerRestaurantsController',['$scope','restaurantsService', 'm
 	});
 	
 	$scope.goToRestaurant = function(restaurant, ev){
-		$scope.restaurantAboutDiv = true;
-		//$scope.restaurantsListDiv = false;
-		$scope.$watch('managerService.isListActive', function() {
-			managerService.isListActive = false;
-		});
-		$scope.ime = restaurant.ime;
-		$scope.tip = restaurant.tip;
-		
-	}
-	
-	$scope.doEdit = function (ev){
 		$location.path("/restaurantManager");
 	}
 	
+	//deo za dialog
+	$scope.addMenuCategoryDialog = function(ev) {
+	    $mdDialog.show({
+	      controller: AddMenuCategoryController,
+	      templateUrl: '/views/dialogs/addMenuCategoryDialog.html',
+	      parent: angular.element(document.body),
+	      targetEvent: ev,
+	      clickOutsideToClose:true,
+	      fullscreen: false // Only for -xs, -sm breakpoints.
+	    })
+	    .then(function(answer) {
+	      
+	    }, function() {
+	     
+	    });
+	 };
+	 
+	 function AddMenuCategoryController($scope, $mdDialog) {
+		//TODO: Kreirati upit koji ce pomocu id restorana koji se selektujete naci odgovarajuci meni za njega
+		//TODO: Onda napraviti servis, controller,... za dodavanje kategorije u pronadjeni meni
+	
+	 }
 }]);
 
 

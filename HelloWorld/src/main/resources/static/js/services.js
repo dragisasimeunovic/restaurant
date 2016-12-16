@@ -156,3 +156,21 @@ angular.module('Milica').factory('managerService', function managerService($http
 	return managerService;
 	
 });
+
+angular.module('Milica').factory('menuService' , function menuService($http){
+	
+	
+	menuService.addMenu = function(idRestaurant){
+		return $http({
+			method: 'POST',
+			url: 'api/menu/addMenu',
+			data: {
+				"id" : null,
+				"idRestaurant" : idRestaurant
+			}
+			
+		});
+		
+	}
+	return menuService;
+});

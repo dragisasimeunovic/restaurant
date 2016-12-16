@@ -1,6 +1,20 @@
 <div ng-controller="profileController"> 
-Ime: {{ime}} <br>
-Prezime: {{prezime}} <br>
+<div layout="row">
+  <div  flex="40">
+  <br>
+    <p style="color:white"> Ime: {{ime}} </p> <br> 
+    <p style="color:white"> Prezime: {{prezime}} </p><br>
+  </div>
+  
+  <div flex="60">
+  <p> Jejee </p>
+  </div>
+  
+  
+</div>
+
+
+
 	
 <md-button class="md-primary md-raised" ng-click="showDialog($event)">
 Edit
