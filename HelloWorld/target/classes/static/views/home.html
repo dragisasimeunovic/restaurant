@@ -1,0 +1,40 @@
+
+<md-toolbar class="md-small-tall" style="color:rgb(226,217,133); opacity:0.2">
+      <div class="md-toolbar-tools">
+        <!-- <md-button aria-label="Go Back">
+          Go Back
+        </md-button> -->
+        <h2>
+          <span>BSA Restaurants</span>
+        </h2>
+        <span flex></span>
+        <md-button class="md-primary md-hue-1" aria-label="Learn More" ng-click="activeTab=0" >
+          Restaurants
+        </md-button>
+        <md-button class="md-primary md-hue-1" aria-label="Learn More" ng-click="activeTab=1">
+          Friends
+        </md-button>
+        <md-button class="md-icon-button" aria-label="Favorite" ng-click="activeTab=2">
+          <md-icon md-svg-icon="images/team.svg" style="color: greenyellow;"></md-icon>
+        </md-button>
+      </div>
+</md-toolbar>
+    
+
+    <div ng-show="activeTab==0">
+    <div ng-include="'views/restaurants.html'"></div>
+    </div>
+    
+    <div ng-show="activeTab==1">
+    <div ng-include="'views/friends.html'"></div>
+    </div>
+    
+    <div ng-show="activeTab==2">
+    <div ng-include="'views/profile.html'"></div>
+    </div>
+    
+   
+    
+    <br>
+    Ovde treba da stoji istorija poseta gosta restoranima...
+    

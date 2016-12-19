@@ -1,0 +1,56 @@
+<div layout="row" ng-controller="managerRestaurantsController">
+<md-toolbar class="md-small-tall" style="background-color:rgb(0,0,0); opacity:0.6 ; height:20px;">
+      <div class="md-toolbar-tools">
+        <!-- <md-button aria-label="Go Back">
+          Go Back
+        </md-button> -->
+        <h2>
+          <span style="color:white;">BSA Restaurants</span>
+        </h2>
+        <span flex></span>
+        
+        <md-button class="md-primary" ng-click="addMenuCategoryDialog()">
+          	+ 
+        </md-button>
+        
+        <md-button class="md-primary">
+          	Menu 
+        </md-button>
+        
+        
+        <md-button class="md-primary md-hue-1" style="color:white;" aria-label="Learn More" ng-click="backToLogin()">
+          Drinks
+        </md-button>
+        
+<!--          <div layout="row" layout-align="center center">
+               <md-fab-speed-dial md-open="isOpen" md-direction="left" ng-class="md-scale">
+                  <md-fab-trigger>
+                     <md-button aria-label="menu" class="md-fab md-warn">
+                        <md-icon class="material-icons">menu</md-icon>
+                     </md-button>
+                  </md-fab-trigger>
+                  <md-fab-actions>
+                     <md-button aria-label="Add" class="md-fab md-raised md-mini md-accent">
+                        <md-icon class="material-icons" aria-label="Add">add</md-icon>
+                     </md-button>
+                     <md-button aria-label="Insert Link" class="md-fab md-raised md-mini md-accent">
+                        <md-icon class="material-icons" aria-label="Insert Link">insert_link</md-icon>
+                     </md-button>
+                     <md-button aria-label="Edit" class="md-fab md-raised md-mini md-accent">
+                        <md-icon class="material-icons" aria-label="Edit">mode_edit</md-icon>
+                     </md-button>
+                  </md-fab-actions>
+               </md-fab-speed-dial> -->
+        
+      </div>
+    </md-toolbar>
+    
+    <div ng-show="activeTab==0">
+    <div ng-include="'views/menu.html'"></div>
+    </div>
+    
+    
+      <div ng-show="activeTab==1">
+    <div ng-include="'views/drinks.html'"></div>
+    </div>
+</div>

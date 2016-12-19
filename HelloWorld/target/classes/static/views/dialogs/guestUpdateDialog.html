@@ -1,0 +1,92 @@
+<md-dialog aria-label="Update your profile">
+  <form>
+
+    <md-dialog-content>
+      <div class="md-dialog-content">
+      <h2> Update your profile!</h2>
+      <form name="userForm">
+
+<div ng-show="aboutDiv" >
+
+<md-input-container class="md-block" flex-gt-sm>
+          <label>Name</label>
+          <input md-maxlength="30" required name="name" ng-model="imeDialog" />
+</md-input-container>
+
+<md-input-container class="md-block" flex-gt-sm>
+          <label>Surname</label>
+          <input md-maxlength="30" required name="surname" ng-model="prezimeDialog" />
+</md-input-container>
+
+</div>
+
+<!-- <md-input-container class="md-block" flex-gt-sm>
+          <label>Email</label>
+          <input name="email" ng-model="email"
+                 required minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/" />
+</md-input-container>
+ -->
+ 
+ <!-- Forma koja se otvara ukoliko hocu da menjam lozinku -->
+ 
+ 
+ <div ng-show="changePasswordButtonDiv">
+ 
+ <h3> Do you want to change password</h3>
+ 
+ <md-button ng-click="showChangePasswordDiv()"  class="md-raised md-primary">
+        Change
+      </md-button>
+</div>
+ 
+ <div ng-show="changePasswordDiv">
+ 
+<md-input-container class="md-block" flex-gt-sm>
+          <label>Old Password</label>
+          <input type="password" md-maxlength="30" required name="password1" ng-model="lozinka1" ng-change="change()"/>
+</md-input-container>
+
+<md-input-container class="md-block" flex-gt-sm>
+          <label>New Password</label>
+          <input type="password" md-maxlength="30" required name="password2" ng-model="lozinka2" ng-change="change()"/>
+</md-input-container>
+
+<md-input-container class="md-block" flex-gt-sm>
+          <label>Repeat New Password</label>
+          <input type="password" md-maxlength="30" required name="password3" ng-model="lozinka3" ng-change="change()"/>
+</md-input-container>
+
+</div>
+
+ 
+
+
+</form>
+        
+     
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <div ng-show="aboutDiv">
+      <md-button class="md-raised md-primary" ng-click="applyAboutDiv()">
+       Apply
+      </md-button>
+      <md-button  class="md-raised md-primary" ng-click="answer('useful')">
+        Cancel
+      </md-button>
+      </div>
+      
+      <div ng-show="changePasswordDiv"> 
+      <md-button class="md-raised md-primary" ng-click="applyPasswordChangeDiv()" ng-disabled="enableOrDisable">
+       Apply
+      </md-button>
+      <md-button class="md-raised md-primary" ng-click="closePasswordDiv()" >
+        Cancel
+      </md-button>
+      </div>
+      
+    </md-dialog-actions>
+  </form>
+</md-dialog>
