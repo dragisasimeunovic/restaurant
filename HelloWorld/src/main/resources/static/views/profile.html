@@ -1,9 +1,19 @@
 <div ng-controller="profileController"> 
 <div layout="row">
   <div  flex="40">
+  <md-toolbar class="md-small-tall" style="background-color:rgb(0,0,0); opacity:0.6; weight:50px; height:100px;">
+  <div class="md-toolbar-tools">
   <br>
     <p style="color:white"> Ime: {{ime}} </p> <br> 
     <p style="color:white"> Prezime: {{prezime}} </p><br>
+    <br>
+    <br>
+    	
+<md-button class="md-primary md-raised" ng-click="showDialog($event)">
+Edit
+</md-button>
+</div>
+    </md-toolbar>
   </div>
   
   <div flex="60">
@@ -15,9 +25,6 @@
 
 
 
-	
-<md-button class="md-primary md-raised" ng-click="showDialog($event)">
-Edit
-</md-button>
+
 
 </div>

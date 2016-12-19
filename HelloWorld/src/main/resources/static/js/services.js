@@ -31,6 +31,8 @@ angular.module('Milica').factory('restaurantsService' , function restaurantsServ
 		});
 	}
 	
+	var activeRestaurant = {};
+	
 	return restaurantsService;
 	
 });
@@ -172,5 +174,15 @@ angular.module('Milica').factory('menuService' , function menuService($http){
 		});
 		
 	}
+	
+	
+	menuService.getMenuByRestaurantId = function(idRestaurant){
+		return $http({
+			method: 'GET',
+			url: 'api/menu/'+idRestaurant,			
+		});	
+	}
+	
+	
 	return menuService;
 });

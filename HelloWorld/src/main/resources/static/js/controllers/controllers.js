@@ -1,4 +1,4 @@
-var app = angular.module('Milica',['ngRoute','ngMaterial','ngAnimate', 'ngAria']);
+		var app = angular.module('Milica',['ngRoute','ngMaterial','ngAnimate', 'ngAria']);
 app.controller('registrationController', ['$scope','$location', 'registrationService', function($scope,$location,registrationService){
 	$scope.register = function(){
 		var ime = $scope.name;
@@ -264,7 +264,7 @@ app.controller('managerController', ['$scope','managerService','$location', func
 	
 }]);
 
-app.controller('managerRestaurantsController',['$scope','restaurantsService', 'managerService','$location','$mdDialog', function($scope,restaurantsService, managerService,$location, $mdDialog){
+app.controller('managerRestaurantsController',['$scope','restaurantsService', 'managerService','$location','$mdDialog','menuService', function($scope,restaurantsService, managerService,$location, $mdDialog, menuService){
 	
 	
     $scope.isOpen = false;
@@ -277,6 +277,12 @@ app.controller('managerRestaurantsController',['$scope','restaurantsService', 'm
 	
 	$scope.goToRestaurant = function(restaurant, ev){
 		$location.path("/restaurantManager");
+		restaurantService.activeRestaurant = restaurant;
+		
+		/*menuService.getMenuByRestaurantId(restaurant.id).then(function(response){
+			alert(response.data.id);
+		});*/
+		
 	}
 	
 	//deo za dialog
@@ -300,6 +306,7 @@ app.controller('managerRestaurantsController',['$scope','restaurantsService', 'm
 		//TODO: Kreirati upit koji ce pomocu id restorana koji se selektujete naci odgovarajuci meni za njega
 		//TODO: Onda napraviti servis, controller,... za dodavanje kategorije u pronadjeni meni
 	
+		 
 	 }
 }]);
 
