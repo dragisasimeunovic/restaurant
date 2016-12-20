@@ -25,7 +25,7 @@ public class MenuService {
 		return menuRepository.save(menu);
 	}
 	
-	/*public Menu getMenuByRestaurantId(Integer restaurantId){
-		return menuRepository.getByRestaurantId(restaurantId);
-	}*/
+	public Menu getMenuByRestaurantId(Integer restaurantId){
+		return menuRepository.findByIdRestaurant(restaurantId);
+	}
 }

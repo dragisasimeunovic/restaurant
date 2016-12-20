@@ -183,6 +183,75 @@ angular.module('Milica').factory('menuService' , function menuService($http){
 		});	
 	}
 	
+	menuService.allCategories = [];
+	
 	
 	return menuService;
+});
+
+angular.module('Milica').factory('menuCategoryService' , function menuCategoryService($http){
+	
+	
+	menuCategoryService.addMenuCategory = function(idMenu,categoryName){
+		return $http({
+			method: 'POST',
+			url: 'api/menu/addMenuCategory',
+			data: {
+				"id" : null,
+				"idMenu" : idMenu,
+				"categoryName" : categoryName
+			}
+			
+		});
+		
+	}
+	
+	menuCategoryService.getMenuCategoryByMenuId = function(idMenu){
+		return $http({
+			method: 'GET',
+			url: 'api/menu/category/'+idMenu,			
+		});	
+	}
+	
+	menuCategoryService.getAllMenuCategories = function(idMenu){
+		return $http({
+			method: 'GET',
+			url: 'api/menu/category/allCategoriesInMenu/'+idMenu		
+		});	
+	}
+	
+	return menuCategoryService;
+});
+
+angular.module('Milica').factory('mealService' , function mealService($http){
+	
+	
+	mealService.addMeal = function(idMenuCategory, mealName, mealDescription, mealPrice){
+		return $http({
+			method: 'POST',
+			url: 'api/menu/addMeal',
+			data: {
+				"id" : null,
+				"idMenuCategory" : idMenuCategory,
+				"mealName" : mealName,
+				"mealDescription" : mealDescription,
+				"price" : mealPrice
+			}
+			
+		});
+		
+	}
+	
+	mealService.getAllCategoryMeals = function(menuCategoryId){
+		alert("ev me");
+		return $http({
+			method: 'GET',
+			url: 'api/menu/meals/allCategoryMeals/'+menuCategoryId		
+		});	
+	}
+	
+	
+	mealService.categoryId = {};
+	
+	return mealService;
 });

@@ -21,6 +21,9 @@ public class MenuCategory implements Serializable{
 	@Column(name = "idMenu")
     private Integer idMenu;
 	
+	@Column(name = "categoryName")
+    private String categoryName;
+	
 	public MenuCategory() {
 		// TODO Auto-generated constructor stub
 	}
@@ -41,10 +44,12 @@ public class MenuCategory implements Serializable{
 		this.idMenu = idMenu;
 	}
 
-	public MenuCategory(Integer id, Integer idMenu) {
-		super();
-		this.id = id;
-		this.idMenu = idMenu;
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
 }

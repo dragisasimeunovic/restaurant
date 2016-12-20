@@ -77,15 +77,12 @@ app.controller('registrationEmployedController', ['$scope','$location', 'registr
 
 
 app.controller('registrationRestaurantController', ['$scope','$location', 'registrationRestaurantService','menuService', function($scope,$location,registrationRestaurantService,menuService){
-	alert("ReggRest")
 	$scope.registerRestaurant = function(){
-		alert("ReggRest")
 		var ime = $scope.name;
 		var tip = $scope.type;
 		registrationRestaurantService.registerRestaurant(ime,tip).then(function(response){
 			$location.path("/admin");
 			menuService.addMenu(response.data.id).then(function(response){
-				alert("Uspesno dodat meni");
 			});
 		});
 		
@@ -264,7 +261,7 @@ app.controller('managerController', ['$scope','managerService','$location', func
 	
 }]);
 
-app.controller('managerRestaurantsController',['$scope','restaurantsService', 'managerService','$location','$mdDialog','menuService', function($scope,restaurantsService, managerService,$location, $mdDialog, menuService){
+app.controller('managerRestaurantsController',['$scope','restaurantsService', 'managerService','$location','$mdDialog','menuService','menuCategoryService', function($scope,restaurantsService, managerService,$location, $mdDialog, menuService,menuCategoryService){
 	
 	
     $scope.isOpen = false;
@@ -277,13 +274,49 @@ app.controller('managerRestaurantsController',['$scope','restaurantsService', 'm
 	
 	$scope.goToRestaurant = function(restaurant, ev){
 		$location.path("/restaurantManager");
-		restaurantService.activeRestaurant = restaurant;
+		restaurantsService.activeRestaurant = restaurant;
 		
-		/*menuService.getMenuByRestaurantId(restaurant.id).then(function(response){
+		menuService.getMenuByRestaurantId(restaurant.id).then(function(response){
 			alert(response.data.id);
-		});*/
-		
+		});
 	}
+	
+	$scope.goToMenu = function() {
+		$location.path("/menu");
+	}
+	
+	
+}]);
+
+app.controller('menuController',['$scope','restaurantsService', 'managerService','$location','$mdDialog','menuService','menuCategoryService', 'mealService', function($scope,restaurantsService, managerService,$location, $mdDialog, menuService,menuCategoryService, mealService){
+
+	menuCategoryService.getAllMenuCategories(restaurantsService.activeRestaurant.id).then(function(response){
+		$scope.categories = response.data;
+	});
+	
+	$scope.refresh = function () {
+	
+		menuCategoryService.getAllMenuCategories(restaurantsService.activeRestaurant.id).then(function(response){
+			$scope.categories = response.data;
+			//TODO: Ovo sve radi, ovo dole je problem
+			mealService.getAllCategoryMeals(categories[0].id).then(function(response){
+				$scope.meals = response.data;
+				alert("Obroka ima: "+response.data.length);
+			});
+			
+		});
+	};
+	
+	$scope.getMeals = function(categoryId) {
+		var meals = [];
+		mealService.getAllCategoryMeals(categoryId).then(function(response){
+			meals = response.data;
+		});
+		
+		return meals;
+	}
+	
+	
 	
 	//deo za dialog
 	$scope.addMenuCategoryDialog = function(ev) {
@@ -302,14 +335,71 @@ app.controller('managerRestaurantsController',['$scope','restaurantsService', 'm
 	    });
 	 };
 	 
-	 function AddMenuCategoryController($scope, $mdDialog) {
+	 function AddMenuCategoryController($scope, $mdDialog,menuCategoryService) {
 		//TODO: Kreirati upit koji ce pomocu id restorana koji se selektujete naci odgovarajuci meni za njega
 		//TODO: Onda napraviti servis, controller,... za dodavanje kategorije u pronadjeni meni
 	
+		 $scope.addMenuCategory = function(){
+			 var categoryName = $scope.categoryName;
+			 menuCategoryService.addMenuCategory(restaurantsService.activeRestaurant.id,categoryName).then(function(response){
+			
+				 $mdDialog.hide();
+				 
+			 });
+		 }
+		 
+		 $scope.closeDialog = function() {
+			 $mdDialog.cancel();
+		 }
 		 
 	 }
+	 
+	 	var categoryId = {};
+	//deo za dialog
+		$scope.addMeal = function(catId) {
+		    $mdDialog.show({
+		      controller: AddMealController,
+		      templateUrl: '/views/dialogs/addMealDialog.html',
+		      parent: angular.element(document.body),
+		      clickOutsideToClose:true,
+		      fullscreen: false // Only for -xs, -sm breakpoints.
+		    })
+		    .then(function(answer) {
+		      
+		    }, function() {
+		     
+		    });
+		    
+		    mealService.categoryId = catId;
+		 };
+		 
+		 function AddMealController($scope, $mdDialog,mealService) {
+			//TODO: Kreirati upit koji ce pomocu id restorana koji se selektujete naci odgovarajuci meni za njega
+			//TODO: Onda napraviti servis, controller,... za dodavanje kategorije u pronadjeni meni
+		
+			 $scope.addMeal = function(){
+				 alert(mealService.categoryId);
+				 
+				 var categoryID =  mealService.categoryId;
+				 var mealName = $scope.mealName;
+				 var mealDescription = $scope.mealDescription;
+				 var mealPrice = $scope.mealPrice;
+				 mealService.addMeal(categoryID, mealName, mealDescription, mealPrice).then(function(response){
+					
+					 alert('Dodato jelo sa cenom: ' + response.data.price);
+					 $mdDialog.hide();
+					 
+				 });
+			 }
+			 
+			 $scope.closeDialog = function() {
+				 $mdDialog.cancel();
+			 }
+			 
+		 }
+	
+	
 }]);
-
 
 app.config(function($routeProvider) {
     $routeProvider
@@ -319,8 +409,8 @@ app.config(function($routeProvider) {
     .when("/home", {
         templateUrl : "views/home.html"
     })
-    .when("/proba", {
-        templateUrl : "views/login.html"
+    .when("/menu", {
+        templateUrl : "views/menu.html"
     })
     .when("/register", {
         templateUrl : "views/registration.html"

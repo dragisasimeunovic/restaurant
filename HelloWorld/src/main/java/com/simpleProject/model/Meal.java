@@ -21,6 +21,15 @@ public class Meal implements Serializable{
 	@Column(name = "idMenuCategory")
     private Integer idMenuCategory;
 	
+	@Column(name = "mealName")
+    private String mealName;
+	
+	@Column(name = "mealDescription")
+    private String mealDescription;
+	
+	@Column(name = "price")
+    private Integer price;
+	
 	public Meal() {
 		// TODO Auto-generated constructor stub
 	}
@@ -45,6 +54,30 @@ public class Meal implements Serializable{
 		super();
 		this.id = id;
 		this.idMenuCategory = idMenuCategory;
+	}
+
+	public String getMealName() {
+		return mealName;
+	}
+
+	public void setMealName(String mealName) {
+		this.mealName = mealName;
+	}
+
+	public String getMealDescription() {
+		return mealDescription;
+	}
+
+	public void setMealDescription(String mealDescription) {
+		this.mealDescription = mealDescription;
+	}
+
+	public Integer getPrice() {
+		return price;
+	}
+
+	public void setPrice(Integer price) {
+		this.price = price;
 	}
 
 }

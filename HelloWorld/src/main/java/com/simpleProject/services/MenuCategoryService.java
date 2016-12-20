@@ -24,5 +24,9 @@ public class MenuCategoryService {
 	public MenuCategory add(MenuCategory menuCategory){
 		return menuCategoryRepository.save(menuCategory);
 	}
+	
+	public Collection<MenuCategory> findByIdMenu(Integer menuId) {
+		return menuCategoryRepository.findByIdMenu(menuId);
+	}
 
 }
