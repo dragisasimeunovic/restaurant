@@ -24,6 +24,10 @@ public class DrinkCardService {
 		return drinkCardRepository.save(drinkCard);
 	}
 	
+	public DrinkCard getDrinkCardByRestaurantId(Integer restaurantId){
+		return drinkCardRepository.findByIdRestaurant(restaurantId);
+	}
+	
 
 
 }

@@ -76,13 +76,19 @@ app.controller('registrationEmployedController', ['$scope','$location', 'registr
 }]);
 
 
-app.controller('registrationRestaurantController', ['$scope','$location', 'registrationRestaurantService','menuService', function($scope,$location,registrationRestaurantService,menuService){
+app.controller('registrationRestaurantController', ['$scope','$location', 'registrationRestaurantService','menuService','drinkCardService', function($scope,$location,registrationRestaurantService,menuService,drinkCardService){
 	$scope.registerRestaurant = function(){
 		var ime = $scope.name;
 		var tip = $scope.type;
 		registrationRestaurantService.registerRestaurant(ime,tip).then(function(response){
 			$location.path("/admin");
 			menuService.addMenu(response.data.id).then(function(response){
+				alert("Dodala sam ovo");
+			});
+			
+			drinkCardService.addDrinkCard(response.data.id).then(function(response){
+				
+				alert("Ajdee");
 			});
 		});
 		
@@ -424,33 +430,51 @@ app.controller('menuController',['$scope','restaurantsService', 'managerService'
 	
 }]);
 
-app.controller('drinkCardController',['$scope','restaurantsService', 'managerService','$location','$mdDialog','menuService','menuCategoryService', function($scope,restaurantsService, managerService,$location, $mdDialog, menuService,menuCategoryService){
-	
-	
-    $scope.isOpen = false;
-	
-	$scope.restaurantAboutDiv = false;
-	restaurantsService.getAllRestaurants().then(function(response){
-		managerService.restaurants = response.data;
-		$scope.restaurants = managerService.restaurants;
+app.controller('drinkCardController',['$scope','$mdDialog','drinkCategoryService','restaurantsService',function($scope,$mdDialog,drinkCategoryService,restaurantsService){
+	//alert(restaurantsService.activeRestaurant.id);
+	drinkCategoryService.getAllMenuCategories(restaurantsService.activeRestaurant.id).then(function(response){
+		$scope.categories = response.data;
+		alert(response.data);
 	});
 	
-	$scope.goToRestaurant = function(restaurant, ev){
-		$location.path("/restaurantManager");
-		restaurantsService.activeRestaurant = restaurant;
-		
-		menuService.getMenuByRestaurantId(restaurant.id).then(function(response){
-			alert(response.data.id);
-		});
-	}
-	
-	$scope.goToMenu = function() {
-		$location.path("/menu");
-	}
-	
-	$scope.goToDrinkCard = function(){
-		$location.path("/drinkCard");
-	}
+	$scope.addDrinkCardCategoryDialog = function(ev) {
+	    $mdDialog.show({
+		      controller: AddDrinkCategoryController,
+		      templateUrl: '/views/dialogs/addDrinkCategoryDialog.html',
+		      parent: angular.element(document.body),
+		      targetEvent: ev,
+		      clickOutsideToClose:true,
+		      fullscreen: false // Only for -xs, -sm breakpoints.
+		    })
+		    .then(function(answer) {
+		      
+		    }, function() {
+		     
+		    });
+		 };
+		 
+		 function AddDrinkCategoryController($scope, $mdDialog) {
+				//TODO: Kreirati upit koji ce pomocu id restorana koji se selektujete naci odgovarajuci meni za njega
+				//TODO: Onda napraviti servis, controller,... za dodavanje kategorije u pronadjeni meni
+			
+				 $scope.addDrinkCategory = function(){
+					 var categoryName = $scope.categoryName;
+					 drinkCategoryService.addDrinkCategory(restaurantsService.activeRestaurant.id,categoryName).then(function(response){
+					
+						 $mdDialog.hide();
+						 
+					 });
+				 }
+				 
+				 $scope.closeDialog = function() {
+					 $mdDialog.cancel();
+				 }
+				 
+		 }
+		 
+		 
+		 
+  
 	
 	
 }]);

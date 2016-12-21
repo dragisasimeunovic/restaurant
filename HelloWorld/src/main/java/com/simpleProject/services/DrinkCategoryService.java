@@ -25,4 +25,9 @@ public class DrinkCategoryService {
 	}
 	
 	
+	
+	public Collection<DrinkCategory> findByIdDrinkCard(Integer drinkCardId) {
+		return drinkCategoryRepository.findByIdDrinkCard(drinkCardId);
+	}
+
 }

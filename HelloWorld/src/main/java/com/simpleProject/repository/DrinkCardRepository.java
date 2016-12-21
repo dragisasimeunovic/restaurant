@@ -6,4 +6,5 @@ import com.simpleProject.model.DrinkCard;
 
 public interface DrinkCardRepository extends JpaRepository<DrinkCard, Integer> {
 
+	public DrinkCard findByIdRestaurant(Integer restaurantId);
 }
