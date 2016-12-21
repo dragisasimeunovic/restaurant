@@ -18,6 +18,15 @@ public class KorisnikService {
 	public Collection<Korisnik> getAll(){
 		return korisnikRepository.findAll();
 	}
+	
+	public Collection<Korisnik> getAllGuests(){
+		return korisnikRepository.findByTip("gost");
+	}
+	
+	public Collection<Korisnik> findAllGuestsWithNameAndSurname(String name, String surname){
+		return korisnikRepository.findByImeAndPrezime(name, surname);
+	}
+	
 
 	
 	public Korisnik add(Korisnik korisnik){

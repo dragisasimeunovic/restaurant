@@ -37,6 +37,7 @@ angular.module('Milica').factory('restaurantsService' , function restaurantsServ
 	
 });
 
+
 angular.module('Milica').factory('korisnikService', function korisnikService($http) {
 	
 	korisnikService.gettAllKorisnik = function(){
@@ -312,3 +313,28 @@ angular.module('Milica').factory('mealService' , function mealService($http){
 	
 	return mealService;
 });
+
+
+
+angular.module('Milica').factory('guestService' , function guestService($http){
+	
+	guestService.getAllGuests = function(){
+		
+		return $http ({
+			method: 'GET',
+			url: 'api/korisnici/allGuests'
+		});
+	}
+	
+	guestService.searchByNameAndSurname = function(name, surname){
+		
+		return $http ({
+			method: 'GET',
+			url: 'api/korisnici/searchByNameAndSurname/'+ name +'/'+surname
+		});
+	}
+	
+	return guestService;
+	
+});
+

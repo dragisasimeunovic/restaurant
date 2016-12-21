@@ -52,4 +52,27 @@ public class KorisnikController {
     	return new ResponseEntity<Collection<Korisnik>>(sviKorisnici, HttpStatus.OK);
     }
     
+    @RequestMapping(
+    		value = "api/korisnici/allGuests",
+    		method = RequestMethod.GET,
+    		produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<Korisnik>> allGuests(){
+    	Collection<Korisnik> allGuests = korisnikService.getAllGuests();
+    	return new ResponseEntity<Collection<Korisnik>>(allGuests, HttpStatus.OK);
+    }
+    
+    
+    
+    
+    @RequestMapping(
+    		value = "api/korisnici/searchByNameAndSurname/{name}/{surname}",
+    		method = RequestMethod.GET,
+    		produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<Korisnik>> allGuestsWithNameAndSurname(@PathVariable String name, @PathVariable String surname){
+    	Collection<Korisnik> guests = korisnikService.findAllGuestsWithNameAndSurname(name, surname);
+    	return new ResponseEntity<Collection<Korisnik>>(guests, HttpStatus.OK);
+    }
+    
 }

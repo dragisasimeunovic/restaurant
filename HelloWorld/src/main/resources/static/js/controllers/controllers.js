@@ -103,8 +103,8 @@ app.controller('registrationRestaurantController', ['$scope','$location', 'regis
 app.controller('LoginController',['$scope', 'loginService','$location', function($scope, loginService, $location){
 	$scope.login = function(){
 		
-		$scope.emailLogin = "men1@g.com";
-		$scope.passwordLogin = "m";
+		$scope.emailLogin = "g@g.com";
+		$scope.passwordLogin = "g";
 		
 		var email = $scope.emailLogin;
 		var lozinka = $scope.passwordLogin;
@@ -144,6 +144,128 @@ app.controller('LoginController',['$scope', 'loginService','$location', function
 
 app.controller('profileController',['$scope', 'loginService','registrationService','$mdDialog', function($scope, loginService,registrationService, $mdDialog){
 	
+	
+	//$scope.email = loginService.user.email;
+	var lozinka1 = loginService.user.lozinka;
+	$scope.ime = loginService.user.ime;
+	$scope.prezime = loginService.user.prezime;
+	
+	
+	$scope.customFullscreen = false;
+    
+	 $scope.showDialog = function(ev) {
+		    $mdDialog.show({
+		      controller: GuestDialogController,
+		      templateUrl: '/views/dialogs/guestUpdateDialog.html',
+		      parent: angular.element(document.body),
+		      targetEvent: ev,
+		      clickOutsideToClose:true,
+		      fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+		    })
+		    .then(function(answer) {
+		      $scope.status = 'You said the information was "' + answer + '".';
+		    }, function() {
+		      $scope.status = 'You cancelled the dialog.';
+		    });
+		  };
+		  
+		  function GuestDialogController($scope,loginService,registrationService, $mdDialog) {
+			  
+			  $scope.imeDialog = loginService.user.ime;
+			  $scope.prezimeDialog = loginService.user.prezime;
+			  
+			  $scope.enableOrDisable = true;
+			  $scope.aboutDiv = true;
+			  
+			  $scope.changePasswordDiv = false;
+			  $scope.changePasswordButtonDiv = true;
+			  
+			  $scope.showChangePasswordDiv = function(){
+				  
+				  $scope.changePasswordDiv = true;
+				  $scope.changePasswordButtonDiv = false;
+				  $scope.aboutDiv = false;
+			  } 
+			  
+			  $scope.applyAboutDiv = function(){
+				  
+				  var newName = $scope.imeDialog;
+				  var newSurname = $scope.prezimeDialog;
+				  var email = loginService.user.email;
+				  var password = loginService.user.lozinka;
+				  registrationService.register(newName,newSurname,email,password).then(function(response){
+					  $mdDialog.hide();
+					  loginService.user.ime = newName;
+					  loginService.user.prezime = newSurname;
+				  });
+				  
+			  }
+			  
+			  $scope.closePasswordDiv = function(){
+				  $scope.aboutDiv= true;
+				  $scope.changePasswordDiv = false;
+				  $scope.changePasswordButtonDiv = true;  
+			  }
+			  
+			  $scope.change = function(){
+				  if($scope.lozinka1 == loginService.user.lozinka){
+					  if($scope.lozinka2 == $scope.lozinka3){
+						  $scope.enableOrDisable = false;
+					  }else
+					  	{
+						  $scope.enableOrDisable = true;
+					  	}
+				  }else{
+					  $scope.enableOrDisable = true;
+				  }
+			  }
+			  
+			  
+			  $scope.applyPasswordChangeDiv = function(){
+				  var newPassword = $scope.lozinka2;
+				  var name = loginService.user.ime;	  
+				  var surname = loginService.user.prezime;
+				  var email = loginService.user.email;
+				  registrationService.register(name,surname,email,newPassword).then(function(response){
+					  loginService.user.lozinka = newPassword;
+					  $scope.aboutDiv= true;
+					  $scope.changePasswordDiv = false;
+					  $scope.changePasswordButtonDiv = true;  
+				  });
+				  
+			  }
+			  
+			  $scope.hide = function() {
+			      $mdDialog.hide();
+			    };
+
+			    $scope.cancel = function() {
+			      $mdDialog.cancel();
+			    };
+
+			    $scope.answer = function(answer) {
+			      $mdDialog.hide(answer);
+			    };
+			  }
+}]);
+
+
+app.controller('profileGuestController',['$scope', 'loginService','registrationService','$mdDialog', 'guestService', function($scope, loginService,registrationService, $mdDialog, guestService){
+	
+	guestService.getAllGuests().then(function(response){
+		$scope.guests = response.data;
+	});
+	
+	$scope.search = function() {
+		if ($scope.searchName != null && $scope.searchSurname != null) {
+			guestService.searchByNameAndSurname($scope.searchName, $scope.searchSurname).then(function(response){
+				$scope.guests = response.data;
+			});
+		}
+		else {
+			
+		}
+	};
 	
 	//$scope.email = loginService.user.email;
 	var lozinka1 = loginService.user.lozinka;
@@ -295,6 +417,15 @@ app.controller('managerRestaurantsController',['$scope','restaurantsService', 'm
 		$location.path("/drinkCard");
 	}
 	
+	
+}]);
+
+
+app.controller('guestController', ['$scope','managerService','$location', function($scope, managerService,$location) {
+	
+	$scope.backToLogin = function(){
+		$location.path("/");
+	}
 	
 }]);
 
