@@ -24,11 +24,12 @@
   	<md-list ng-repeat = "category in categories">
  		<md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky"> {{category.categoryName}} 
  		
- 			<md-icon md-svg-src="images/add.svg" ng-click="addMeal(category.id)" aria-label="Add Meal" class="md-secondary md-hue-3" >
+ 			<md-icon ng-init md-svg-src="images/add.svg" ng-click="addMeal(category.id)" aria-label="Add Meal" class="md-secondary md-hue-3" >
  			</md-icon>
  		</md-subheader>
  		
- 		<md-list-item ng-repeat="meal in meals" ng-click="goToRestaurant(restaurant, $event)" class="noright">
+ 		
+ 		<md-list-item ng-repeat="meal in meals[2]" ng-click="goToRestaurant(restaurant, $event)" class="noright">
     		<img alt="{{ meal.mealName }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
     		<p style="color:white"> {{meal.mealName}}</p>
   			<md-icon md-svg-src="images/garbage.svg" ng-click="doSecondaryAction($event)" aria-label="Send Email" class="md-secondary md-hue-3" ></md-icon>
@@ -36,7 +37,9 @@
  		
  	</md-list>
   			
-  	
+  	 <md-button class="md-primary" ng-click="getMeals(1)">
+          GM
+        </md-button>
 
 	
  	

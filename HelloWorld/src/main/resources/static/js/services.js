@@ -206,12 +206,12 @@ angular.module('Milica').factory('menuCategoryService' , function menuCategorySe
 		
 	}
 	
-	menuCategoryService.getMenuCategoryByMenuId = function(idMenu){
+/*	menuCategoryService.getMenuCategoryByMenuId = function(idMenu){
 		return $http({
 			method: 'GET',
 			url: 'api/menu/category/'+idMenu,			
 		});	
-	}
+	}*/
 	
 	menuCategoryService.getAllMenuCategories = function(idMenu){
 		return $http({

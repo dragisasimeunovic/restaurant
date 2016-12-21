@@ -285,6 +285,10 @@ app.controller('managerRestaurantsController',['$scope','restaurantsService', 'm
 		$location.path("/menu");
 	}
 	
+	$scope.goToDrinkCard = function(){
+		$location.path("/drinkCard");
+	}
+	
 	
 }]);
 
@@ -294,26 +298,45 @@ app.controller('menuController',['$scope','restaurantsService', 'managerService'
 		$scope.categories = response.data;
 	});
 	
-	$scope.refresh = function () {
+	$scope.refresh = function() {
 	
+		$scope.meals = [];
+		
 		menuCategoryService.getAllMenuCategories(restaurantsService.activeRestaurant.id).then(function(response){
 			$scope.categories = response.data;
 			//TODO: Ovo sve radi, ovo dole je problem
-			mealService.getAllCategoryMeals(categories[0].id).then(function(response){
+			/*alert('Dodjem do poziva f-je');
+			mealService.getAllCategoryMeals($scope.categories[0].id).then(function(response){
 				$scope.meals = response.data;
-				alert("Obroka ima: "+response.data.length);
-			});
+			
+			});*/
+			
+			for(var i = 0; i < $scope.categories.length; i++) {
+				mealService.getAllCategoryMeals($scope.categories[i].id).then(function(response){
+					$scope.meals.push(response.data);
+					console.log(response.data);
+				});
+				
+			}
+			
+			for(var i = 0; i < $scope.meals.length; i++) {
+				alert("ulazim u i");
+				for(var j = 0; j < $scope.meals[i].length; j++) {
+					alert($scope.meals[i][j]);
+				}
+			}
 			
 		});
 	};
 	
 	$scope.getMeals = function(categoryId) {
-		var meals = [];
+		
+		alert("Get meals kategorije: " + categoryId);
 		mealService.getAllCategoryMeals(categoryId).then(function(response){
-			meals = response.data;
+			$scope.meals = response.data;
 		});
 		
-		return meals;
+		
 	}
 	
 	
@@ -401,6 +424,39 @@ app.controller('menuController',['$scope','restaurantsService', 'managerService'
 	
 }]);
 
+app.controller('drinkCardController',['$scope','restaurantsService', 'managerService','$location','$mdDialog','menuService','menuCategoryService', function($scope,restaurantsService, managerService,$location, $mdDialog, menuService,menuCategoryService){
+	
+	
+    $scope.isOpen = false;
+	
+	$scope.restaurantAboutDiv = false;
+	restaurantsService.getAllRestaurants().then(function(response){
+		managerService.restaurants = response.data;
+		$scope.restaurants = managerService.restaurants;
+	});
+	
+	$scope.goToRestaurant = function(restaurant, ev){
+		$location.path("/restaurantManager");
+		restaurantsService.activeRestaurant = restaurant;
+		
+		menuService.getMenuByRestaurantId(restaurant.id).then(function(response){
+			alert(response.data.id);
+		});
+	}
+	
+	$scope.goToMenu = function() {
+		$location.path("/menu");
+	}
+	
+	$scope.goToDrinkCard = function(){
+		$location.path("/drinkCard");
+	}
+	
+	
+}]);
+
+
+
 app.config(function($routeProvider) {
     $routeProvider
     .when("/", {
@@ -441,6 +497,9 @@ app.config(function($routeProvider) {
     })
     .when("/managerHome/addEmployed", {
         templateUrl : "views/managerHome/addEmployed.html"
+    })
+    .when("/drinkCard", {
+        templateUrl : "views/drinkCard.html"
     });
     
    

@@ -1,0 +1,56 @@
+package com.simpleProject.model;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "drinkCategory")
+public class DrinkCategory implements Serializable {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
+    private Integer id;
+	
+	@Column(name = "idDrinkCard")
+    private Integer idDrinkCard;
+	
+	@Column(name = "drinkCategoryName")
+    private String drinkCategoryName;
+	
+	public DrinkCategory() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getIdDrinkCard() {
+		return idDrinkCard;
+	}
+
+	public void setIdDrinkCard(Integer idDrinkCard) {
+		this.idDrinkCard = idDrinkCard;
+	}
+
+	public String getDrinkCategoryName() {
+		return drinkCategoryName;
+	}
+
+	public void setDrinkCategoryName(String drinkCategoryName) {
+		this.drinkCategoryName = drinkCategoryName;
+	}
+	
+	
+}
