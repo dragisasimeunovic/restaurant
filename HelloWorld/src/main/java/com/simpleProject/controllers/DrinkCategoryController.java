@@ -25,7 +25,7 @@ public class DrinkCategoryController {
 	
 	
 	@RequestMapping(
-            value    = "/api/menu/addDrinkCategory",
+            value    = "/api/drinkCard/addDrinkCategory",
             method   = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -35,7 +35,7 @@ public class DrinkCategoryController {
     }
 	
 	@RequestMapping(
-    		value = "/api/drinkCard/category/allCategoriesInDrinkCard/{drinkCardId}",
+    		value = "/api/category/allCategoriesInDrinkCard/{drinkCardId}",
     		method = RequestMethod.GET,
     		produces = MediaType.APPLICATION_JSON_VALUE
     )

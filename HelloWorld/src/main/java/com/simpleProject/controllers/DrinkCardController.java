@@ -21,7 +21,7 @@ public class DrinkCardController {
 	DrinkCardService drinkCardService;
 	
 	@RequestMapping(
-            value    = "/api/menu/addDrinkCard",
+            value    = "/api/drinkCard/addDrinkCard",
             method   = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE
     )

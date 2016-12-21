@@ -25,6 +25,9 @@ public class Korisnik implements Serializable {
     @Column(name = "tip")
     private String tip;
     
+    @Column(name="restoran")
+    private String restoran;
+    
     public Korisnik() {
 		
 	}
@@ -68,6 +71,16 @@ public class Korisnik implements Serializable {
 
 	public void setTip(String tip) {
 		this.tip = tip;
+	}
+
+
+	public String getRestoran() {
+		return restoran;
+	}
+
+
+	public void setRestoran(String restoran) {
+		this.restoran = restoran;
 	}
     
     

@@ -11,7 +11,8 @@ angular.module('Milica').factory('registrationService' , function registrationSe
 				"ime" : name,
 				"prezime" : surname,
 				"lozinka" : password,
-				"tip" : "gost"
+				"tip" : "gost",
+				"restoran" : null
 			}
 			
 		});
@@ -64,7 +65,8 @@ angular.module('Milica').factory('registrationManagerService' , function registr
 				"ime" : name,
 				"prezime" : surname,
 				"lozinka" : password,
-				"tip" : "menadzer"
+				"tip" : "menadzer",
+				"restoran" : null
 			}
 			
 		});
@@ -96,7 +98,7 @@ angular.module('Milica').factory('registrationOffererService' , function registr
 angular.module('Milica').factory('registrationEmployedService' , function registrationEmployedService($http){
 	
 	
-	registrationEmployedService.registerEmployed = function(name,surname, email,password, type){
+	registrationEmployedService.registerEmployed = function(name,surname, email,password, type, restaurantId){
 		return $http({
 			method: 'POST',
 			url: 'api/korisnici/korisnik',
@@ -106,7 +108,8 @@ angular.module('Milica').factory('registrationEmployedService' , function regist
 				"ime" : name,
 				"prezime" : surname,
 				"lozinka" : password,
-				"tip" : type
+				"tip" : type,
+				"restoran" :restaurantId
 			}
 			
 		});
@@ -124,7 +127,8 @@ angular.module('Milica').factory('registrationRestaurantService' , function regi
 			data: {
 				"id" : null,
 				"ime" : name,
-				"tip" : type
+				"tip" : type,
+				"ocena" : null
 			}
 			
 		});
@@ -159,6 +163,8 @@ angular.module('Milica').factory('managerService', function managerService($http
 	return managerService;
 	
 });
+
+// SERVISI ZA JELA
 
 angular.module('Milica').factory('menuService' , function menuService($http){
 	
@@ -206,11 +212,8 @@ angular.module('Milica').factory('menuCategoryService' , function menuCategorySe
 		});
 		
 	}
-	
-	
-	
-	
-	
+
+
 /*	menuCategoryService.getMenuCategoryByMenuId = function(idMenu){
 		return $http({
 			method: 'GET',
@@ -227,59 +230,6 @@ angular.module('Milica').factory('menuCategoryService' , function menuCategorySe
 	
 	return menuCategoryService;
 });
-
-
-angular.module('Milica').factory('drinkCardService', function drinkCardService($http){
-	
-	drinkCardService.addDrinkCard = function(idRestaurant){
-		return $http({
-			method: 'POST',
-			url: 'api/menu/addDrinkCard',
-			data: {
-				"id" : null,
-				"idRestaurant" : idRestaurant
-			}
-			
-		});
-		
-	}
-	
-	
-	return drinkCardService;
-	
-});
-
-angular.module('Milica').factory('drinkCategoryService', function drinkCategoryService($http){
-	
-	drinkCategoryService.addDrinkCategory = function(idDrinkCard,categoryName){
-		return $http({
-			method: 'POST',
-			url: 'api/menu/addDrinkCategory',
-			data: {
-				"id" : null,
-				"idDrinkCard" : idDrinkCard,
-				"drinkCategoryName" : categoryName
-			}
-			
-		});
-		
-	}
-	
-	drinkCategoryService.getAllDrinkCategories = function(idDrinkCard){
-		alert('usla sam');
-		return $http({
-			method: 'GET',
-			url: 'api/category/allCategoriesInDrinkCard/'+idDrinkCard		
-		});	
-	}
-	
-	
-	
-	return drinkCategoryService;
-	
-});
-
-
 
 angular.module('Milica').factory('mealService' , function mealService($http){
 	
@@ -314,7 +264,82 @@ angular.module('Milica').factory('mealService' , function mealService($http){
 	return mealService;
 });
 
+// SERVISI ZA PICA
 
+angular.module('Milica').factory('drinkCardService', function drinkCardService($http){
+	
+	drinkCardService.addDrinkCard = function(idRestaurant){
+		return $http({
+			method: 'POST',
+			url: 'api/drinkCard/addDrinkCard',
+			data: {
+				"id" : null,
+				"idRestaurant" : idRestaurant
+			}
+			
+		});
+		
+	}
+	
+	
+	return drinkCardService;
+	
+});
+
+angular.module('Milica').factory('drinkCategoryService', function drinkCategoryService($http){
+	
+	drinkCategoryService.addDrinkCategory = function(idDrinkCard,categoryName){
+		return $http({
+			method: 'POST',
+			url: 'api/drinkCard/addDrinkCategory',
+			data: {
+				"id" : null,
+				"idDrinkCard" : idDrinkCard,
+				"drinkCategoryName" : categoryName
+			}
+			
+		});
+		
+	}
+	
+	drinkCategoryService.getAllDrinkCategories = function(idDrinkCard){
+		//alert('usla sam');
+		return $http({
+			method: 'GET',
+			url: 'api/category/allCategoriesInDrinkCard/'+idDrinkCard		
+		});	
+	}
+	
+	
+	
+	return drinkCategoryService;
+	
+});
+
+angular.module('Milica').factory('drinkService' , function drinkService($http){
+	
+	
+	drinkService.addDrink = function(idDrinkCategory, drinkName, drinkDescription, drinkPrice){
+		return $http({
+			method: 'POST',
+			url: 'api/drinkCard/addDrink',
+			data: {
+				"id" : null,
+				"idDrinkCategory" : idDrinkCategory,
+				"drinkName" : drinkName,
+				"drinkDescription" : drinkDescription,
+				"price" : drinkPrice
+			}
+			
+		});
+		
+	}	
+	drinkService.drinkCategoryId = {};
+	
+	return drinkService;
+});
+
+//SERVISI ZA GOSTE
 
 angular.module('Milica').factory('guestService' , function guestService($http){
 	

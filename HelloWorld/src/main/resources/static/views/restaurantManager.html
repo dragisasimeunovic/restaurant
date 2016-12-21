@@ -1,4 +1,4 @@
-<div layout="row" ng-controller="managerRestaurantsController">
+<div layout="column" ng-controller="RestaurantController">
 <md-toolbar class="md-small-tall" style="background-color:rgb(0,0,0); opacity:0.6 ; height:20px;">
       <div class="md-toolbar-tools">
         <!-- <md-button aria-label="Go Back">
@@ -18,35 +18,28 @@
           Drinks
         </md-button>
         
-<!--          <div layout="row" layout-align="center center">
-               <md-fab-speed-dial md-open="isOpen" md-direction="left" ng-class="md-scale">
-                  <md-fab-trigger>
-                     <md-button aria-label="menu" class="md-fab md-warn">
-                        <md-icon class="material-icons">menu</md-icon>
-                     </md-button>
-                  </md-fab-trigger>
-                  <md-fab-actions>
-                     <md-button aria-label="Add" class="md-fab md-raised md-mini md-accent">
-                        <md-icon class="material-icons" aria-label="Add">add</md-icon>
-                     </md-button>
-                     <md-button aria-label="Insert Link" class="md-fab md-raised md-mini md-accent">
-                        <md-icon class="material-icons" aria-label="Insert Link">insert_link</md-icon>
-                     </md-button>
-                     <md-button aria-label="Edit" class="md-fab md-raised md-mini md-accent">
-                        <md-icon class="material-icons" aria-label="Edit">mode_edit</md-icon>
-                     </md-button>
-                  </md-fab-actions>
-               </md-fab-speed-dial> -->
+        <md-button class="md-primary md-hue-1" style="color:white;" aria-label="Learn More" ng-click="AddEmployed()">
+          Add Employed
+        </md-button>
         
-      </div>
+		</div>
     </md-toolbar>
     
-    <div ng-show="activeTab==0">
-    <div ng-include="'views/menu.html'"></div>
-    </div>
+	<div flex="40">
+   
+   <p style="color:white"> Ime: {{ime}} </p> <br> 
+   <p style="color:white"> Tip: {{tip}} </p><br>
+   <br>
+   <br>
+   <p style="color:white"> Ocena: {{ocena}} </p>
+    	
+	<md-button class="md-primary md-raised" ng-click="showDialog($event)">
+		Edit
+	</md-button>
     
-    
-      <div ng-show="activeTab==1">
-    <div ng-include="'views/drinkCard.html'"></div>
-    </div>
+ </div>
+ <div flex="60">
+ asdasd
+ </div>
+
 </div>

@@ -49,7 +49,7 @@ app.controller('registrationOffererController', ['$scope','$location', 'registra
 }]);
 
 
-app.controller('registrationEmployedController', ['$scope','$location', 'registrationEmployedService', function($scope,$location,registrationEmployedService){
+app.controller('registrationEmployedController', ['$scope','$location', 'registrationEmployedService','restaurantsService', function($scope,$location,registrationEmployedService,restaurantsService){
 	
 	$scope.employed = "Waiter" ;
 	
@@ -61,7 +61,12 @@ app.controller('registrationEmployedController', ['$scope','$location', 'registr
 		var lozinka = $scope.password1;
 		var tip = $scope.employed;
 		alert("korisnik je" + tip);
-		registrationEmployedService.registerEmployed(ime, prezime,email,lozinka,tip).then(function(response){
+		
+		
+		var restaurantId = restaurantsService.activeRestaurant.id;
+		
+		registrationEmployedService.registerEmployed(ime, prezime,email,lozinka,tip,restaurantId).then(function(response){
+			alert(restaurantId + "ovo je id restorana");
 			$scope.name = null;
 			$scope.surname= null;
 			$scope.email = null;
@@ -100,11 +105,15 @@ app.controller('registrationRestaurantController', ['$scope','$location', 'regis
 
 
 
+
+
 app.controller('LoginController',['$scope', 'loginService','$location', function($scope, loginService, $location){
 	$scope.login = function(){
 		
-		$scope.emailLogin = "g@g.com";
-		$scope.passwordLogin = "g";
+		$scope.emailLogin = "men1@g.com";
+		$scope.passwordLogin = "m";
+		
+		
 		
 		var email = $scope.emailLogin;
 		var lozinka = $scope.passwordLogin;
@@ -389,6 +398,27 @@ app.controller('managerController', ['$scope','managerService','$location', func
 	
 }]);
 
+app.controller('RestaurantController', ['$scope','restaurantsService','$location', function($scope, restaurantsService,$location) {
+	
+	$scope.ime = restaurantsService.activeRestaurant.ime;
+	$scope.tip = restaurantsService.activeRestaurant.tip;
+	
+	$scope.ocena = restaurantsService.activeRestaurant.ocena;
+	
+	$scope.goToMenu = function() {
+		$location.path("/menu");
+	}
+	
+	$scope.goToDrinkCard = function(){
+		$location.path("/drinkCard");
+	}
+	
+	$scope.AddEmployed = function(){
+		$location.path("/addEmployed");
+	}
+	
+}]);
+
 app.controller('managerRestaurantsController',['$scope','restaurantsService', 'managerService','$location','$mdDialog','menuService','menuCategoryService', function($scope,restaurantsService, managerService,$location, $mdDialog, menuService,menuCategoryService){
 	
 	
@@ -408,15 +438,6 @@ app.controller('managerRestaurantsController',['$scope','restaurantsService', 'm
 			alert(response.data.id);
 		});
 	}
-	
-	$scope.goToMenu = function() {
-		$location.path("/menu");
-	}
-	
-	$scope.goToDrinkCard = function(){
-		$location.path("/drinkCard");
-	}
-	
 	
 }]);
 
@@ -516,6 +537,7 @@ app.controller('menuController',['$scope','restaurantsService', 'managerService'
 	 
 	 	var categoryId = {};
 	//deo za dialog
+	 	//////////////////////////////////////////////////////////////////////////
 		$scope.addMeal = function(catId) {
 		    $mdDialog.show({
 		      controller: AddMealController,
@@ -557,21 +579,24 @@ app.controller('menuController',['$scope','restaurantsService', 'managerService'
 			 }
 			 
 		 }
+		 
 	
 	
 }]);
 
-app.controller('drinkCardController',['$scope','$mdDialog','drinkCategoryService','restaurantsService',function($scope,$mdDialog,drinkCategoryService,restaurantsService){
+app.controller('drinkCardController',['$scope','$mdDialog','drinkCategoryService','restaurantsService','drinkService',function($scope,$mdDialog,drinkCategoryService,restaurantsService,drinkService){
 	//alert(restaurantsService.activeRestaurant.id);
-	drinkCategoryService.getAllMenuCategories(restaurantsService.activeRestaurant.id).then(function(response){
+	drinkCategoryService.getAllDrinkCategories(restaurantsService.activeRestaurant.id).then(function(response){
 		$scope.categories = response.data;
-		alert(response.data);
+		//alert("Kategorija ima" + response.data.drinkCategoryName);
 	});
+	
+	//dijalog za dodavanje kategorije pica
 	
 	$scope.addDrinkCardCategoryDialog = function(ev) {
 	    $mdDialog.show({
 		      controller: AddDrinkCategoryController,
-		      templateUrl: '/views/dialogs/addDrinkCategoryDialog.html',
+		      templateUrl: '/views/dialogs/AddDrinkCategoryDialog.html',
 		      parent: angular.element(document.body),
 		      targetEvent: ev,
 		      clickOutsideToClose:true,
@@ -585,8 +610,7 @@ app.controller('drinkCardController',['$scope','$mdDialog','drinkCategoryService
 		 };
 		 
 		 function AddDrinkCategoryController($scope, $mdDialog) {
-				//TODO: Kreirati upit koji ce pomocu id restorana koji se selektujete naci odgovarajuci meni za njega
-				//TODO: Onda napraviti servis, controller,... za dodavanje kategorije u pronadjeni meni
+			
 			
 				 $scope.addDrinkCategory = function(){
 					 var categoryName = $scope.categoryName;
@@ -603,11 +627,52 @@ app.controller('drinkCardController',['$scope','$mdDialog','drinkCategoryService
 				 
 		 }
 		 
+	var drinkCategoryId = {};
 		 
+	//dijalog za dodavanje pica u kategoriju
+	
+	$scope.addDrink = function(catId) {
+			    $mdDialog.show({
+			      controller: AddDrinkController,
+			      templateUrl: '/views/dialogs/addDrinkDialog.html',
+			      parent: angular.element(document.body),
+			      clickOutsideToClose:true,
+			      fullscreen: false // Only for -xs, -sm breakpoints.
+			    })
+			    .then(function(answer) {
+			      
+			    }, function() {
+			     
+			    });
+			    
+			    drinkService.drinkCategoryId = catId;
+			 };
+			 
+			 function AddDrinkController($scope, $mdDialog,drinkService) {
+				
+				
+					 $scope.addDrink = function(){
+						 alert(drinkService.drinkCategoryId + " kategorija pica " );
+						 
+						 var idDrinkCategory =  drinkService.drinkCategoryId;
+						 var drinkName = $scope.drinkName;
+						 var drinkDescription = $scope.drinkDescription;
+						 var drinkPrice = $scope.drinkPrice;
+						 drinkService.addDrink(idDrinkCategory, drinkName, drinkDescription, drinkPrice).then(function(response){
+							
+							 alert('Dodato pice sa cenom: ' + response.data.price);
+							 $mdDialog.hide();
+							 
+						 });
+					 }
+
+					 $scope.closeDialog = function() {
+						 $mdDialog.cancel();
+					 }
+					 
+			 }
 		 
-  
-	
-	
+
 }]);
 
 
@@ -650,8 +715,8 @@ app.config(function($routeProvider) {
     .when("/restaurantManager", {
         templateUrl : "views/restaurantManager.html"
     })
-    .when("/managerHome/addEmployed", {
-        templateUrl : "views/managerHome/addEmployed.html"
+    .when("/addEmployed", {
+        templateUrl : "views/addEmployed.html"
     })
     .when("/drinkCard", {
         templateUrl : "views/drinkCard.html"

@@ -28,6 +28,9 @@ public class Restaurant implements Serializable {
 	
 	@Column(name="tip")
 	private String tip;
+	
+	@Column(name="ocena")
+	private Integer ocena;
 
 	public Restaurant() {
 		
@@ -56,6 +59,16 @@ public class Restaurant implements Serializable {
 	public void setTip(String tip) {
 		this.tip = tip;
 	}
+
+	public Integer getOcena() {
+		return ocena;
+	}
+
+	public void setOcena(Integer ocena) {
+		this.ocena = ocena;
+	}
+
+	
 	
 	
 }
