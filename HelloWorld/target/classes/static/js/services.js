@@ -12,7 +12,10 @@ angular.module('Milica').factory('registrationService' , function registrationSe
 				"prezime" : surname,
 				"lozinka" : password,
 				"tip" : "gost",
-				"restoran" : null
+				"restoran" : null,
+				"dateOfBirth":null,
+				"dressSize":null,
+				"footwearSize":null
 			}
 			
 		});
@@ -66,7 +69,10 @@ angular.module('Milica').factory('registrationManagerService' , function registr
 				"prezime" : surname,
 				"lozinka" : password,
 				"tip" : "menadzer",
-				"restoran" : null
+				"restoran" : null,
+				"dateOfBirth":null,
+				"dressSize":null,
+				"footwearSize":null
 			}
 			
 		});
@@ -87,7 +93,10 @@ angular.module('Milica').factory('registrationOffererService' , function registr
 				"ime" : name,
 				"prezime" : surname,
 				"lozinka" : password,
-				"tip" : "ponudjac"
+				"tip" : "ponudjac",
+				"dateOfBirth":null,
+				"dressSize":null,
+				"footwearSize":null
 			}
 			
 		});
@@ -98,7 +107,7 @@ angular.module('Milica').factory('registrationOffererService' , function registr
 angular.module('Milica').factory('registrationEmployedService' , function registrationEmployedService($http){
 	
 	
-	registrationEmployedService.registerEmployed = function(name,surname, email,password, type, restaurantId){
+	registrationEmployedService.registerEmployed = function(name,surname, email,password, type, restaurantId,dateOfBirth,dressSize,footwearSize){
 		return $http({
 			method: 'POST',
 			url: 'api/korisnici/korisnik',
@@ -109,7 +118,10 @@ angular.module('Milica').factory('registrationEmployedService' , function regist
 				"prezime" : surname,
 				"lozinka" : password,
 				"tip" : type,
-				"restoran" :restaurantId
+				"restoran" :restaurantId,
+				"dateOfBirth":dateOfBirth,
+				"dressSize":dressSize,
+				"footwearSize":footwearSize
 			}
 			
 		});

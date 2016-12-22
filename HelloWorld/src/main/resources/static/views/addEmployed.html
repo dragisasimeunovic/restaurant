@@ -2,8 +2,8 @@ BSA Restraurants
 <br>
 <hr>
 
-<form name="userForm">
-<div flex="40" ng-controller = "registrationEmployedController">
+<form name="userForm" style="background-color:rgb(250,250,250)">
+<div flex="40" ng-controller = "registrationEmployedController" >
 <md-input-container class="md-block" flex-gt-sm>
           <label>Name</label>
           <input md-maxlength="30" required name="name" ng-model="name" />
@@ -28,6 +28,26 @@ BSA Restraurants
 <md-input-container class="md-block" flex-gt-sm>
           <label>Password</label>
           <input type="password" md-maxlength="30" required name="password2" ng-model="password2" />
+</md-input-container>
+
+<!-- <md-input-container class="md-block" flex-gt-sm>
+          <label>Date of Birth</label>
+          <input  type="date" md-maxlength="30" required name="dateOfBirth" ng-model="dateOfBirth" />
+</md-input-container> -->
+
+<md-input-container>
+            <label>Date of Birth</label>
+            <md-datepicker ng-model="dateOfBirth"></md-datepicker>
+</md-input-container>
+
+<md-input-container class="md-block" flex-gt-sm>
+          <label>Dress size</label>
+          <input  md-maxlength="30" required name="dressSize" ng-model="dressSize" />
+</md-input-container>
+
+<md-input-container class="md-block" flex-gt-sm>
+          <label>Footwear size</label>
+          <input  md-maxlength="30" required name="footwearSize" ng-model="footwearSize" />
 </md-input-container>
 
 <md-radio-group ng-model="employed">

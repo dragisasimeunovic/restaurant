@@ -59,13 +59,17 @@ app.controller('registrationEmployedController', ['$scope','$location', 'registr
 		var prezime = $scope.surname;
 		var email = $scope.email;
 		var lozinka = $scope.password1;
-		var tip = $scope.employed;
+		var tip = $scope.employed; 
 		alert("korisnik je" + tip);
+		
+		var dateOfBirth = $scope.dateOfBirth;
+		var dressSize = $scope.dressSize;
+		var footwearSize = $scope.footwearSize;
 		
 		
 		var restaurantId = restaurantsService.activeRestaurant.id;
 		
-		registrationEmployedService.registerEmployed(ime, prezime,email,lozinka,tip,restaurantId).then(function(response){
+		registrationEmployedService.registerEmployed(ime, prezime,email,lozinka,tip,restaurantId,dateOfBirth,dressSize,footwearSize).then(function(response){
 			alert(restaurantId + "ovo je id restorana");
 			$scope.name = null;
 			$scope.surname= null;
@@ -73,6 +77,9 @@ app.controller('registrationEmployedController', ['$scope','$location', 'registr
 			$scope.password1 = null;
 			$scope.password2 = null;
 			$scope.employed = "Waiter" ;
+			$scope.dateOfBirth = null;
+			$scope.dressSize = null;
+			$scope.footwearSize = null;
 			//$location.path("/managerHome/addEmployed");
 		});
 		

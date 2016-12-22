@@ -25,9 +25,17 @@ public class Korisnik implements Serializable {
     @Column(name = "tip")
     private String tip;
     
-    @Column(name="restoran")
-    private String restoran;
+    @Column(name="dateOfBirth")
+    private String dateOfBirth;
     
+    @Column(name = "dressSize")
+    private String dressSize;
+    
+    @Column(name="footwearSize")
+    private Integer footwearSize;
+    
+    @Column(name="restoran")
+    private Integer restoran;
     public Korisnik() {
 		
 	}
@@ -74,14 +82,46 @@ public class Korisnik implements Serializable {
 	}
 
 
-	public String getRestoran() {
+	public String getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+
+	public void setDateOfBirth(String dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+
+	public String getDressSize() {
+		return dressSize;
+	}
+
+
+	public void setDressSize(String dressSize) {
+		this.dressSize = dressSize;
+	}
+
+
+	public Integer getFootwearSize() {
+		return footwearSize;
+	}
+
+
+	public void setFootwearSize(Integer footwearSize) {
+		this.footwearSize = footwearSize;
+	}
+
+
+	public Integer getRestoran() {
 		return restoran;
 	}
 
 
-	public void setRestoran(String restoran) {
+	public void setRestoran(Integer restoran) {
 		this.restoran = restoran;
 	}
+
+
     
     
 
