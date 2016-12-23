@@ -117,8 +117,8 @@ app.controller('registrationRestaurantController', ['$scope','$location', 'regis
 app.controller('LoginController',['$scope', 'loginService','$location', function($scope, loginService, $location){
 	$scope.login = function(){
 		
-		$scope.emailLogin = "men1@g.com";
-		$scope.passwordLogin = "m";
+		/*$scope.emailLogin = "men1@g.com";
+		$scope.passwordLogin = "m";*/
 		
 		
 		
@@ -595,7 +595,7 @@ app.controller('drinkCardController',['$scope','$mdDialog','drinkCategoryService
 	//alert(restaurantsService.activeRestaurant.id);
 	drinkCategoryService.getAllDrinkCategories(restaurantsService.activeRestaurant.id).then(function(response){
 		$scope.categories = response.data;
-		//alert("Kategorija ima" + response.data.drinkCategoryName);
+		alert("Pica ima: " + response.data.drinks.length + " !!!!!!!!!!");
 	});
 	
 	//dijalog za dodavanje kategorije pica
@@ -638,7 +638,7 @@ app.controller('drinkCardController',['$scope','$mdDialog','drinkCategoryService
 		 
 	//dijalog za dodavanje pica u kategoriju
 	
-	$scope.addDrink = function(catId) {
+	$scope.addDrink = function(category) {
 			    $mdDialog.show({
 			      controller: AddDrinkController,
 			      templateUrl: '/views/dialogs/addDrinkDialog.html',
@@ -652,7 +652,8 @@ app.controller('drinkCardController',['$scope','$mdDialog','drinkCategoryService
 			     
 			    });
 			    
-			    drinkService.drinkCategoryId = catId;
+			    drinkService.drinkCategoryId = category.id;
+			    drinkService.drinkCategory = category;
 			 };
 			 
 			 function AddDrinkController($scope, $mdDialog,drinkService) {
@@ -665,7 +666,7 @@ app.controller('drinkCardController',['$scope','$mdDialog','drinkCategoryService
 						 var drinkName = $scope.drinkName;
 						 var drinkDescription = $scope.drinkDescription;
 						 var drinkPrice = $scope.drinkPrice;
-						 drinkService.addDrink(idDrinkCategory, drinkName, drinkDescription, drinkPrice).then(function(response){
+						 drinkService.addDrink(idDrinkCategory, drinkName, drinkDescription, drinkPrice, drinkService.drinkCategory).then(function(response){
 							
 							 alert('Dodato pice sa cenom: ' + response.data.price);
 							 $mdDialog.hide();

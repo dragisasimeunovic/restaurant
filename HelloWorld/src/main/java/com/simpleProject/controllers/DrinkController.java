@@ -10,14 +10,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.simpleProject.model.Drink;
+import com.simpleProject.model.DrinkCategory;
 import com.simpleProject.model.Meal;
+import com.simpleProject.services.DrinkCategoryService;
 import com.simpleProject.services.DrinkService;
 
 @RestController
 public class DrinkController {
 	
 	@Autowired
-	DrinkService drinkService;
+	private DrinkService drinkService;
+	
+	@Autowired
+	private DrinkCategoryService drinkCategoryService;
 	
 	@RequestMapping(
             value    = "/api/drinkCard/addDrink",
@@ -25,7 +30,9 @@ public class DrinkController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Drink> addDrink(@RequestBody Drink drink) {
-		Drink addingDrink= drinkService.add(drink);
+		DrinkCategory drinkCategory = drinkCategoryService.findOne(drink.getIdDrinkCategory());
+		drink.setdCategory(drinkCategory);
+		Drink addingDrink = drinkService.add(drink);
         return new ResponseEntity<Drink>(addingDrink, HttpStatus.OK);
     }
 	

@@ -331,7 +331,7 @@ angular.module('Milica').factory('drinkCategoryService', function drinkCategoryS
 angular.module('Milica').factory('drinkService' , function drinkService($http){
 	
 	
-	drinkService.addDrink = function(idDrinkCategory, drinkName, drinkDescription, drinkPrice){
+	drinkService.addDrink = function(idDrinkCategory, drinkName, drinkDescription, drinkPrice, drinkCategory){
 		return $http({
 			method: 'POST',
 			url: 'api/drinkCard/addDrink',
@@ -340,13 +340,15 @@ angular.module('Milica').factory('drinkService' , function drinkService($http){
 				"idDrinkCategory" : idDrinkCategory,
 				"drinkName" : drinkName,
 				"drinkDescription" : drinkDescription,
-				"price" : drinkPrice
+				"price" : drinkPrice,
+				"dCategory" : drinkCategory
 			}
 			
 		});
 		
 	}	
 	drinkService.drinkCategoryId = {};
+	drinkService.drinkCategory = {};
 	
 	return drinkService;
 });

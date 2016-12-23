@@ -1,18 +1,29 @@
 package com.simpleProject.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "drink")
 public class Drink implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
@@ -29,6 +40,9 @@ public class Drink implements Serializable{
 	
 	@Column(name = "price")
     private Integer price;
+	
+	@ManyToOne
+	private DrinkCategory dCategory;
 	
 	public Drink() {
 		// TODO Auto-generated constructor stub
@@ -73,6 +87,17 @@ public class Drink implements Serializable{
 	public void setPrice(Integer price) {
 		this.price = price;
 	}
+
+	
+	public DrinkCategory getdCategory() {
+		return dCategory;
+	}
+
+	@JsonIgnore
+	public void setdCategory(DrinkCategory dCategory) {
+		this.dCategory = dCategory;
+	}
+
 	
 	
 

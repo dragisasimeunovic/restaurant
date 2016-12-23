@@ -18,6 +18,7 @@ public class DrinkCategoryService {
 	public Collection<DrinkCategory> getAll(){
 		return drinkCategoryRepository.findAll();
 	}
+	
 
 	
 	public DrinkCategory add(DrinkCategory drinkCategory){
@@ -30,4 +31,8 @@ public class DrinkCategoryService {
 		return drinkCategoryRepository.findByIdDrinkCard(drinkCardId);
 	}
 
+	public DrinkCategory findOne(Integer idcat) {
+		return drinkCategoryRepository.findOne(idcat);
+	}
+	
 }
