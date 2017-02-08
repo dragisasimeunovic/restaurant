@@ -401,6 +401,22 @@ angular.module('Milica').factory('guestService' , function guestService($http){
 		});
 	}
 	
+	guestService.orderGuestsByNameAtoZ = function(){
+		
+		return $http ({
+			method: 'GET',
+			url: 'api/korisnici/orderByNameAtoZ' 
+		});
+	}
+	
+	guestService.orderGuestsByNameZtoA = function(){
+		
+		return $http ({
+			method: 'GET',
+			url: 'api/korisnici/orderByNameZtoA' 
+		});
+	}
+	
 	return guestService;
 	
 });

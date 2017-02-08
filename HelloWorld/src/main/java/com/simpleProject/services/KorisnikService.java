@@ -27,6 +27,14 @@ public class KorisnikService {
 		return korisnikRepository.findByImeAndPrezime(name, surname);
 	}
 	
+	public Collection<Korisnik> getAllGuestsOrderByName(){
+		return korisnikRepository.findByTipOrderByImeAsc("gost");
+	}
+	
+	public Collection<Korisnik> getAllGuestsOrderByNameDesc(){
+		return korisnikRepository.findByTipOrderByImeDesc("gost");
+	}
+	
 
 	
 	public Korisnik add(Korisnik korisnik){

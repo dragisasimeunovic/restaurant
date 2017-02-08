@@ -63,15 +63,34 @@ public class KorisnikController {
     }
     
     
-    
-    
     @RequestMapping(
-    		value = "api/korisnici/searchByNameAndSurname/{name}/{surname}",
+    		value = "api/korisnici/orderByName/{name}/{surname}",
     		method = RequestMethod.GET,
     		produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Collection<Korisnik>> allGuestsWithNameAndSurname(@PathVariable String name, @PathVariable String surname){
     	Collection<Korisnik> guests = korisnikService.findAllGuestsWithNameAndSurname(name, surname);
+    	return new ResponseEntity<Collection<Korisnik>>(guests, HttpStatus.OK);
+    }
+    
+    
+    @RequestMapping(
+    		value = "api/korisnici/orderByNameAtoZ",
+    		method = RequestMethod.GET,
+    		produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<Korisnik>> orderByNameAtoZ(){
+    	Collection<Korisnik> guests = korisnikService.getAllGuestsOrderByName();
+    	return new ResponseEntity<Collection<Korisnik>>(guests, HttpStatus.OK);
+    }
+    
+    @RequestMapping(
+    		value = "api/korisnici/orderByNameZtoA",
+    		method = RequestMethod.GET,
+    		produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<Korisnik>> orderByNameZtoA(){
+    	Collection<Korisnik> guests = korisnikService.getAllGuestsOrderByNameDesc();
     	return new ResponseEntity<Collection<Korisnik>>(guests, HttpStatus.OK);
     }
     

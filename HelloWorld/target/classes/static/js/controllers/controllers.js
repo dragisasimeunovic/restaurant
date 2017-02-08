@@ -123,8 +123,8 @@ app.controller('registrationRestaurantController', ['$scope','$location', 'regis
 app.controller('LoginController',['$scope', 'loginService','$location', 'restaurantsService', function($scope, loginService, $location, restaurantsService){
 	$scope.login = function(){
 		
-		$scope.emailLogin = "dragi@g.com";
-		$scope.passwordLogin = "dragi";
+		/*$scope.emailLogin = "dragi@g.com";
+		$scope.passwordLogin = "dragi";*/
 		
 		
 		
@@ -282,6 +282,19 @@ app.controller('profileGuestController',['$scope', 'loginService','registrationS
 		$scope.guests = response.data;
 	});
 	
+	$scope.sortByNameAtoZ = function() {
+		guestService.orderGuestsByNameAtoZ().then(function(response){
+			$scope.guests = response.data;
+		});
+	}
+	
+	$scope.sortByNameZtoA = function() {
+		guestService.orderGuestsByNameZtoA().then(function(response){
+			$scope.guests = response.data;
+		});
+	}
+	
+	
 	$scope.search = function() {
 		if ($scope.searchName != null && $scope.searchSurname != null) {
 			guestService.searchByNameAndSurname($scope.searchName, $scope.searchSurname).then(function(response){
@@ -415,7 +428,8 @@ app.controller('managerController', ['$scope','managerService','$location', func
 	
 }]);
 
-app.controller('RestaurantController', ['$scope','restaurantsService','$location','$mdDialog','registrationRestaurantService', function($scope, restaurantsService,$location,$mdDialog, registrationRestaurantService) {
+app.controller('RestaurantController', ['$scope','restaurantsService','$location','$mdDialog','registrationRestaurantService','$route','$window', function($scope, restaurantsService,$location,$mdDialog, registrationRestaurantService, $route,$window) {
+		
 	
 	
 	$scope.ime = restaurantsService.activeRestaurant.ime;
@@ -583,7 +597,7 @@ app.controller('menuController',['$scope','restaurantsService', 'managerService'
 	    });
 	 };
 	 
-	 function AddMenuCategoryController($scope, $mdDialog,menuCategoryService) {
+	 function AddMenuCategoryController($scope, $mdDialog,menuCategoryService, $route) {
 		//TODO: Kreirati upit koji ce pomocu id restorana koji se selektujete naci odgovarajuci meni za njega
 		//TODO: Onda napraviti servis, controller,... za dodavanje kategorije u pronadjeni meni
 	
@@ -592,7 +606,7 @@ app.controller('menuController',['$scope','restaurantsService', 'managerService'
 			 menuCategoryService.addMenuCategory(restaurantsService.activeRestaurant.id,categoryName).then(function(response){
 			
 				 $mdDialog.hide();
-				 
+				 $route.reload();
 			 });
 		 }
 		 
@@ -622,7 +636,7 @@ app.controller('menuController',['$scope','restaurantsService', 'managerService'
 		    mealService.categoryId = catId;
 		 };
 		 
-		 function AddMealController($scope, $mdDialog,mealService) {
+		 function AddMealController($scope, $mdDialog,mealService, $route) {
 			//TODO: Kreirati upit koji ce pomocu id restorana koji se selektujete naci odgovarajuci meni za njega
 			//TODO: Onda napraviti servis, controller,... za dodavanje kategorije u pronadjeni meni
 		
@@ -637,6 +651,7 @@ app.controller('menuController',['$scope','restaurantsService', 'managerService'
 					
 					 alert('Dodato jelo sa cenom: ' + response.data.price);
 					 $mdDialog.hide();
+					 $route.reload();
 					 
 				 });
 			 }
@@ -651,7 +666,7 @@ app.controller('menuController',['$scope','restaurantsService', 'managerService'
 	
 }]);
 
-app.controller('drinkCardController',['$scope','$mdDialog','drinkCategoryService','restaurantsService','drinkService',function($scope,$mdDialog,drinkCategoryService,restaurantsService,drinkService){
+app.controller('drinkCardController',['$scope','$mdDialog','drinkCategoryService','restaurantsService','drinkService','$route',function($scope,$mdDialog,drinkCategoryService,restaurantsService,drinkService,$route){
 	//alert(restaurantsService.activeRestaurant.id);
 	drinkCategoryService.getAllDrinkCategories(restaurantsService.activeRestaurant.id).then(function(response){
 		$scope.categories = response.data;
@@ -676,7 +691,7 @@ app.controller('drinkCardController',['$scope','$mdDialog','drinkCategoryService
 		    });
 		 };
 		 
-		 function AddDrinkCategoryController($scope, $mdDialog) {
+		 function AddDrinkCategoryController($scope, $mdDialog, $route) {
 
 			
 				 $scope.addDrinkCategory = function(){
@@ -684,6 +699,7 @@ app.controller('drinkCardController',['$scope','$mdDialog','drinkCategoryService
 					 drinkCategoryService.addDrinkCategory(restaurantsService.activeRestaurant.id,categoryName).then(function(response){
 					
 						 $mdDialog.hide();
+						 $route.reload();
 						 
 					 });
 				 }
@@ -720,7 +736,7 @@ app.controller('drinkCardController',['$scope','$mdDialog','drinkCategoryService
 		    });
 		 };
 		 
-		 function EditDrinkController($scope, $mdDialog, drinkService, drinkCategoryService) {
+		 function EditDrinkController($scope, $mdDialog, drinkService, drinkCategoryService, $route) {
 				
 			 $scope.drinkName = drinkService.drink.drinkName;
 			 $scope.drinkDescription = drinkService.drink.drinkDescription;
@@ -736,6 +752,7 @@ app.controller('drinkCardController',['$scope','$mdDialog','drinkCategoryService
 				 drinkService.updateDrink(drinkID, drinkName, drinkPrice, drinkDescription, drinkCategoryId, drinkCategory).then(function(response){
 				
 					 $mdDialog.hide();
+					 $route.reload();
 					 //refreshovanje kategorija i pica samim tim
 					 drinkCategoryService.getAllDrinkCategories(restaurantsService.activeRestaurant.id).then(function(response){
 						$scope.categories = response.data;	
@@ -769,7 +786,7 @@ app.controller('drinkCardController',['$scope','$mdDialog','drinkCategoryService
 			    drinkService.drinkCategory = category;
 			 };
 			 
-			 function AddDrinkController($scope, $mdDialog,drinkService) {
+			 function AddDrinkController($scope, $mdDialog,drinkService, $route) {
 				
 				
 					 $scope.addDrink = function(){
@@ -783,6 +800,7 @@ app.controller('drinkCardController',['$scope','$mdDialog','drinkCategoryService
 							
 							 alert('Dodato pice sa cenom: ' + response.data.price);
 							 $mdDialog.hide();
+							 $route.reload();
 							 
 						 });
 					 }
@@ -796,12 +814,19 @@ app.controller('drinkCardController',['$scope','$mdDialog','drinkCategoryService
 
 }]);
 
-
+/*app.run(){
+	var windowElement = angular.element($window);
+	windowElement.on('onbeforeunload', function (event) {
+		alert('idemo');
+		event.preventDefault();
+	});
+};*/
 
 app.config(function($routeProvider) {
     $routeProvider
     .when("/", {
-        templateUrl : "views/login.html"
+        templateUrl : "views/login.html",
+        controller: 'LoginController'
     })
     .when("/home", {
         templateUrl : "views/home.html"
@@ -834,7 +859,8 @@ app.config(function($routeProvider) {
         templateUrl : "views/managerHome.html"
     })
     .when("/restaurantManager", {
-        templateUrl : "views/restaurantManager.html"
+        templateUrl : "views/restaurantManager.html",
+        controller: 'RestaurantController'
     })
     .when("/addEmployed", {
         templateUrl : "views/addEmployed.html"
@@ -843,5 +869,6 @@ app.config(function($routeProvider) {
         templateUrl : "views/drinkCard.html"
     });
     
+   // $route.reload();
    
 });

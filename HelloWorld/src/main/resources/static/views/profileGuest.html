@@ -34,7 +34,13 @@
 	
 	
 	 <md-list>
- 		<md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky"> Guests </md-subheader>
+ 		<md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky"> Guests 
+ 		<md-icon ng-init md-svg-src="images/az.svg" ng-click="sortByNameAtoZ()" aria-label="Sort by name" class="md-secondary md-hue-3" >
+ 		</md-icon>
+ 		<md-icon ng-init md-svg-src="images/za.svg" ng-click="sortByNameZtoA()" aria-label="Sort by name" class="md-secondary md-hue-3" >
+ 		</md-icon>
+ 		
+ 		</md-subheader>
   		<md-list-item ng-repeat="guest in guests" ng-click="goToRestaurant(restaurant, $event)" class="noright">
     	<img alt="{{ guest.ime }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
     	<p style="color:white"> {{ guest.ime }} {{guest.prezime}}</p>

@@ -10,4 +10,6 @@ public interface KorisnikRepository extends JpaRepository<Korisnik, String> {
 
 	public Collection<Korisnik> findByTip(String type);
 	public Collection<Korisnik> findByImeAndPrezime(String name, String surname);
+	public Collection<Korisnik> findByTipOrderByImeAsc(String type);
+	public Collection<Korisnik> findByTipOrderByImeDesc(String type);
 }
