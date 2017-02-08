@@ -26,13 +26,17 @@
  		
  			<md-icon ng-init md-svg-src="images/add.svg" ng-click="addDrink(category)" aria-label="Add Drink" class="md-secondary md-hue-3" >
  			</md-icon>
+ 		
  		</md-subheader>
  		
  		
  		<md-list-item ng-repeat="drink in category.drinks" ng-click="goToRestaurant(restaurant, $event)" class="noright">
     		<img alt="{{ drink.drinkName }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
     		<p style="color:white"> {{drink.drinkName}}</p>
+    		
+    		<md-icon ng-init md-svg-src="images/edit.svg" ng-click="editDrink($event, category, drink)" aria-label="Edit Drink" class="md-secondary md-hue-3" ></md-icon>
   			<md-icon md-svg-src="images/garbage.svg" ng-click="doSecondaryAction($event)" aria-label="Send Email" class="md-secondary md-hue-3" ></md-icon>
+  			
   		</md-list-item>
  		
  	</md-list>

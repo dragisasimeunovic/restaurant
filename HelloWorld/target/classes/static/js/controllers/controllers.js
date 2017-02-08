@@ -1,4 +1,4 @@
-		var app = angular.module('Milica',['ngRoute','ngMaterial','ngAnimate', 'ngAria']);
+var app = angular.module('Milica',['ngRoute','ngMaterial','ngAnimate', 'ngAria']);
 app.controller('registrationController', ['$scope','$location', 'registrationService', function($scope,$location,registrationService){
 	$scope.register = function(){
 		var ime = $scope.name;
@@ -15,18 +15,24 @@ app.controller('registrationController', ['$scope','$location', 'registrationSer
 	}
 
 }]);
-app.controller('registrationManagerController', ['$scope','$location', 'registrationManagerService', function($scope,$location,registrationManagerService){
+app.controller('registrationManagerController', ['$scope','$location', 'registrationManagerService', 'restaurantsService', function($scope,$location,registrationManagerService,restaurantsService){
 	$scope.registerManager = function(){
-		alert("Regg")
+		//alert("Regg")
 		var ime = $scope.name;
 		var prezime = $scope.surname;
 		var email = $scope.email;
 		var lozinka = $scope.password1;
-		registrationManagerService.registerManager(ime, prezime, email, lozinka).then(function(response){
+		var restoran = $scope.pickedRestaurant.id;
+		registrationManagerService.registerManager(ime, prezime, email, lozinka, restoran).then(function(response){
 			$location.path("/");
 		});
 		
 	}
+	
+	restaurantsService.getAllRestaurants().then(function(response){
+		$scope.restaurants = response.data;
+	});
+	
 	var proba1 = [];
 	var proba2 = {};
 	
@@ -114,11 +120,11 @@ app.controller('registrationRestaurantController', ['$scope','$location', 'regis
 
 
 
-app.controller('LoginController',['$scope', 'loginService','$location', function($scope, loginService, $location){
+app.controller('LoginController',['$scope', 'loginService','$location', 'restaurantsService', function($scope, loginService, $location, restaurantsService){
 	$scope.login = function(){
 		
-		/*$scope.emailLogin = "men1@g.com";
-		$scope.passwordLogin = "m";*/
+		$scope.emailLogin = "dragi@g.com";
+		$scope.passwordLogin = "dragi";
 		
 		
 		
@@ -134,7 +140,12 @@ app.controller('LoginController',['$scope', 'loginService','$location', function
 					if(response.data.tip == "admin"){
 						$location.path("/admin");
 					}else if(response.data.tip =="menadzer"){
-						$location.path("/managerHome");						
+						restaurantsService.getRestaurantById(loginService.user.restoran).then(function(response){
+							
+							restaurantsService.activeRestaurant = response.data;
+							$location.path("/restaurantManager");
+						});
+												
 					}
 					else{
 						$location.path("/home");
@@ -156,7 +167,6 @@ app.controller('LoginController',['$scope', 'loginService','$location', function
 	}
 		
 }]);
-
 
 app.controller('profileController',['$scope', 'loginService','registrationService','$mdDialog', function($scope, loginService,registrationService, $mdDialog){
 	
@@ -405,7 +415,8 @@ app.controller('managerController', ['$scope','managerService','$location', func
 	
 }]);
 
-app.controller('RestaurantController', ['$scope','restaurantsService','$location', function($scope, restaurantsService,$location) {
+app.controller('RestaurantController', ['$scope','restaurantsService','$location','$mdDialog','registrationRestaurantService', function($scope, restaurantsService,$location,$mdDialog, registrationRestaurantService) {
+	
 	
 	$scope.ime = restaurantsService.activeRestaurant.ime;
 	$scope.tip = restaurantsService.activeRestaurant.tip;
@@ -424,17 +435,64 @@ app.controller('RestaurantController', ['$scope','restaurantsService','$location
 		$location.path("/addEmployed");
 	}
 	
+	 $scope.showDialog = function(ev) {
+		    $mdDialog.show({
+		      controller: RestaurantDialogController,
+		      templateUrl: '/views/dialogs/restaurantUpdateDialog.html',
+		      parent: angular.element(document.body),
+		      targetEvent: ev,
+		      scope: $scope,//?
+		      preserveScope: true,
+		      clickOutsideToClose:true,
+		      fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+		    })
+		    .then(function(answer) {
+		      $scope.status = 'You said the information was "' + answer + '".';
+		    }, function() {
+		      $scope.status = 'You cancelled the dialog.';
+		    });
+		  };
+		  
+		  function RestaurantDialogController($scope,restaurantsService,registrationRestaurantService, $mdDialog) {
+			  
+			  $scope.nameDialog = restaurantsService.activeRestaurant.ime;
+			  $scope.typeDialog = restaurantsService.activeRestaurant.tip;
+	 
+			  $scope.apply = function(){
+				  var newName = $scope.nameDialog;
+				  var newType = $scope.typeDialog;
+				  var id = restaurantsService.activeRestaurant.id;
+				  var ocena = restaurantsService.activeRestaurant.ocena;
+				  
+				  registrationRestaurantService.registerRestaurant(newName,newType,id, ocena).then(function(response){
+					  $mdDialog.hide();
+					  restaurantsService.activeRestaurant.ime = newName;
+					  restaurantsService.activeRestaurant.tip = newType;
+					  $scope.ime = restaurantsService.activeRestaurant.ime;
+					  $scope.tip =  restaurantsService.activeRestaurant.tip;
+					  
+				  });
+				  
+			  }
+			  
+			  $scope.close = function() {
+			      $mdDialog.cancel();
+			    };
+
+			  }
+		  
+	
 }]);
 
-app.controller('managerRestaurantsController',['$scope','restaurantsService', 'managerService','$location','$mdDialog','menuService','menuCategoryService', function($scope,restaurantsService, managerService,$location, $mdDialog, menuService,menuCategoryService){
+app.controller('managerRestaurantsController',['$scope','restaurantsService', 'managerService','$location','$mdDialog','menuService','menuCategoryService','loginService', function($scope,restaurantsService, managerService,$location, $mdDialog, menuService,menuCategoryService,loginService){
 	
 	
     $scope.isOpen = false;
 	
 	$scope.restaurantAboutDiv = false;
-	restaurantsService.getAllRestaurants().then(function(response){
-		managerService.restaurants = response.data;
-		$scope.restaurants = managerService.restaurants;
+	restaurantsService.getRestaurantById(loginService.user.restoran).then(function(response){
+					
+		restaurantsService.activeRestaurant = response.data;
 	});
 	
 	$scope.goToRestaurant = function(restaurant, ev){
@@ -457,24 +515,26 @@ app.controller('guestController', ['$scope','managerService','$location', functi
 	
 }]);
 
-app.controller('menuController',['$scope','restaurantsService', 'managerService','$location','$mdDialog','menuService','menuCategoryService', 'mealService', function($scope,restaurantsService, managerService,$location, $mdDialog, menuService,menuCategoryService, mealService){
+app.controller('menuController',['$scope','restaurantsService', 'managerService','$location','$mdDialog','menuService','menuCategoryService', 'mealService','$route', function($scope,restaurantsService, managerService,$location, $mdDialog, menuService,menuCategoryService, mealService, $route){
 
 	menuCategoryService.getAllMenuCategories(restaurantsService.activeRestaurant.id).then(function(response){
 		$scope.categories = response.data;
 	});
 	
 	$scope.refresh = function() {
+		
+		$route.reload();
 	
-		$scope.meals = [];
+		/*$scope.meals = [];
 		
 		menuCategoryService.getAllMenuCategories(restaurantsService.activeRestaurant.id).then(function(response){
 			$scope.categories = response.data;
 			//TODO: Ovo sve radi, ovo dole je problem
-			/*alert('Dodjem do poziva f-je');
+			alert('Dodjem do poziva f-je');
 			mealService.getAllCategoryMeals($scope.categories[0].id).then(function(response){
 				$scope.meals = response.data;
 			
-			});*/
+			});
 			
 			for(var i = 0; i < $scope.categories.length; i++) {
 				mealService.getAllCategoryMeals($scope.categories[i].id).then(function(response){
@@ -491,7 +551,7 @@ app.controller('menuController',['$scope','restaurantsService', 'managerService'
 				}
 			}
 			
-		});
+		});*/
 	};
 	
 	$scope.getMeals = function(categoryId) {
@@ -617,7 +677,7 @@ app.controller('drinkCardController',['$scope','$mdDialog','drinkCategoryService
 		 };
 		 
 		 function AddDrinkCategoryController($scope, $mdDialog) {
-			
+
 			
 				 $scope.addDrinkCategory = function(){
 					 var categoryName = $scope.categoryName;
@@ -637,6 +697,59 @@ app.controller('drinkCardController',['$scope','$mdDialog','drinkCategoryService
 	var drinkCategoryId = {};
 		 
 	//dijalog za dodavanje pica u kategoriju
+	
+	$scope.editDrink = function(ev, category, drink) {
+		
+		drinkService.activeDrinkCategory = category;
+		drinkService.drink = drink;
+		
+	    $mdDialog.show({
+		      controller: EditDrinkController,
+		      templateUrl: '/views/dialogs/editDrinkDialog.html',
+		      parent: angular.element(document.body),
+		      targetEvent: ev,
+		    /*  scope: $scope,//?
+		      preserveScope: true,*/
+		      clickOutsideToClose:true,
+		      fullscreen: false // Only for -xs, -sm breakpoints.
+		    })
+		    .then(function(answer) {
+		      
+		    }, function() {
+		     
+		    });
+		 };
+		 
+		 function EditDrinkController($scope, $mdDialog, drinkService, drinkCategoryService) {
+				
+			 $scope.drinkName = drinkService.drink.drinkName;
+			 $scope.drinkDescription = drinkService.drink.drinkDescription;
+			 $scope.drinkPrice = drinkService.drink.price;
+			 $scope.editDrink= function(){
+				 var drinkName = $scope.drinkName;
+				 var drinkDescription = $scope.drinkDescription;
+				 var drinkPrice = $scope.drinkPrice;
+				 var drinkCategoryId = drinkService.activeDrinkCategory.id;
+				 var drinkID = drinkService.drink.id;
+				 var drinkCategory = drinkService.activeDrinkCategory;
+				 
+				 drinkService.updateDrink(drinkID, drinkName, drinkPrice, drinkDescription, drinkCategoryId, drinkCategory).then(function(response){
+				
+					 $mdDialog.hide();
+					 //refreshovanje kategorija i pica samim tim
+					 drinkCategoryService.getAllDrinkCategories(restaurantsService.activeRestaurant.id).then(function(response){
+						$scope.categories = response.data;	
+					});
+					 
+				 });
+			 }
+			 
+			 $scope.closeDialog = function() {
+				 $mdDialog.cancel();
+			 }
+			 
+	 }
+		 
 	
 	$scope.addDrink = function(category) {
 			    $mdDialog.show({

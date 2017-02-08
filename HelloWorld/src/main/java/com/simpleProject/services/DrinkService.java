@@ -23,6 +23,10 @@ public class DrinkService {
 	public Drink add(Drink drink){
 		return drinkRepository.save(drink);
 	}
+	
+	public Drink update(Drink drink){
+		return drinkRepository.save(drink);
+	}
 
 
 }

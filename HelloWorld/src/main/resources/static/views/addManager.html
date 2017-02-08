@@ -30,6 +30,10 @@ BSA Restraurants
           <input type="password" md-maxlength="30" required name="password2" ng-model="password2" />
 </md-input-container>
 
+<md-select placeholder="Select restaurant" ng-model="pickedRestaurant" md-on-open="loadRestaurants()" style="min-width: 200px;">
+      <md-option ng-value="pickedRestaurant" ng-repeat="pickedRestaurant in restaurants">{{pickedRestaurant.ime}}</md-option>
+    </md-select>
+
 
 </div>
 </form>

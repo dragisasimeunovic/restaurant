@@ -35,6 +35,15 @@ angular.module('Milica').factory('restaurantsService' , function restaurantsServ
 		});
 	}
 	
+	restaurantsService.getRestaurantById = function(restaurantId){
+		return $http({
+			method: 'GET',
+			url: 'api/restorani/' + restaurantId
+		});
+	}
+	
+	
+	
 	var activeRestaurant = {};
 	
 	return restaurantsService;
@@ -58,7 +67,7 @@ angular.module('Milica').factory('korisnikService', function korisnikService($ht
 angular.module('Milica').factory('registrationManagerService' , function registrationManagerService($http){
 	
 	
-	registrationManagerService.registerManager = function(name,surname, email,password){
+	registrationManagerService.registerManager = function(name,surname, email,password, restaurant){
 		return $http({
 			method: 'POST',
 			url: 'api/korisnici/korisnik',
@@ -69,7 +78,7 @@ angular.module('Milica').factory('registrationManagerService' , function registr
 				"prezime" : surname,
 				"lozinka" : password,
 				"tip" : "menadzer",
-				"restoran" : null,
+				"restoran" : restaurant,
 				"dateOfBirth":null,
 				"dressSize":null,
 				"footwearSize":null
@@ -132,15 +141,15 @@ angular.module('Milica').factory('registrationEmployedService' , function regist
 angular.module('Milica').factory('registrationRestaurantService' , function registrationRestaurantService($http){
 	
 	
-	registrationRestaurantService.registerRestaurant = function(name,type){
+	registrationRestaurantService.registerRestaurant = function(name,type,id, ocena){
 		return $http({
 			method: 'POST',
 			url: 'api/restorani/restoran',
 			data: {
-				"id" : null,
+				"id" : id,
 				"ime" : name,
 				"tip" : type,
-				"ocena" : null
+				"ocena" : ocena
 			}
 			
 		});
@@ -198,7 +207,7 @@ angular.module('Milica').factory('menuService' , function menuService($http){
 	menuService.getMenuByRestaurantId = function(idRestaurant){
 		return $http({
 			method: 'GET',
-			url: 'api/menu/'+idRestaurant,			
+			url: 'api/menu/'+idRestaurant		
 		});	
 	}
 	
@@ -330,6 +339,8 @@ angular.module('Milica').factory('drinkCategoryService', function drinkCategoryS
 
 angular.module('Milica').factory('drinkService' , function drinkService($http){
 	
+	drinkService.activeDrinkCategory = {};
+	drinkService.drink = {};
 	
 	drinkService.addDrink = function(idDrinkCategory, drinkName, drinkDescription, drinkPrice, drinkCategory){
 		return $http({
@@ -345,8 +356,25 @@ angular.module('Milica').factory('drinkService' , function drinkService($http){
 			}
 			
 		});
-		
 	}	
+	
+	drinkService.updateDrink = function(drinkID, drinkName, drinkPrice, drinkDescription, drinkCategoryId, drinkCategory){
+		return $http({
+			method: 'POST',
+			url: 'api/drinkCard/updateDrink',
+			data: {
+				"id" : drinkID,
+				"idDrinkCategory" : drinkCategoryId,
+				"drinkName" : drinkName,
+				"drinkDescription" : drinkDescription,
+				"price" : drinkPrice,
+				"dCategory" : drinkCategory
+			}
+			
+		});
+	}	
+	
+	
 	drinkService.drinkCategoryId = {};
 	drinkService.drinkCategory = {};
 	

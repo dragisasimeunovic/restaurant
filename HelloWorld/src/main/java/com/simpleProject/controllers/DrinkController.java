@@ -36,6 +36,18 @@ public class DrinkController {
         return new ResponseEntity<Drink>(addingDrink, HttpStatus.OK);
     }
 	
+	@RequestMapping(
+            value    = "/api/drinkCard/updateDrink",
+            method   = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Drink> updateDrink(@RequestBody Drink drink) {
+		DrinkCategory drinkCategory = drinkCategoryService.findOne(drink.getIdDrinkCategory());
+		drink.setdCategory(drinkCategory);
+		Drink addingDrink = drinkService.update(drink);
+        return new ResponseEntity<Drink>(addingDrink, HttpStatus.OK);
+    }
+	
 	
 
 }
