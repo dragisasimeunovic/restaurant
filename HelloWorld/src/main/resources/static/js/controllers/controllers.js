@@ -430,7 +430,13 @@ app.controller('managerController', ['$scope','managerService','$location', func
 
 app.controller('RestaurantController', ['$scope','restaurantsService','$location','$mdDialog','registrationRestaurantService','$route','$window', function($scope, restaurantsService,$location,$mdDialog, registrationRestaurantService, $route,$window) {
 		
-	
+	var canvas = new fabric.Canvas('canvas');
+    canvas.add(new fabric.Circle({ radius: 30, fill: '#f55', top: 100, left: 100 }));
+    canvas.add(new fabric.Circle({ radius: 30, fill: '#f55', top: 200, left: 100 }));
+
+    canvas.selectionColor = 'rgba(0,255,0,0.3)';
+    canvas.selectionBorderColor = 'red';
+    canvas.selectionLineWidth = 5;
 	
 	$scope.ime = restaurantsService.activeRestaurant.ime;
 	$scope.tip = restaurantsService.activeRestaurant.tip;
