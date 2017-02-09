@@ -428,7 +428,7 @@ app.controller('managerController', ['$scope','managerService','$location', func
 	
 }]);
 
-app.controller('RestaurantController', ['$scope','restaurantsService','$location','$mdDialog','registrationRestaurantService','$route','$window', function($scope, restaurantsService,$location,$mdDialog, registrationRestaurantService, $route,$window) {
+app.controller('RestaurantController', ['$scope','restaurantsService','$location','$mdDialog','registrationRestaurantService','$route','$window','tableService', function($scope, restaurantsService,$location,$mdDialog, registrationRestaurantService, $route, $window, tableService) {
 		
 	var counter = 1;
 	var canvas = new fabric.Canvas('canvas');
@@ -541,9 +541,42 @@ app.controller('RestaurantController', ['$scope','restaurantsService','$location
     });
 	
 	
-	$('#coord').click(function(){
-		console.log(canvas.getActiveObject().get('left'));
-    	});
+	$('#saveConfig').click(function(){
+		var number = {};
+		var positionLeft = {};
+		var positionTop = {};
+		var reon = {};
+		for (var i = 0; i < canvas.getObjects().length; i++){
+			if(canvas.getObjects()[i].get('left') != 150) {
+				
+				positionLeft = canvas.getObjects()[i].get('left');
+				positionTop = canvas.getObjects()[i].get('top');
+				number = canvas.getObjects()[i].item(1).get('text');
+				
+				if (canvas.getObjects()[i].item(0).get('fill') == 'red'){
+					reon = 'inside';
+				}
+				else if (canvas.getObjects()[i].item(0).get('fill') == 'purple'){
+					reon = 'nonsmoking';
+				}
+				else if (canvas.getObjects()[i].item(0).get('fill') == 'yellow') {
+					reon = 'gardenclosed';
+				}
+				else if (canvas.getObjects()[i].item(0).get('fill') == 'green') {
+					reon = 'gardenopened';
+				}
+				
+				tableService.addTable(number, restaurantsService.activeRestaurant.id, reon, restaurantsService.activeRestaurant, positionLeft, positionTop).then(function(response){	
+					
+				});
+				
+			}
+		}
+		
+		
+		
+		
+    });
 	
 	/*$scope.addTable = function(){
     	var table = new fabric.Circle({ radius: 30, fill: '#f55', top: 200, left: 150})

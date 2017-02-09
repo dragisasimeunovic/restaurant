@@ -1,13 +1,17 @@
 package com.simpleProject.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name="restorani")
@@ -31,6 +35,9 @@ public class Restaurant implements Serializable {
 	
 	@Column(name="ocena")
 	private Integer ocena;
+	
+	@OneToMany(mappedBy = "restaurant" , fetch = FetchType.EAGER)
+	private Collection<Tablee> tables;
 
 	public Restaurant() {
 		
@@ -66,6 +73,14 @@ public class Restaurant implements Serializable {
 
 	public void setOcena(Integer ocena) {
 		this.ocena = ocena;
+	}
+
+	public Collection<Tablee> getTables() {
+		return tables;
+	}
+
+	public void setTables(Collection<Tablee> tables) {
+		this.tables = tables;
 	}
 
 	

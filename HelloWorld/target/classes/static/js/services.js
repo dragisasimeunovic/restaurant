@@ -421,3 +421,27 @@ angular.module('Milica').factory('guestService' , function guestService($http){
 	
 });
 
+
+angular.module('Milica').factory('tableService' , function tableService($http){
+	
+	
+	tableService.addTable = function(number, idRestaurant, reon, restaurant, positionLeft, positionTop){
+		return $http({
+			method: 'POST',
+			url: 'api/restaurant/addTable',
+			data: {
+				"id" : null,
+				"number" : number,
+				"idRestaurant" : idRestaurant,
+				"reon" : reon,
+				"restaurant" : restaurant,
+				"positionLeft" : positionLeft,
+				"positionTop" : positionTop
+			}
+			
+		});
+	}
+	
+	return tableService;
+});
+

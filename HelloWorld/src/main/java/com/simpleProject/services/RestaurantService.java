@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.simpleProject.model.DrinkCategory;
 import com.simpleProject.model.Menu;
 import com.simpleProject.model.Restaurant;
 import com.simpleProject.repository.RestaurantRepository;
@@ -27,6 +28,7 @@ public class RestaurantService {
 	public Restaurant getRestaurantById(Integer restaurantId){
 		return restaurantRepository.findOne(restaurantId);
 	}
+	
 	
 	
 }
