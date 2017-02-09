@@ -8,7 +8,41 @@
         		</h2>
         		<span flex></span>
         		
-        		<md-button class="md-primary" ng-click = "addTable()">
+        		
+        <md-menu-bar>
+            
+            <md-menu>
+                <!-- Trigger element is a md-button with an icon -->
+                <button ng-click="$mdOpenMenu()" aria-label="Open sample menu">
+              		Add table
+                </button>
+                <md-menu-content width="6" id="messages">
+                    <md-menu-item md-menu-origin md-menu-align-target ><md-button id="addInsideTable">
+                       Inside
+                    </md-button></md-menu-item>
+
+                    <md-menu-item><md-button id="addNonSmokingTable">
+                        Non smoking area
+                    </md-button></md-menu-item>
+
+                    <md-menu-item><md-button id="addGardenClosed">
+                       Garden(closed)
+                    </md-button></md-menu-item>
+
+                    <md-menu-item><md-button id="addGardenOpened">
+                       Garden(open)
+                    </md-button></md-menu-item>
+
+                </md-menu-content>
+            </md-menu>
+      </md-menu-bar>
+        		
+        		
+        		<md-button class="md-primary" id ="coord">
+          			Coors 
+        		</md-button>
+        		
+        		<md-button class="md-primary" id ="add">
           			Add table 
         		</md-button>
         
@@ -28,7 +62,6 @@
 	</div>
 	</div>
 
-   
    <div layout="row">
 		<div flex="20" style="background-color:rgb(0,0,0); opacity:0.6">
    			<br>

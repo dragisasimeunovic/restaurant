@@ -123,8 +123,8 @@ app.controller('registrationRestaurantController', ['$scope','$location', 'regis
 app.controller('LoginController',['$scope', 'loginService','$location', 'restaurantsService', function($scope, loginService, $location, restaurantsService){
 	$scope.login = function(){
 		
-		/*$scope.emailLogin = "dragi@g.com";
-		$scope.passwordLogin = "dragi";*/
+		$scope.emailLogin = "dragi@g.com";
+		$scope.passwordLogin = "dragi";
 		
 		
 		
@@ -430,13 +430,134 @@ app.controller('managerController', ['$scope','managerService','$location', func
 
 app.controller('RestaurantController', ['$scope','restaurantsService','$location','$mdDialog','registrationRestaurantService','$route','$window', function($scope, restaurantsService,$location,$mdDialog, registrationRestaurantService, $route,$window) {
 		
+	var counter = 1;
 	var canvas = new fabric.Canvas('canvas');
-    canvas.add(new fabric.Circle({ radius: 30, fill: '#f55', top: 100, left: 100 }));
-    canvas.add(new fabric.Circle({ radius: 30, fill: '#f55', top: 200, left: 100 }));
+	/*window.canvas.add(new fabric.Circle({ radius: 30, fill: '#f55', top: 100, left: 100 }));
+	window.canvas.add(new fabric.Circle({ radius: 30, fill: '#f55', top: 200, left: 100 }));*/
+    
+	//--------------------------------Add inside Tablee---------------------------------
+	
+	
+	$('#addInsideTable').click(function(){
+    	var table = new fabric.Circle({ radius: 30, fill: 'red', originX: 'center', originY: 'center'});
+    	var text = new fabric.Text((counter++)+"",{
+    		fontFamily: 'Calibri',
+    		fontSize: 25,
+    		fill: 'white',
+    		originX: 'center',
+            originY: 'center'
+    	});
+    	
+    	var group = new fabric.Group([table, text],{
+    		top: 200, left: 150
+    	});
+    	
+    	canvas.getObjects();
+    	canvas.add(group);
+    	canvas.selection = true;
+        canvas.renderAll();
+        canvas.calcOffset();
+        
+        
+    	
+    });
+	
+	//--------------------------------Add non smoking area Table---------------------------------
+	
+	$('#addNonSmokingTable').click(function(){
+    	var table = new fabric.Circle({ radius: 30, fill: 'purple', originX: 'center', originY: 'center'});
+    	var text = new fabric.Text((counter++)+"",{
+    		fontFamily: 'Calibri',
+    		fontSize: 25,
+    		fill: 'white',
+    		originX: 'center',
+            originY: 'center'
+    	});
+    	
+    	var group = new fabric.Group([table, text],{
+    		top: 200, left: 150
+    	});
+    	
+    	canvas.getObjects();
+    	canvas.add(group);
+    	canvas.selection = true;
+        canvas.renderAll();
+        canvas.calcOffset();
+        
+        
+    	
+    });
+	
+	//--------------------------------Add Garden Closed Tablee---------------------------------
+	
+	$('#addGardenClosed').click(function(){
+    	var table = new fabric.Circle({ radius: 30, fill: 'yellow', originX: 'center', originY: 'center'});
+    	var text = new fabric.Text((counter++)+"",{
+    		fontFamily: 'Calibri',
+    		fontSize: 25,
+    		fill: 'white',
+    		originX: 'center',
+            originY: 'center'
+    	});
+    	
+    	var group = new fabric.Group([table, text],{
+    		top: 200, left: 150
+    	});
+    	
+    	canvas.getObjects();
+    	canvas.add(group);
+    	canvas.selection = true;
+        canvas.renderAll();
+        canvas.calcOffset();
+        
+        
+    	
+    });
+	
+	//--------------------------------Add Garden Opened Tablee---------------------------------
+	
+	$('#addGardenOpened').click(function(){
+    	var table = new fabric.Circle({ radius: 30, fill: 'green', originX: 'center', originY: 'center'});
+    	var text = new fabric.Text((counter++)+"",{
+    		fontFamily: 'Calibri',
+    		fontSize: 25,
+    		fill: 'white',
+    		originX: 'center',
+            originY: 'center'
+    	});
+    	
+    	var group = new fabric.Group([table, text],{
+    		top: 200, left: 150
+    	});
+    	
+    	canvas.getObjects();
+    	canvas.add(group);
+    	canvas.selection = true;
+        canvas.renderAll();
+        canvas.calcOffset();
+        
+        
+    	
+    });
+	
+	
+	$('#coord').click(function(){
+		console.log(canvas.getActiveObject().get('left'));
+    	});
+	
+	/*$scope.addTable = function(){
+    	var table = new fabric.Circle({ radius: 30, fill: '#f55', top: 200, left: 150})
+    	canvas.getObjects();
+    	canvas.add(table);
+    	canvas.selection = true;
+        canvas.renderAll();
+        canvas.calcOffset();
+    	
+    };*/
 
-    canvas.selectionColor = 'rgba(0,255,0,0.3)';
+	canvas.selectionColor = 'rgba(0,255,0,0.3)';
     canvas.selectionBorderColor = 'red';
-    canvas.selectionLineWidth = 5;
+    canvas.selectionLineWidth = 1;
 	
 	$scope.ime = restaurantsService.activeRestaurant.ime;
 	$scope.tip = restaurantsService.activeRestaurant.tip;
