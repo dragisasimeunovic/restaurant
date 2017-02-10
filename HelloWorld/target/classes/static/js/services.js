@@ -385,6 +385,13 @@ angular.module('Milica').factory('drinkService' , function drinkService($http){
 
 angular.module('Milica').factory('guestService' , function guestService($http){
 	
+	guestService.getAllGuestsExceptActiveUser = function(userEmail){
+		return $http ({
+			method: 'GET',
+			url: 'api/korisnici/allGuestsExceptActiveUser/'+ userEmail
+		});
+	}
+	
 	guestService.getAllGuests = function(){
 		
 		return $http ({
@@ -393,27 +400,27 @@ angular.module('Milica').factory('guestService' , function guestService($http){
 		});
 	}
 	
-	guestService.searchByNameAndSurname = function(name, surname){
+	guestService.searchByNameAndSurname = function(name, surname, email){
 		
 		return $http ({
 			method: 'GET',
-			url: 'api/korisnici/searchByNameAndSurname/'+ name +'/'+surname
+			url: 'api/korisnici/searchByNameAndSurname/'+ name +'/'+surname+'/'+email
 		});
 	}
 	
-	guestService.orderGuestsByNameAtoZ = function(){
+	guestService.orderGuestsByNameAtoZ = function(email){
 		
 		return $http ({
 			method: 'GET',
-			url: 'api/korisnici/orderByNameAtoZ' 
+			url: 'api/korisnici/orderByNameAtoZ/' + email 
 		});
 	}
 	
-	guestService.orderGuestsByNameZtoA = function(){
+	guestService.orderGuestsByNameZtoA = function(email){
 		
 		return $http ({
 			method: 'GET',
-			url: 'api/korisnici/orderByNameZtoA' 
+			url: 'api/korisnici/orderByNameZtoA/' + email
 		});
 	}
 	

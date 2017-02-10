@@ -64,34 +64,44 @@ public class KorisnikController {
     
     
     @RequestMapping(
-    		value = "api/korisnici/orderByName/{name}/{surname}",
+    		value = "api/korisnici/searchByNameAndSurname/{name}/{surname}/{email:.+}",
     		method = RequestMethod.GET,
     		produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Collection<Korisnik>> allGuestsWithNameAndSurname(@PathVariable String name, @PathVariable String surname){
-    	Collection<Korisnik> guests = korisnikService.findAllGuestsWithNameAndSurname(name, surname);
+    public ResponseEntity<Collection<Korisnik>> allGuestsWithNameAndSurname(@PathVariable String name, @PathVariable String surname,  @PathVariable String email){
+    	Collection<Korisnik> guests = korisnikService.findAllGuestsWithNameAndSurnameAndEmailNot(name, surname, email);
     	return new ResponseEntity<Collection<Korisnik>>(guests, HttpStatus.OK);
     }
     
     
     @RequestMapping(
-    		value = "api/korisnici/orderByNameAtoZ",
+    		value = "api/korisnici/orderByNameAtoZ/{email:.+}",
     		method = RequestMethod.GET,
     		produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Collection<Korisnik>> orderByNameAtoZ(){
-    	Collection<Korisnik> guests = korisnikService.getAllGuestsOrderByName();
+    public ResponseEntity<Collection<Korisnik>> orderByNameAtoZ(@PathVariable String email){
+    	Collection<Korisnik> guests = korisnikService.getAllGuestsOrderByName(email);
     	return new ResponseEntity<Collection<Korisnik>>(guests, HttpStatus.OK);
     }
     
     @RequestMapping(
-    		value = "api/korisnici/orderByNameZtoA",
+    		value = "api/korisnici/orderByNameZtoA/{email:.+}",
     		method = RequestMethod.GET,
     		produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Collection<Korisnik>> orderByNameZtoA(){
-    	Collection<Korisnik> guests = korisnikService.getAllGuestsOrderByNameDesc();
+    public ResponseEntity<Collection<Korisnik>> orderByNameZtoA(@PathVariable String email){
+    	Collection<Korisnik> guests = korisnikService.getAllGuestsOrderByNameDesc(email);
     	return new ResponseEntity<Collection<Korisnik>>(guests, HttpStatus.OK);
+    }
+    
+    @RequestMapping(
+    		value = "api/korisnici/allGuestsExceptActiveUser/{email:.+}",
+    		method = RequestMethod.GET,
+    		produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<Korisnik>> allGuestsExceptActiveUser(@PathVariable String email){
+    	Collection<Korisnik> guestsExceptActiveUser = korisnikService.getAllGuestsExceptActiveUser(email);
+    	return new ResponseEntity<Collection<Korisnik>>(guestsExceptActiveUser, HttpStatus.OK);
     }
     
 }

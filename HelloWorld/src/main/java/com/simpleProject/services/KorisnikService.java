@@ -23,16 +23,20 @@ public class KorisnikService {
 		return korisnikRepository.findByTip("gost");
 	}
 	
-	public Collection<Korisnik> findAllGuestsWithNameAndSurname(String name, String surname){
-		return korisnikRepository.findByImeAndPrezime(name, surname);
+	public Collection<Korisnik> getAllGuestsExceptActiveUser(String email){
+		return korisnikRepository.findByTipAndEmailNot("gost", email);
 	}
 	
-	public Collection<Korisnik> getAllGuestsOrderByName(){
-		return korisnikRepository.findByTipOrderByImeAsc("gost");
+	public Collection<Korisnik> findAllGuestsWithNameAndSurnameAndEmailNot(String name, String surname, String email){
+		return korisnikRepository.findByTipAndImeAndPrezimeAndEmailNot("gost", name, surname, email);
 	}
 	
-	public Collection<Korisnik> getAllGuestsOrderByNameDesc(){
-		return korisnikRepository.findByTipOrderByImeDesc("gost");
+	public Collection<Korisnik> getAllGuestsOrderByName(String email){
+		return korisnikRepository.findByTipAndEmailNotOrderByImeAsc("gost", email);
+	}
+	
+	public Collection<Korisnik> getAllGuestsOrderByNameDesc(String email){
+		return korisnikRepository.findByTipAndEmailNotOrderByImeDesc("gost", email);
 	}
 	
 

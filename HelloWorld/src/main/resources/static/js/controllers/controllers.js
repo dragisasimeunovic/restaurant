@@ -123,8 +123,8 @@ app.controller('registrationRestaurantController', ['$scope','$location', 'regis
 app.controller('LoginController',['$scope', 'loginService','$location', 'restaurantsService', function($scope, loginService, $location, restaurantsService){
 	$scope.login = function(){
 		
-		$scope.emailLogin = "dragi@g.com";
-		$scope.passwordLogin = "dragi";
+		/*$scope.emailLogin = "dragi@g.com";
+		$scope.passwordLogin = "dragi";*/
 		
 		
 		
@@ -278,18 +278,18 @@ app.controller('profileController',['$scope', 'loginService','registrationServic
 
 app.controller('profileGuestController',['$scope', 'loginService','registrationService','$mdDialog', 'guestService', function($scope, loginService,registrationService, $mdDialog, guestService){
 	
-	guestService.getAllGuests().then(function(response){
+	guestService.getAllGuestsExceptActiveUser(loginService.user.email).then(function(response){
 		$scope.guests = response.data;
 	});
 	
 	$scope.sortByNameAtoZ = function() {
-		guestService.orderGuestsByNameAtoZ().then(function(response){
+		guestService.orderGuestsByNameAtoZ(loginService.user.email).then(function(response){
 			$scope.guests = response.data;
 		});
 	}
 	
 	$scope.sortByNameZtoA = function() {
-		guestService.orderGuestsByNameZtoA().then(function(response){
+		guestService.orderGuestsByNameZtoA(loginService.user.email).then(function(response){
 			$scope.guests = response.data;
 		});
 	}
@@ -297,7 +297,7 @@ app.controller('profileGuestController',['$scope', 'loginService','registrationS
 	
 	$scope.search = function() {
 		if ($scope.searchName != null && $scope.searchSurname != null) {
-			guestService.searchByNameAndSurname($scope.searchName, $scope.searchSurname).then(function(response){
+			guestService.searchByNameAndSurname($scope.searchName, $scope.searchSurname, loginService.user.email).then(function(response){
 				$scope.guests = response.data;
 			});
 		}
@@ -678,6 +678,32 @@ app.controller('managerRestaurantsController',['$scope','restaurantsService', 'm
 		});
 	}
 	
+}]);
+
+app.controller('guestRestaurantsController',['$scope','restaurantsService', 'managerService','$location','$mdDialog','menuService','menuCategoryService','loginService', function($scope,restaurantsService, managerService,$location, $mdDialog, menuService,menuCategoryService,loginService){
+	
+	
+	  /*  $scope.isOpen = false;
+		
+		$scope.restaurantAboutDiv = false;
+		restaurantsService.getRestaurantById(loginService.user.restoran).then(function(response){
+						
+			restaurantsService.activeRestaurant = response.data;
+		});*/
+		
+		restaurantsService.getAllRestaurants().then(function(response){
+			$scope.restaurants = response.data;
+		});
+		
+		$scope.goToRestaurant = function(restaurant, ev){
+			$location.path("/restaurantManager");
+			restaurantsService.activeRestaurant = restaurant;
+			
+			menuService.getMenuByRestaurantId(restaurant.id).then(function(response){
+				alert(response.data.id);
+			});
+		}
+		
 }]);
 
 

@@ -1,35 +1,16 @@
- <div ng-controller="managerRestaurantsController"> 
+<div ng-controller="guestRestaurantsController"> 
  
- <!-- <div > -->
-<!--  <md-list>
- <md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky">  Restaurants </md-subheader>
-  <md-list-item ng-repeat="restaurant in restaurants" ng-click="goToRestaurant(restaurant, $event)" class="noright">
-    <img alt="{{ restaurant.ime }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
-    <p style="color:white"> {{ restaurant.ime }}</p>
-    
-  <md-icon md-svg-src="images/garbage.svg" ng-click="doSecondaryAction($event)" aria-label="Send Email" class="md-secondary md-hue-3" ></md-icon>
+ 	<div>
+ 		<md-list>
+ 		<md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky">  Restaurants </md-subheader>
+  			<md-list-item ng-repeat="restaurant in restaurants" ng-click="goToRestaurant(restaurant, $event)" class="noright">
+    		<img alt="{{ restaurant.ime }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
+    		<p style="color:white"> {{ restaurant.ime }}</p>
+    		<p style="color:white"> ({{ restaurant.tip }})</p>
+  			<md-icon md-svg-src="images/garbage.svg" ng-click="doSecondaryAction($event)" aria-label="Send Email" class="md-secondary md-hue-3" ></md-icon>
   
-  </md-list-item>
-</md-list> -->
-<!-- </div> -->
-
-<!-- <div ng-show="restaurantAboutDiv">
-
-Ovo je restoran <br> 
-Ime: {{ime}} <br>
-Tip: {{tip}}
-
-<br>
-<md-button class="md-raised md-primary" ng-click="">Edit Restaurant</md-button>
-
-
-
-
-
-</div> -->
-
-
-
-</div>
+  			</md-list-item>
+		</md-list>
+	</div>
 
 </div>
