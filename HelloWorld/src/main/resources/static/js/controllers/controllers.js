@@ -1,4 +1,4 @@
-var app = angular.module('Milica',['ngRoute','ngMaterial','ngAnimate', 'ngAria']);
+var app = angular.module('Milica',['ngRoute','ngMaterial','ngAnimate', 'ngAria','mwl.calendar']);
 app.controller('registrationController', ['$scope','$location', 'registrationService', function($scope,$location,registrationService){
 	$scope.register = function(){
 		var ime = $scope.name;
@@ -123,8 +123,8 @@ app.controller('registrationRestaurantController', ['$scope','$location', 'regis
 app.controller('LoginController',['$scope', 'loginService','$location', 'restaurantsService', function($scope, loginService, $location, restaurantsService){
 	$scope.login = function(){
 		
-		/*$scope.emailLogin = "dragi@g.com";
-		$scope.passwordLogin = "dragi";*/
+		$scope.emailLogin = "dragi@g.com";
+		$scope.passwordLogin = "dragi";
 		
 		
 		
