@@ -123,8 +123,8 @@ app.controller('registrationRestaurantController', ['$scope','$location', 'regis
 app.controller('LoginController',['$scope', 'loginService','$location', 'restaurantsService', function($scope, loginService, $location, restaurantsService){
 	$scope.login = function(){
 		
-		$scope.emailLogin = "dragi@g.com";
-		$scope.passwordLogin = "dragi";
+		/*$scope.emailLogin = "dragi@g.com";
+		$scope.passwordLogin = "dragi";*/
 		
 		
 		
@@ -276,7 +276,8 @@ app.controller('profileController',['$scope', 'loginService','registrationServic
 }]);
 
 
-app.controller('profileGuestController',['$scope', 'loginService','registrationService','$mdDialog', 'guestService', function($scope, loginService,registrationService, $mdDialog, guestService){
+app.controller('profileGuestController',['$scope', 'loginService','registrationService','$mdDialog', 'guestService', 'friendRequestService',function($scope, loginService,registrationService, $mdDialog, guestService, friendRequestService){
+	
 	
 	guestService.getAllGuestsExceptActiveUser(loginService.user.email).then(function(response){
 		$scope.guests = response.data;
@@ -293,6 +294,16 @@ app.controller('profileGuestController',['$scope', 'loginService','registrationS
 			$scope.guests = response.data;
 		});
 	}
+	
+	$scope.sendFriendRequest = function(userRecieverEmail){
+		friendRequestService.sendRequest(loginService.user, userRecieverEmail).then(function(response){
+			
+		});
+	}
+	
+	friendRequestService.getAllRequests(loginService.user.email).then(function(response){
+		$scope.requests = response.data;
+	});
 	
 	
 	$scope.search = function() {

@@ -3,6 +3,7 @@ package com.simpleProject.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 
 
 @Entity
@@ -36,6 +37,10 @@ public class Korisnik implements Serializable {
     
     @Column(name="restoran")
     private Integer restoran;
+    
+    @OneToMany(mappedBy = "userSender", fetch = FetchType.EAGER)
+	private Collection<FriendRequest> friendRequests;
+    
     public Korisnik() {
 		
 	}

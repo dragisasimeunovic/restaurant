@@ -452,3 +452,30 @@ angular.module('Milica').factory('tableService' , function tableService($http){
 	return tableService;
 });
 
+angular.module('Milica').factory('friendRequestService' , function friendRequestService($http){
+	
+	
+	friendRequestService.sendRequest = function(userSender, userRecieverEmail){
+		return $http({
+			method: 'POST',
+			url: 'api/friendRequests/sendRequest',
+			data: {
+				"id" : null,
+				"userSender" : userSender,
+				"userRecieverEmail" : userRecieverEmail
+			}
+			
+		});
+	}
+	
+	friendRequestService.getAllRequests = function(email){
+		
+		return $http ({
+			method: 'GET',
+			url: 'api/friendRequests/getRequests/' + email
+		});
+	}
+	
+	return friendRequestService;
+});
+

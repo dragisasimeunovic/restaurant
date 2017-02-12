@@ -45,10 +45,29 @@
     	<img alt="{{ guest.ime }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
     	<p style="color:white"> {{ guest.ime }} {{guest.prezime}}</p>
     
+      	<md-icon md-svg-src="images/plus-one.svg" ng-click="sendFriendRequest(guest.email)" aria-label="Send Email" class="md-secondary md-hue-3" ></md-icon>
   		<md-icon md-svg-src="images/garbage.svg" ng-click="doSecondaryAction($event)" aria-label="Send Email" class="md-secondary md-hue-3" ></md-icon>
   
-  	</md-list-item>
-</md-list>
+  		</md-list-item>
+	</md-list>
+	
+	<md-menu-bar>
+            
+            <md-menu>
+                <!-- Trigger element is a md-button with an icon -->
+                <button ng-click="$mdOpenMenu()" aria-label="Open sample menu" style="color: white;">
+              		Friend Requests<span class="badge">{{requests.length}}</span>
+                </button>
+                <md-menu-content width="6" id="messages">               	
+                	              
+                    <md-menu-item ng-repeat="request in requests" ><md-button>
+                       {{request.userSender.ime }} {{request.userSender.prezime}} 
+                    </md-button> <md-button class="md-primary" ng-click="acceptFriendRequest(request.userSender)"> Accept </md-button> </md-menu-item>
+       
+
+                </md-menu-content>
+            </md-menu>
+      </md-menu-bar>
   
   </div>
   
