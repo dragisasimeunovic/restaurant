@@ -1,5 +1,7 @@
 package com.simpleProject.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,9 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "friendRequest")
-public class FriendRequest {
+public class FriendRequest implements Serializable{
 
 	
 	private static final long serialVersionUID = 1L;
@@ -23,6 +27,10 @@ public class FriendRequest {
 	@ManyToOne
     private Korisnik userSender;
 	
+	@Column(name = "userSenderEmaill")
+	private String userSenderEmaill;
+	
+
 	@Column(name = "userRecieverEmail")
 	private String userRecieverEmail;
 	
@@ -43,6 +51,7 @@ public class FriendRequest {
 		return userSender;
 	}
 
+	
 	public void setUserSender(Korisnik userSender) {
 		this.userSender = userSender;
 	}
@@ -53,6 +62,15 @@ public class FriendRequest {
 
 	public void setUserRecieverEmail(String userRecieverEmail) {
 		this.userRecieverEmail = userRecieverEmail;
+	}
+	
+	public String getUserSenderEmaill() {
+		return userSenderEmaill;
+	}
+
+
+	public void setUserSenderEmaill(String userSenderEmaill) {
+		this.userSenderEmaill = userSenderEmaill;
 	}
 	
 	

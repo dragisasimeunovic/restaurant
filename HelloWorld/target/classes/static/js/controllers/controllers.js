@@ -276,7 +276,7 @@ app.controller('profileController',['$scope', 'loginService','registrationServic
 }]);
 
 
-app.controller('profileGuestController',['$scope', 'loginService','registrationService','$mdDialog', 'guestService', 'friendRequestService',function($scope, loginService,registrationService, $mdDialog, guestService, friendRequestService){
+app.controller('profileGuestController',['$scope', 'loginService','registrationService','$mdDialog', 'guestService', 'friendRequestService', 'friendsService', function($scope, loginService,registrationService, $mdDialog, guestService, friendRequestService, friendsService){
 	
 	
 	guestService.getAllGuestsExceptActiveUser(loginService.user.email).then(function(response){
@@ -304,6 +304,12 @@ app.controller('profileGuestController',['$scope', 'loginService','registrationS
 	friendRequestService.getAllRequests(loginService.user.email).then(function(response){
 		$scope.requests = response.data;
 	});
+	
+	$scope.acceptFriendRequest = function(userSender){
+		friendsService.sendFS(loginService.user.email, userSender).then(function(response){
+			alert('Prihvacen zahtev!');
+		});
+	}
 	
 	
 	$scope.search = function() {

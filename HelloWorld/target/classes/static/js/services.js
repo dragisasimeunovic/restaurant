@@ -462,6 +462,7 @@ angular.module('Milica').factory('friendRequestService' , function friendRequest
 			data: {
 				"id" : null,
 				"userSender" : userSender,
+				"userSenderEmaill" : userSender.email,
 				"userRecieverEmail" : userRecieverEmail
 			}
 			
@@ -477,5 +478,32 @@ angular.module('Milica').factory('friendRequestService' , function friendRequest
 	}
 	
 	return friendRequestService;
+});
+
+angular.module('Milica').factory('friendsService' , function friendsService($http){
+	
+	
+	friendsService.sendFS = function(firstUserEmail, secondUserFS){
+		return $http({
+			method: 'POST',
+			url: '/api/friendship/addFriendship',
+			data: {
+				"id" : null,
+				"firstUserEmail" : firstUserEmail,
+				"secondUserFS" : secondUserFS
+			}
+			
+		});
+	}
+	
+	friendsService.getAllFriends = function(email){
+		
+		return $http ({
+			method: 'GET',
+			url: 'api/friendship/getAllFriends/' + email
+		});
+	}
+	
+	return friendsService;
 });
 

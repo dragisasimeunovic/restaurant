@@ -10,6 +10,11 @@ import java.util.Collection;
 @Table(name = "korisnici")
 public class Korisnik implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
     @Column(name = "email")
     private String email;
@@ -38,8 +43,12 @@ public class Korisnik implements Serializable {
     @Column(name="restoran")
     private Integer restoran;
     
-    @OneToMany(mappedBy = "userSender", fetch = FetchType.EAGER)
-	private Collection<FriendRequest> friendRequests;
+   /* @OneToMany(mappedBy = "userSender", fetch = FetchType.EAGER)
+	private Collection<FriendRequest> friendRequests;*/
+    
+
+/*	//@OneToMany(mappedBy = "secondUserFS", fetch = FetchType.LAZY)
+	private Collection<Friendship> secondsFriendsFS;*/
     
     public Korisnik() {
 		
@@ -126,9 +135,26 @@ public class Korisnik implements Serializable {
 		this.restoran = restoran;
 	}
 
+	
+/*	public Collection<Friendship> getSecondsFriendsFS() {
+		return secondsFriendsFS;
+	}
 
-    
-    
 
+	public void setSecondsFriendsFS(Collection<Friendship> secondsFriendsFS) {
+		this.secondsFriendsFS = secondsFriendsFS;
+	}*/
+	
+    
+   /* public Collection<FriendRequest> getFriendRequests() {
+		return friendRequests;
+	}
+
+
+	public void setFriendRequests(Collection<FriendRequest> friendRequests) {
+		this.friendRequests = friendRequests;
+	}
+*/
+ 
    
 }

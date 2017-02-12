@@ -8,9 +8,14 @@
           <span style="color:white;">BSA Restaurants</span>
         </h2>
         <span flex></span>
+        
        
         <md-button class="md-primary" aria-label="Learn More" ng-click="activeTab=0; setRestaurantsListVisible();" >
           Restaurants 
+        </md-button>
+        
+        <md-button class="md-primary" aria-label="Friends" ng-click="activeTab=2" >
+          Friends 
         </md-button>
   
         <md-button class="md-icon-button" aria-label="Favorite" ng-click="activeTab=1">
@@ -24,12 +29,17 @@
     </md-toolbar>
     
     <div ng-show="activeTab==0">
-    <div ng-include="'views/restaurants.html'"></div>
+    	<div ng-include="'views/restaurants.html'"></div>
     </div>
     
     
-      <div ng-show="activeTab==1">
-    <div ng-include="'views/profileGuest.html'"></div>
+    <div ng-show="activeTab==1">
+    	<div ng-include="'views/profileGuest.html'"></div>
+    </div>
+    
+    
+    <div ng-show="activeTab==2">
+    	<div ng-include="'views/friends.html'"></div>
     </div>
    
     

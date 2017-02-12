@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.simpleProject.model.FriendRequest;
 import com.simpleProject.model.Korisnik;
 import com.simpleProject.services.FriendRequestService;
+import com.simpleProject.services.KorisnikService;
 
 @RestController
 public class FriendRequestController {
@@ -22,6 +23,9 @@ public class FriendRequestController {
 	
 	@Autowired
     private FriendRequestService friendRequestService;
+	
+	@Autowired
+	private KorisnikService korisnikService;
     
     @RequestMapping(
             value    = "/api/friendRequests/sendRequest",
@@ -29,6 +33,9 @@ public class FriendRequestController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<FriendRequest> sendRequest(@RequestBody FriendRequest friendRequest) {
+    	
+    	Korisnik korisnik = korisnikService.getOne(friendRequest.getUserSenderEmaill());
+    	friendRequest.setUserSender(korisnik);
         FriendRequest sentFriendRequest = friendRequestService.sendRequest(friendRequest);
         return new ResponseEntity<FriendRequest>(sentFriendRequest, HttpStatus.OK);
     }
