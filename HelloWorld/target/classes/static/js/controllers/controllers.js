@@ -276,7 +276,7 @@ app.controller('profileController',['$scope', 'loginService','registrationServic
 }]);
 
 
-app.controller('profileGuestController',['$scope', 'loginService','registrationService','$mdDialog', 'guestService', 'friendRequestService', 'friendsService', function($scope, loginService,registrationService, $mdDialog, guestService, friendRequestService, friendsService){
+app.controller('profileGuestController',['$scope', 'loginService','registrationService','$mdDialog', 'guestService', 'friendRequestService', 'friendsService', '$route', function($scope, loginService,registrationService, $mdDialog, guestService, friendRequestService, friendsService, $route){
 	
 	
 	guestService.getAllGuestsExceptActiveUser(loginService.user.email).then(function(response){
@@ -296,9 +296,35 @@ app.controller('profileGuestController',['$scope', 'loginService','registrationS
 	}
 	
 	$scope.sendFriendRequest = function(userRecieverEmail){
-		friendRequestService.sendRequest(loginService.user, userRecieverEmail).then(function(response){
+		
+		friendsService.getFriendship(loginService.user.email, userRecieverEmail).then(function(response){
+			
+			if (response.data.length != 0) {
+				
+				alert('You are already friends!');
+				
+			}
+			else {
+				
+				friendRequestService.getRequest(loginService.user.email, userRecieverEmail).then(function(response){
+					console.log(response);
+					if (response.data == "") {
+						friendRequestService.sendRequest(loginService.user, userRecieverEmail).then(function(response){
+							$route.reload();
+						});
+					}
+					else {
+						alert('Request already sent');
+						
+					}
+				});
+				
+				
+			}
 			
 		});
+		
+		
 	}
 	
 	friendRequestService.getAllRequests(loginService.user.email).then(function(response){
@@ -308,6 +334,7 @@ app.controller('profileGuestController',['$scope', 'loginService','registrationS
 	$scope.acceptFriendRequest = function(userSender){
 		friendsService.sendFS(loginService.user.email, userSender).then(function(response){
 			alert('Prihvacen zahtev!');
+			$route.reload();
 		});
 	}
 	

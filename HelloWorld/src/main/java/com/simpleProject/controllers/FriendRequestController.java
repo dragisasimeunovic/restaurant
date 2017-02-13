@@ -50,5 +50,15 @@ public class FriendRequestController {
     	return new ResponseEntity<Collection<FriendRequest>>(requests, HttpStatus.OK);
     }
     
+    @RequestMapping(
+    		value = "api/friendRequests/getRequest/{senderEmail:.+}/{recieverEmail:.+}",
+    		method = RequestMethod.GET,
+    		produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<FriendRequest> getRequest(@PathVariable String senderEmail, @PathVariable String recieverEmail){
+    	FriendRequest request = friendRequestService.getRequest(recieverEmail, senderEmail);
+    	return new ResponseEntity<FriendRequest>(request, HttpStatus.OK);
+    }
+    
 
 }

@@ -477,10 +477,21 @@ angular.module('Milica').factory('friendRequestService' , function friendRequest
 		});
 	}
 	
+	friendRequestService.getRequest = function(senderEmail, recieverEmail){
+		
+		return $http ({
+			method: 'GET',
+			url: 'api/friendRequests/getRequest/' + senderEmail +'/'+recieverEmail
+		});
+	}
+	
 	return friendRequestService;
 });
 
 angular.module('Milica').factory('friendsService' , function friendsService($http){
+	
+	
+	
 	
 	
 	friendsService.sendFS = function(firstUserEmail, secondUserFS){
@@ -501,6 +512,22 @@ angular.module('Milica').factory('friendsService' , function friendsService($htt
 		return $http ({
 			method: 'GET',
 			url: 'api/friendship/getAllFriends/' + email
+		});
+	}
+	
+	friendsService.getFriendship = function(firstUserEmail, secondUserEmail){
+		
+		return $http ({
+			method: 'GET',
+			url: 'api/friendship/getFriendship/' + firstUserEmail +'/'+secondUserEmail
+		});
+	}
+	
+	friendsService.deleteFriendship = function(firstUserEmail, secondUserEmail){
+		
+		return $http ({
+			method: 'POST',
+			url: 'api/friendship/deleteFriendship/' + firstUserEmail +'/'+secondUserEmail
 		});
 	}
 	

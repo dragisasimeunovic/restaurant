@@ -22,6 +22,12 @@ public class FriendRequestService {
 		return friendRequestRepository.save(friendRequest);
 	}
 	
+	public FriendRequest getRequest(String userRecieverEmail, String userSenderEmaill){
+		return friendRequestRepository.findByUserRecieverEmailAndUserSenderEmaill(userRecieverEmail, userSenderEmaill);
+	}
 	
+	public Collection<FriendRequest> deleteRequest(String userRecieverEmail, String userSenderEmaill) {
+		return friendRequestRepository.deleteByUserRecieverEmailAndUserSenderEmaill(userRecieverEmail, userSenderEmaill);
+	}
 
 }

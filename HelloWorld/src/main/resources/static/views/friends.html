@@ -7,7 +7,7 @@
     		<img alt="{{ friendship.secondUserFS.ime }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
     		<p style="color:white"> {{ friendship.secondUserFS.ime }}</p>
     		<p style="color:white"> ({{ friendship.secondUserFS.prezime }})</p>
-  			<md-icon md-svg-src="images/garbage.svg" ng-click="" aria-label="Delete friend" class="md-secondary md-hue-3" ></md-icon>
+  			<md-icon md-svg-src="images/garbage.svg" ng-click="deleteFriend(friendship.secondUserFS.email)" aria-label="Delete friend" class="md-secondary md-hue-3" ></md-icon>
   
   			</md-list-item>
 		</md-list>
