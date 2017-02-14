@@ -1,4 +1,4 @@
-var app = angular.module('Milica',['ngRoute','ngMaterial','ngAnimate', 'ngAria','mwl.calendar']);
+var app = angular.module('Milica',['ngRoute','ngMaterial','ngAnimate', 'ngAria','mwl.calendar','ui.bootstrap']);
 app.controller('registrationController', ['$scope','$location', 'registrationService', function($scope,$location,registrationService){
 	$scope.register = function(){
 		var ime = $scope.name;

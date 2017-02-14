@@ -1,0 +1,37 @@
+<div ng-controller="reservationController"> 
+ 
+<ul uib-pagination direction-links="false" total-items="totalItems" ng-model="currentPage" page-label="pageLabel($page)"></ul>
+	
+	<br>
+   <md-button class="md-raised md-primary" ng-click="prevPage(currentPage)">Previous step</md-button>
+   <md-button class="md-raised md-primary" ng-click="nextPage(currentPage)">Next step</md-button>
+   <br><br>
+	
+	<div ng-show="currentPage==1">
+    	
+    	<md-select ng-change="printSelected()" placeholder="Choose restaurant" ng-model="selectedRestaurant" style="min-width: 200px; color: white;">
+      		<md-option ng-value="restaurant" ng-repeat="restaurant in restaurants">{{restaurant.ime}} ({{restaurant.tip}})</md-option>
+		</md-select>
+		
+    </div>
+    
+    <div ng-show="currentPage==2">
+    	
+		<canvas id="canvas" width="500" height="450" style="border:1px solid #000000"></canvas>
+    
+    </div>
+    
+    <div ng-show="currentPage==3">
+    	
+    	<md-select placeholder="Invite your friends" ng-model="friendship"  style="min-width: 200px; color: white;">
+      		<md-option ng-value="friendship" ng-repeat="friendship in friendships">{{friendship.secondUserFS.ime}} {{friendship.secondUserFS.prezime}}</md-option>
+		</md-select>
+		
+    </div>
+    
+    <div ng-show="currentPage==4">
+    
+    </div>
+
+
+</div>

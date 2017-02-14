@@ -9,6 +9,9 @@
         </h2>
         <span flex></span>
         
+        <md-button class="md-primary" aria-label="Reservation" ng-click="activeTab=3" >
+          Reservation 
+        </md-button>
        
         <md-button class="md-primary" aria-label="Learn More" ng-click="activeTab=0; setRestaurantsListVisible();" >
           Restaurants 
@@ -40,6 +43,10 @@
     
     <div ng-show="activeTab==2">
     	<div ng-include="'views/friends.html'"></div>
+    </div>
+    
+    <div ng-show="activeTab==3">
+    	<div ng-include="'views/reservation.html'"></div>
     </div>
    
     
