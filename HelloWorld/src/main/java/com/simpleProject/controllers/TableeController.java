@@ -1,9 +1,12 @@
 package com.simpleProject.controllers;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,6 +39,16 @@ public class TableeController {
 		tablee.setRestaurant(restaurant);
 		Tablee addingTablee = tableeService.add(tablee);
         return new ResponseEntity<Tablee>(addingTablee, HttpStatus.OK);
+    }
+	
+	@RequestMapping(
+    		value = "/api/restaurant/getAllRestaurantTables/{restaurantId}",
+    		method = RequestMethod.GET,
+    		produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<Tablee>> getRestaurantById(@PathVariable Integer restaurantId){
+    	Collection<Tablee> restaurantTables = tableeService.getAllRestaurantTables(restaurantId);
+    	return new ResponseEntity<Collection<Tablee>>(restaurantTables, HttpStatus.OK);
     }
 	
 	

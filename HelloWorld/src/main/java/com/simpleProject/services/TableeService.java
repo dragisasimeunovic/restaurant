@@ -12,7 +12,7 @@ import com.simpleProject.repository.TableeRepository;
 public class TableeService {
 	
 	@Autowired
-	TableeRepository tableeRepository ;
+	TableeRepository tableeRepository;
 	
 	public Collection<Tablee> getAll(){
 		return tableeRepository.findAll();
@@ -26,5 +26,11 @@ public class TableeService {
 	public Tablee getTableeById(Integer tableeId){
 		return tableeRepository.findOne(tableeId);
 	}
+	
+	public Collection<Tablee> getAllRestaurantTables(Integer idRestaurant){
+		return tableeRepository.findByIdRestaurant(idRestaurant);
+	}
+	
+	
 
 }

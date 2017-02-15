@@ -9,11 +9,29 @@
 	
 	<div ng-show="currentPage==1">
     	
-    	<md-select ng-change="printSelected()" placeholder="Choose restaurant" ng-model="selectedRestaurant" style="min-width: 200px; color: white;">
+    	<md-select ng-change="getAllRestaurantTables()" placeholder="Choose restaurant" ng-model="selectedRestaurant" style="min-width: 200px; color: white;">
       		<md-option ng-value="restaurant" ng-repeat="restaurant in restaurants">{{restaurant.ime}} ({{restaurant.tip}})</md-option>
 		</md-select>
 		
+		<label style="color: white"> I want to come: </label>
+		<p class="input-group" style="width: 150"> 	
+          	<input type="text" class="form-control" uib-datepicker-popup ng-model="comingDate" is-open="comingDateOpened" ng-changed="dateChanged(comingDate)" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+          	<span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="openComingDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+          	</span>
+        </p>
+        
+		 <div uib-timepicker ng-model="comingTime" ng-change="comingTimeChanged()" hour-step="hstep" minute-step="mstep" show-meridian="false"></div>
+		
+		
+		<p class="input-group">	
+		<label style="color: white"> I want to stay: </label>
+			<input type="number" class="form-control" ng-model="stayingHours" min="1" max="6">
+		</p>
+	
+	
     </div>
+    
     
     <div ng-show="currentPage==2">
     	
