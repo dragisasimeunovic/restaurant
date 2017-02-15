@@ -456,6 +456,15 @@ angular.module('Milica').factory('tableService' , function tableService($http){
 		});
 	}
 	
+	tableService.getTableByRestaurantIdAndNumber = function(restaurantId, number){
+		return $http({
+			method: 'GET',
+			url: '/api/restaurant/getRestaurantTable/' + restaurantId +'/'+number
+		});
+	}
+	
+
+	
 	return tableService;
 });
 

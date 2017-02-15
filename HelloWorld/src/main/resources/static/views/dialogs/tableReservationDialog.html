@@ -1,0 +1,38 @@
+<md-dialog aria-label="Confirm table reservation!">
+
+	<md-dialog-content>
+		<div class="md-dialog-content">
+
+		<h2> Confirm table reservation!</h2>
+
+		<!-- <md-input-container class="md-block" flex-gt-sm>
+          <label>Name</label>
+          <input md-maxlength="30" required name="name" ng-model="nameDialog" />
+		</md-input-container>
+
+		<md-input-container class="md-block" flex-gt-sm>
+          <label>Type</label>
+          <input md-maxlength="30" required name="type" ng-model="typeDialog" />
+		</md-input-container> -->
+		
+		<p align="center">Restaurant <b> {{idr}} </b> </p>
+		<p align="center">Are you sure you want to reserve table <b>{{tableNumber}}</b> ?</p>
+		
+
+		</div>
+	</md-dialog-content>
+
+	<md-dialog-actions layout="row">
+		<md-button class="md-raised md-primary" ng-click="apply()" >
+       		Apply
+     	</md-button>
+      
+      	<md-button class="md-raised md-primary" ng-click="close()" >
+        	Cancel
+      	</md-button>
+     
+</md-dialog-actions>
+
+
+
+</md-dialog>

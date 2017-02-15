@@ -89,7 +89,7 @@ app.controller('reservationController',['$scope', 'friendsService', 'managerServ
     canvas.selectionBorderColor = 'red';
     canvas.selectionLineWidth = 1;
     
-    
+    var reservedTables = [];
 	
     $scope.getAllRestaurantTables = function(){
     	if ($scope.selectedRestaurant != undefined) {
@@ -133,6 +133,67 @@ app.controller('reservationController',['$scope', 'friendsService', 'managerServ
     		           console.log(e);
     		           console.log(canvas.getActiveObject().item(1).get('text'));
     		           //ovde se sad korisnik pita da li je siguran da zeli da rezervise taj sto
+    		           
+    		           
+    		          
+    		   		    	$mdDialog.show({
+    		   		    		controller: TableReservationController,
+    		   		    		templateUrl: '/views/dialogs/tableReservationDialog.html',
+    		   		    		parent: angular.element(document.body),
+    		   		    		
+    		   		    		scope: $scope,//?
+    		   		    		preserveScope: true,
+    		   		    		clickOutsideToClose:true,
+    		   		    		fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+    		   		    	})
+    		   		    	.then(function(answer) {
+    		   		    		$scope.status = 'You said the information was "' + answer + '".';
+    		   		    	}, function() {
+    		   		    		$scope.status = 'You cancelled the dialog.';
+    		   		    	});
+    		   		  	
+    		   		  	
+    		   		  	
+    		   		  	function TableReservationController($scope, tableService, $mdDialog) {
+    					  
+    		   		  		$scope.tableNumber = canvas.getActiveObject().item(1).get('text');
+    		   		  		$scope.idr = $scope.selectedRestaurant.ime;
+    			 
+    		   		  		$scope.apply = function(){
+    		   		  			
+    		   		  			function containsObject(obj, reservedTables) {
+    		   		  				var i;
+    		   		  				for (i = 0; i < reservedTables.length; i++) {
+    		   		  					if (angular.equals(obj, reservedTables[i])) {
+    		   		  						return true;
+    		   		  					}
+    		   		  				}
+
+    		   		  				return false;
+    		   		  			}
+    		   		  			
+    		   		  			tableService.getTableByRestaurantIdAndNumber($scope.selectedRestaurant.id, $scope.tableNumber+"").then(function(response){
+    		   		  				
+    		   		  				if(containsObject(response.data, reservedTables) == true) {
+    		   		  					alert('Already reserved');
+    		   		  				}
+    		   		  				else {
+    		   		  					reservedTables.push(response.data);
+    		   		  				}
+    		   		  				
+    		   		  			$mdDialog.hide();
+    		   		  				
+    		   		  			});
+    		   		  			
+    		   		  		}
+    		   		  		
+    		   		  		$scope.close = function() {
+    		   		  			$mdDialog.cancel();
+    		   		  		};
+
+    		   		  	}
+    		   		  	
+    		           
     		        });
     		    	
     		    	canvas.getObjects();

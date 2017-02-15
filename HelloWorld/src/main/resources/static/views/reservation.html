@@ -41,9 +41,17 @@
     
     <div ng-show="currentPage==3">
     	
-    	<md-select placeholder="Invite your friends" ng-model="friendship"  style="min-width: 200px; color: white;">
-      		<md-option ng-value="friendship" ng-repeat="friendship in friendships">{{friendship.secondUserFS.ime}} {{friendship.secondUserFS.prezime}}</md-option>
-		</md-select>
+		<md-select ng-model="selectedFriends" multiple="" placeholder="Invite your friends">
+          	<md-optgroup label="Friends">
+            	<md-option ng-value="friendship.secondUserFS" ng-repeat="friendship in friendships">{{friendship.secondUserFS.ime}} {{friendship.secondUserFS.prezime}}</md-option>
+          	</md-optgroup>
+        </md-select>
+       <div ng-repeat="friend in selectedFriends">
+        <p style="color: white;">
+        	{{friend.ime}} {{friend.prezime}}
+        </p>
+        </div>
+        
 		
     </div>
     

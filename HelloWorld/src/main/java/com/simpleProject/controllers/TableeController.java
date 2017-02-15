@@ -51,5 +51,15 @@ public class TableeController {
     	return new ResponseEntity<Collection<Tablee>>(restaurantTables, HttpStatus.OK);
     }
 	
+	@RequestMapping(
+    		value = "/api/restaurant/getRestaurantTable/{restaurantId}/{tableNumber}",
+    		method = RequestMethod.GET,
+    		produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Tablee> getTableByIdRestaurantAndNumber(@PathVariable Integer restaurantId, @PathVariable String tableNumber){
+    	Tablee restaurantTable = tableeService.getTableByIdRestaurantAndNumber(restaurantId, tableNumber);
+    	return new ResponseEntity<Tablee>(restaurantTable, HttpStatus.OK);
+    }
+	
 	
 }

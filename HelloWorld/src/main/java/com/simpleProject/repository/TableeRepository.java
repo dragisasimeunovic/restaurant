@@ -11,5 +11,6 @@ public interface TableeRepository extends JpaRepository<Tablee, Integer>{
 	
 	public Restaurant findById(Integer id);
 	public Collection<Tablee> findByIdRestaurant(Integer idRestaurant);
+	public Tablee findByIdRestaurantAndNumber(Integer idRestaurant, String number);
 
 }

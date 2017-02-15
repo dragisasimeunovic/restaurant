@@ -30,6 +30,11 @@ public class TableeService {
 	public Collection<Tablee> getAllRestaurantTables(Integer idRestaurant){
 		return tableeRepository.findByIdRestaurant(idRestaurant);
 	}
+
+
+	public Tablee getTableByIdRestaurantAndNumber(Integer idRestaurant, String number) {
+		return tableeRepository.findByIdRestaurantAndNumber(idRestaurant, number);
+	}
 	
 	
 
