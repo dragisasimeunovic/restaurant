@@ -1,4 +1,4 @@
-app.controller('reservationController',['$scope', 'friendsService', 'managerService', '$location', '$mdDialog', 'menuService','menuCategoryService','loginService', '$route', 'restaurantsService', '$window', 'tableService', 'dateFilter', 'drinkCategoryService', 'reservationService', 'invitationService', function($scope, friendsService, managerService, $location, $mdDialog, menuService, menuCategoryService, loginService, $route, restaurantsService, $window, tableService, dateFilter, drinkCategoryService, reservationService, invitationService){
+app.controller('reservationController',['$scope', 'friendsService', 'managerService', '$location', '$mdDialog', 'menuService','menuCategoryService','loginService', '$route', 'restaurantsService', '$window', 'tableService', 'dateFilter', 'drinkCategoryService', 'reservationService', 'invitationService', 'drinkOrderService', function($scope, friendsService, managerService, $location, $mdDialog, menuService, menuCategoryService, loginService, $route, restaurantsService, $window, tableService, dateFilter, drinkCategoryService, reservationService, invitationService, drinkOrderService){
 	
 	$scope.currentPage = 1;
 	$scope.totalItems = 50;
@@ -99,6 +99,20 @@ app.controller('reservationController',['$scope', 'friendsService', 'managerServ
 							alert('Invitation sent!');
 						});
 					}
+					
+					for (var k = 0; k < $scope.selectedDrinks.length; k++) {	
+						if ($scope.prepared == true) {
+							drinkOrderService.addDrinkOrder(loginService.user.email, $scope.selectedDrinks[k], bpTime, false).then(function(response){
+								alert('Drink order sent!');
+							});
+						}
+						else {
+							drinkOrderService.addDrinkOrder(loginService.user.email, $scope.selectedDrinks[k], null, false).then(function(response){
+								alert('Drink order without deadline sent!');
+							});
+						}
+					}
+					
 				});
 			}else {
 				reservationService.addReservation(loginService.user.email, $scope.selectedRestaurant.id, reservedTables[i].id, bpTime, endDateString).then(function(response){

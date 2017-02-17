@@ -588,3 +588,24 @@ angular.module('Milica').factory('invitationService' , function invitationServic
 	return invitationService;
 });
 
+angular.module('Milica').factory('drinkOrderService' , function drinkOrderService($http){
+	
+	drinkOrderService.addDrinkOrder = function(guestId, drink, preparationDeadline, isPrepared){
+		return $http({
+			method: 'POST',
+			url: 'api/drinkOrder/addDrinkOrder',
+			data: {
+				"id" : null,
+				"guestId" : guestId,
+				"drink" : drink,
+				"preparationDeadline" : preparationDeadline,
+				"isPrepared" : isPrepared
+			}
+			
+		});
+	}
+	
+	
+	return drinkOrderService;
+});
+
