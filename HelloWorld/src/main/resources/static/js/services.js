@@ -506,10 +506,6 @@ angular.module('Milica').factory('friendRequestService' , function friendRequest
 
 angular.module('Milica').factory('friendsService' , function friendsService($http){
 	
-	
-	
-	
-	
 	friendsService.sendFS = function(firstUserEmail, secondUserFS){
 		return $http({
 			method: 'POST',
@@ -548,5 +544,27 @@ angular.module('Milica').factory('friendsService' , function friendsService($htt
 	}
 	
 	return friendsService;
+});
+
+angular.module('Milica').factory('reservationService' , function reservationService($http){
+	
+	reservationService.addReservation = function(guestId, restaurantId, tableId, comingTime, leavingTime){
+		return $http({
+			method: 'POST',
+			url: 'api/reservation/addReservation',
+			data: {
+				"id" : null,
+				"guestId" : guestId,
+				"restaurantId" : restaurantId,
+				"tableId" : tableId,
+				"comingTime" : comingTime,
+				"leavingTime" : leavingTime
+			}
+			
+		});
+	}
+	
+	
+	return reservationService;
 });
 

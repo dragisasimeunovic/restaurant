@@ -1,4 +1,4 @@
-app.controller('reservationController',['$scope', 'friendsService', 'managerService', '$location', '$mdDialog', 'menuService','menuCategoryService','loginService', '$route', 'restaurantsService', '$window', 'tableService', 'dateFilter', 'drinkCategoryService', function($scope, friendsService, managerService, $location, $mdDialog, menuService, menuCategoryService, loginService, $route, restaurantsService, $window, tableService, dateFilter, drinkCategoryService){
+app.controller('reservationController',['$scope', 'friendsService', 'managerService', '$location', '$mdDialog', 'menuService','menuCategoryService','loginService', '$route', 'restaurantsService', '$window', 'tableService', 'dateFilter', 'drinkCategoryService', 'reservationService', 'invitationService', function($scope, friendsService, managerService, $location, $mdDialog, menuService, menuCategoryService, loginService, $route, restaurantsService, $window, tableService, dateFilter, drinkCategoryService, reservationService, invitationService){
 	
 	$scope.currentPage = 1;
 	$scope.totalItems = 50;
@@ -59,14 +59,7 @@ app.controller('reservationController',['$scope', 'friendsService', 'managerServ
 	$scope.comingTimeChanged = function(){
 
 		
-		var dateString = dateFilter($scope.comingDate, 'yyyy-MM-ddT');//dobar
-		var timeString = dateFilter($scope.comingTime, 'HH:mm:00.000');
-		var bpTime = dateString + timeString + 'Z';
-		console.log(bpTime);
-		var bpMoment = moment(bpTime);
-		var endDate = moment(bpMoment).add($scope.stayingHours - 1, 'h').toDate();
-		var endDateString = moment(endDate).format('YYYY-MM-DDTHH:mm:ss.sss')+'Z'; 
-		console.log(endDateString);
+		
 		
 		//bpTime ce da se salje
 		//endDateString ce da se salje
@@ -83,6 +76,30 @@ app.controller('reservationController',['$scope', 'friendsService', 'managerServ
 	});
 	
 	$scope.prepared = true;
+	
+	
+	$scope.confirmRes = function() {
+		
+		var dateString = dateFilter($scope.comingDate, 'yyyy-MM-ddT');//dobar
+		var timeString = dateFilter($scope.comingTime, 'HH:mm:00.000');
+		var bpTime = dateString + timeString + 'Z';
+		console.log(bpTime);
+		var bpMoment = moment(bpTime);
+		var endDate = moment(bpMoment).add($scope.stayingHours - 1, 'h').toDate();
+		var endDateString = moment(endDate).format('YYYY-MM-DDTHH:mm:ss.sss')+'Z'; 
+		console.log(endDateString);
+		
+		for (var i = 0; i < reservedTables.length; i++) {
+			
+			if (i == 0) {
+			
+			}
+			
+			reservationService.addReservation(loginService.user.email, $scope.selectedRestaurant.id, reservedTables[i].id, bpTime, endDateString).then(function(response){
+				alert('Saved!');
+			});
+		}
+	}
 	
 	//CANVAS Settings
 	
