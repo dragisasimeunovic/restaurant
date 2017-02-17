@@ -564,7 +564,27 @@ angular.module('Milica').factory('reservationService' , function reservationServ
 		});
 	}
 	
-	
 	return reservationService;
+});
+
+angular.module('Milica').factory('invitationService' , function invitationService($http){
+	
+	invitationService.addInvitation = function(senderId, reservationId, accepted, recieverId){
+		return $http({
+			method: 'POST',
+			url: 'api/invitation/addInvitation',
+			data: {
+				"id" : null,
+				"senderId" : senderId,
+				"reservationId" : reservationId,
+				"accepted" : accepted,
+				"recieverId" : recieverId
+			}
+			
+		});
+	}
+	
+	
+	return invitationService;
 });
 
