@@ -1,7 +1,7 @@
-app.controller('reservationController',['$scope', 'friendsService', 'managerService', '$location', '$mdDialog', 'menuService','menuCategoryService','loginService', '$route', 'restaurantsService', '$window', 'tableService', 'dateFilter',function($scope, friendsService, managerService, $location, $mdDialog, menuService, menuCategoryService, loginService, $route, restaurantsService, $window, tableService, dateFilter){
+app.controller('reservationController',['$scope', 'friendsService', 'managerService', '$location', '$mdDialog', 'menuService','menuCategoryService','loginService', '$route', 'restaurantsService', '$window', 'tableService', 'dateFilter', 'drinkCategoryService', function($scope, friendsService, managerService, $location, $mdDialog, menuService, menuCategoryService, loginService, $route, restaurantsService, $window, tableService, dateFilter, drinkCategoryService){
 	
 	$scope.currentPage = 1;
-	$scope.totalItems = 40;
+	$scope.totalItems = 50;
 	
 	$scope.pageLabel = function($page){
 		if ($page == 1)
@@ -10,6 +10,8 @@ app.controller('reservationController',['$scope', 'friendsService', 'managerServ
 			return "Table or tables"
 		else if ($page == 3)
 			return "Friends"
+		else if ($page == 4)
+			return "Food and drinks"
 		else
 			return "Confirm reservation"
 				
@@ -27,8 +29,8 @@ app.controller('reservationController',['$scope', 'friendsService', 'managerServ
 	}
 	
 	$scope.nextPage = function(currentPage){
-		if (currentPage == 4){
-			$scope.currentPage = 4;
+		if (currentPage == 5){
+			$scope.currentPage = 5;
 		}
 		else{
 			$scope.currentPage++;
@@ -80,6 +82,7 @@ app.controller('reservationController',['$scope', 'friendsService', 'managerServ
 		$scope.friendships = response.data;
 	});
 	
+	$scope.prepared = true;
 	
 	//CANVAS Settings
 	
@@ -92,6 +95,10 @@ app.controller('reservationController',['$scope', 'friendsService', 'managerServ
     var reservedTables = [];
 	
     $scope.getAllRestaurantTables = function(){
+    	drinkCategoryService.getAllDrinkCategories($scope.selectedRestaurant.id).then(function(response){
+    		$scope.categories = response.data;
+    	});
+    	
     	if ($scope.selectedRestaurant != undefined) {
     		tableService.getAllRestaurantTables($scope.selectedRestaurant.id).then(function(response){
     			$scope.tables = response.data;

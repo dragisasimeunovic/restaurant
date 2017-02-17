@@ -57,6 +57,28 @@
     
     <div ng-show="currentPage==4">
     
+    	<md-select ng-model="selectedDrinks" multiple="" placeholder="Select your drinks">
+    		
+          	<md-optgroup label="{{category.drinkCategoryName}}" ng-repeat="category in categories">
+            	<md-option ng-value="drink" ng-repeat="drink in category.drinks">{{drink.drinkName}} {{drink.price}}</md-option>
+          	</md-optgroup>
+          	
+        </md-select>
+        
+       	<md-checkbox ng-model="prepared" aria-label="Prepared" style="color: white;">       
+        		Prepared before I come : {{prepared}}
+        </md-checkbox>
+        
+       <div ng-repeat="sd in selectedDrinks">
+        <p style="color: white;">
+        	{{sd.drinkName}} {{sd.price}}
+        </p>
+        </div>
+    
+    </div>
+    
+    <div ng-show="currentPage==5">
+    
     </div>
 
 
