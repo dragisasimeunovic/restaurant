@@ -30,11 +30,35 @@ public class DrinkOrder implements Serializable{
 	@ManyToOne
     private Drink drink;
 	
+	@Column(name = "reservationId")
+    private Integer reservationId;
+	
+	@Column(name = "restaurantId")
+	private Integer restaurantId;
+	
+	@Column(name = "tableId")
+	private Integer tableId;
+	
+	@Column(name = "comingTime")
+    private String comingTime;
+	
+	@Column(name = "leavingTime")
+    private String leavingTime;
+	
+	@Column(name = "waiterId")
+    private String waiterId;
+	
 	@Column(name = "preparationDeadline")
     private String preparationDeadline;
 	
 	@Column(name = "isPrepared")
     private boolean isPrepared;
+	
+	@Column(name = "isServed")
+    private boolean isServed;
+	
+	@Column(name = "isPaid")
+    private boolean isPaid;
 	
 	public DrinkOrder() {
 		

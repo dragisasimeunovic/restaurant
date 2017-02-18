@@ -51,6 +51,17 @@ public class FriendRequestController {
     }
     
     @RequestMapping(
+    		value = "api/friendRequests/deleteRequest/{requestId}",
+    		method = RequestMethod.POST,
+    		produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Integer> deleteRequest(@PathVariable Integer requestId){
+    	Integer deletedRequest = friendRequestService.deleteRequest(requestId);
+    	return new ResponseEntity<Integer>(deletedRequest, HttpStatus.OK);
+    }
+    
+    
+    @RequestMapping(
     		value = "api/friendRequests/getRequest/{senderEmail:.+}/{recieverEmail:.+}",
     		method = RequestMethod.GET,
     		produces = MediaType.APPLICATION_JSON_VALUE

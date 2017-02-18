@@ -297,6 +297,13 @@ app.controller('profileGuestController',['$scope', 'loginService','registrationS
 		});
 	}
 	
+	$scope.deleteFriendRequest = function(requestId){
+		friendRequestService.deleteRequest(requestId).then(function(response){
+			$route.reload();
+		});
+	}
+	
+	
 	$scope.sendFriendRequest = function(userRecieverEmail){
 		
 		friendsService.getFriendship(loginService.user.email, userRecieverEmail).then(function(response){

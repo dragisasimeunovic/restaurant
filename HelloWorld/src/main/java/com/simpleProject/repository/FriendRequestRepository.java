@@ -16,5 +16,7 @@ public interface FriendRequestRepository extends JpaRepository<FriendRequest, In
 	@Transactional
 	public Collection<FriendRequest> deleteByUserRecieverEmailAndUserSenderEmaill(String userRecieverEmail, String userSenderEmaill);
 	
+	@Transactional
+	public Integer deleteById(Integer id);
 	
 }

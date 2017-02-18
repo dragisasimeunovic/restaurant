@@ -471,6 +471,13 @@ angular.module('Milica').factory('tableService' , function tableService($http){
 angular.module('Milica').factory('friendRequestService' , function friendRequestService($http){
 	
 	
+	friendRequestService.deleteRequest = function(requestId){
+		return $http({
+			method: 'POST',
+			url: 'api/friendRequests/deleteRequest/'+requestId
+		});
+	}
+	
 	friendRequestService.sendRequest = function(userSender, userRecieverEmail){
 		return $http({
 			method: 'POST',

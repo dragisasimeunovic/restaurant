@@ -56,13 +56,26 @@ app.controller('reservationController',['$scope', 'friendsService', 'managerServ
 	
 	$scope.stayingHours = 1;
 	
+	$scope.isVece = false;
 	$scope.comingTimeChanged = function(){
-
+		
+		var dateString = dateFilter($scope.comingDate, 'yyyy-MM-ddT');//dobar
+		var timeString = dateFilter($scope.comingTime, 'HH:mm:00.000');
+		var bpTime = dateString + timeString + 'Z';
+		/*console.log(bpTime);*/
+		var currentDateAndTime = new Date();
+		var bpMoment = moment(bpTime);
+		var endDate = moment(bpMoment).subtract(90, 'm').toDate();
 		
 		
+		var endDateString = moment(endDate).format('YYYY-MM-DDTHH:mm:ss.sss')+'Z';
+		console.log('New: ' +endDateString);
+		var curDateString = moment(currentDateAndTime).format('YYYY-MM-DDTHH:mm:ss.sss')+'Z';
+		console.log('Cur: ' + curDateString);
+		if (curDateString > endDateString) {
+			alert('Ne mogu da obrisem');
+		}
 		
-		//bpTime ce da se salje
-		//endDateString ce da se salje
 		
 	}
 	
@@ -86,11 +99,11 @@ app.controller('reservationController',['$scope', 'friendsService', 'managerServ
 		var dateString = dateFilter($scope.comingDate, 'yyyy-MM-ddT');//dobar
 		var timeString = dateFilter($scope.comingTime, 'HH:mm:00.000');
 		var bpTime = dateString + timeString + 'Z';
-		console.log(bpTime);
+		
 		var bpMoment = moment(bpTime);
 		var endDate = moment(bpMoment).add($scope.stayingHours - 1, 'h').toDate();
 		var endDateString = moment(endDate).format('YYYY-MM-DDTHH:mm:ss.sss')+'Z'; 
-		console.log(endDateString);
+		
 		
 		for (var i = 0; i < reservedTables.length; i++) {
 			

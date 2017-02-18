@@ -17,15 +17,16 @@
   </div>
   
   <div flex="60">
-  	<md-input-container class="md-block" flex-gt-sm>
-          <label style="color: white">Name</label>
-          <input md-maxlength="30" required name="name" ng-model="searchName" />
-	</md-input-container>
-
-	<md-input-container class="md-block" flex-gt-sm>
-          <label style="color: white">Surname</label>
-          <input md-maxlength="30" required name="surname" ng-model="searchSurname" />
-	</md-input-container>
+  
+  		<p class="form-group" style="width: 200">
+    		<label style="color: white;">Search by guest name:</label>
+    		<input type="text" ng-model="nameFilter" class="form-control">
+  		</p>
+  		
+  		<p class="form-group"  style="width: 200">
+    		<label style="color: white;">Search by guest surname:</label>
+    		<input type="text" ng-model="surnameFilter" class="form-control">
+  		</p>
   
   
   	<md-button class="md-primary md-raised" ng-click="search()">
@@ -41,7 +42,7 @@
  		</md-icon>
  		
  		</md-subheader>
-  		<md-list-item ng-repeat="guest in guests" ng-click="goToRestaurant(restaurant, $event)" class="noright">
+  		<md-list-item ng-repeat="guest in (filteredGuests = (guests | filter:{ime:nameFilter} | filter:{prezime:surnameFilter}))" ng-click="goToRestaurant(restaurant, $event)" class="noright">
     	<img alt="{{ guest.ime }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
     	<p style="color:white"> {{ guest.ime }} {{guest.prezime}}</p>
     
@@ -62,7 +63,7 @@
                 	              
                     <md-menu-item ng-repeat="request in requests" ><md-button>
                        {{request.userSender.ime }} {{request.userSender.prezime}} 
-                    </md-button> <md-button class="md-primary" ng-click="acceptFriendRequest(request.userSender)"> Accept </md-button> </md-menu-item>
+                    </md-button> <md-button class="md-primary" ng-click="acceptFriendRequest(request.userSender)"> Accept </md-button> <md-button class="md-warn" ng-click="deleteFriendRequest(request.id)"> Delete </md-button> </md-menu-item>
        
 
                 </md-menu-content>

@@ -30,4 +30,8 @@ public class FriendRequestService {
 		return friendRequestRepository.deleteByUserRecieverEmailAndUserSenderEmaill(userRecieverEmail, userSenderEmaill);
 	}
 
+	public Integer deleteRequest(Integer requestId) {
+		return friendRequestRepository.deleteById(requestId);
+	}
+
 }
