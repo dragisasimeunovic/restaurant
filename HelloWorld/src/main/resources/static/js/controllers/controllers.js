@@ -730,7 +730,7 @@ app.controller('managerRestaurantsController',['$scope','restaurantsService', 'm
 	
 }]);
 
-app.controller('guestRestaurantsController',['$scope','restaurantsService', 'managerService','$location','$mdDialog','menuService','menuCategoryService','loginService', function($scope,restaurantsService, managerService,$location, $mdDialog, menuService,menuCategoryService,loginService){
+app.controller('guestRestaurantsController',['$scope','restaurantsService', 'managerService','$location','$mdDialog','menuService','menuCategoryService','loginService','orderByFilter', function($scope,restaurantsService, managerService,$location, $mdDialog, menuService,menuCategoryService,loginService, orderBy){
 	
 	
 	  /*  $scope.isOpen = false;
@@ -744,6 +744,18 @@ app.controller('guestRestaurantsController',['$scope','restaurantsService', 'man
 		restaurantsService.getAllRestaurants().then(function(response){
 			$scope.restaurants = response.data;
 		});
+		
+		$scope.sort = function() {
+			if ($scope.sortByNameChecked == true && $scope.sortByTypeChecked == true){
+				$scope.friendships = orderBy($scope.friendships, ['ime','tip']);
+			}
+			else if($scope.sortByNameChecked == true) {
+				$scope.friendships = orderBy($scope.friendships, 'ime');
+			}
+			else if ($scope.sortByTypeChecked == true) {
+				$scope.friendships = orderBy($scope.friendships, 'tip');
+			}
+		 };
 		
 		$scope.goToRestaurant = function(restaurant, ev){
 			$location.path("/restaurantManager");

@@ -8,9 +8,21 @@
    <br><br>
 	
 	<div ng-show="currentPage==1">
+	
+		<p class="form-group" style="width: 200">
+    		<label style="color: white;">Search by restaurant name:</label>
+    		<input type="text" ng-model="nameFilter" class="form-control">
+  		</p>
+  		
+  		<p class="form-group"  style="width: 200">
+    		<label style="color: white;">Search by restaurant type:</label>
+    		<input type="text" ng-model="typeFilter" class="form-control">
+  		</p>
+	
+	
     	
     	<md-select ng-change="getAllRestaurantTables()" placeholder="Choose restaurant" ng-model="selectedRestaurant" style="min-width: 200px; color: white;">
-      		<md-option ng-value="restaurant" ng-repeat="restaurant in restaurants">{{restaurant.ime}} ({{restaurant.tip}})</md-option>
+      		<md-option ng-value="restaurant" ng-repeat="restaurant in (filteredRestaurants = (restaurants | filter:{ime:nameFilter} | filter:{tip:typeFilter}))">{{restaurant.ime}} ({{restaurant.tip}})</md-option>
 		</md-select>
 		
 		<label style="color: white"> I want to come: </label>

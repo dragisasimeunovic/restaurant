@@ -75,6 +75,9 @@ app.controller('reservationController',['$scope', 'friendsService', 'managerServ
 		$scope.friendships = response.data;
 	});
 	
+	
+
+	
 	$scope.prepared = true;
 	
 	
