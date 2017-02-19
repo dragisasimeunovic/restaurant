@@ -15,13 +15,26 @@ public class ReservationService {
 	@Autowired
 	ReservationRepository reservationRepository;
 	
+	
 	public Collection<Reservation> getAll(){
 		return reservationRepository.findAll();
+	}
+	
+	public Reservation getReservationById(Integer id){
+		return reservationRepository.getOne(id);
 	}
 
 	
 	public Reservation addReservation(Reservation reservation){
 		return reservationRepository.save(reservation);
+	}
+	
+	public Collection<Reservation> getByGuestIdAndComingTime(String guestId, String comingTime){
+		return reservationRepository.findByGuestIdAndComingTimeGreaterThan(guestId, comingTime);
+	}
+
+	public Integer cancelReservation(String guestId, Integer restaurantId, String comingTime, String leavingTime) {
+		return reservationRepository.deleteByGuestIdAndRestaurantIdAndComingTimeAndLeavingTime(guestId, restaurantId, comingTime, leavingTime);
 	}
 	
 }

@@ -571,6 +571,21 @@ angular.module('Milica').factory('reservationService' , function reservationServ
 		});
 	}
 	
+	reservationService.getReservationByGuestIdAndComingTime = function(guestId, comingTime){
+		
+		return $http ({
+			method: 'GET',
+			url: 'api/reservation/getByGuestIdAndComingTime/' + guestId +'/'+comingTime
+		});
+	}
+	
+	reservationService.cancelReservation = function(id){
+		return $http ({
+			method: 'POST',
+			url: 'api/reservation/cancelReservation/' + id
+		});
+	}
+	
 	return reservationService;
 });
 

@@ -72,9 +72,6 @@ app.controller('reservationController',['$scope', 'friendsService', 'managerServ
 		console.log('New: ' +endDateString);
 		var curDateString = moment(currentDateAndTime).format('YYYY-MM-DDTHH:mm:ss.sss')+'Z';
 		console.log('Cur: ' + curDateString);
-		if (curDateString > endDateString) {
-			alert('Ne mogu da obrisem');
-		}
 		
 		
 	}

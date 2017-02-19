@@ -126,8 +126,8 @@ app.controller('LoginController',['$scope', 'loginService','$location', 'restaur
 		/*$scope.emailLogin = "dragi@g.com";
 		$scope.passwordLogin = "dragi";*/
 		
-		/*$scope.emailLogin = "g1@g.com";
-		$scope.passwordLogin = "g1";*/
+		$scope.emailLogin = "g1@g.com";
+		$scope.passwordLogin = "g1";
 		
 		
 		var email = $scope.emailLogin;
@@ -278,8 +278,37 @@ app.controller('profileController',['$scope', 'loginService','registrationServic
 }]);
 
 
-app.controller('profileGuestController',['$scope', 'loginService','registrationService','$mdDialog', 'guestService', 'friendRequestService', 'friendsService', '$route', function($scope, loginService,registrationService, $mdDialog, guestService, friendRequestService, friendsService, $route){
+app.controller('profileGuestController',['$scope', 'loginService','registrationService','$mdDialog', 'guestService', 'friendRequestService', 'friendsService', '$route', 'restaurantsService', 'reservationService', function($scope, loginService,registrationService, $mdDialog, guestService, friendRequestService, friendsService, $route, restaurantsService, reservationService){
 	
+	
+	var currentDateAndTime = new Date();
+	var curDateString = moment(new Date()).format('YYYY-MM-DDTHH:mm:ss.sss')+'Z';
+	
+	$scope.cancelReservation = function(reservationId, comingDateString){
+		
+		var cdMoment = moment(comingDateString);
+		var comingDate = moment(cdMoment).subtract(90, 'm').toDate();
+		var comingDateFormatted = moment(comingDate).format('YYYY-MM-DDTHH:mm:ss.sss')+'Z';
+		
+		var currentDateAndTime = new Date();
+		var curDateString = moment(currentDateAndTime).format('YYYY-MM-DDTHH:mm:ss.sss')+'Z';
+		
+		if (curDateString > comingDateFormatted) {
+			alert('Unable to delete!');
+		}
+		else {	
+			reservationService.cancelReservation(reservationId).then(function(response){
+				$route.reload();
+			});
+		}
+	}
+	
+	reservationService.getReservationByGuestIdAndComingTime(loginService.user.email, curDateString).then(function(response){
+		
+		
+		$scope.reservations = response.data;
+		
+	});
 	
 	guestService.getAllGuestsExceptActiveUser(loginService.user.email).then(function(response){
 		$scope.guests = response.data;

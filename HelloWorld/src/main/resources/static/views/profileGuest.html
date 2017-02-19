@@ -14,6 +14,20 @@
 		</md-button>
 	</div>
    </md-toolbar>
+   
+   <md-list>
+ 		<md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky"> Reservations 
+ 		
+ 		</md-subheader>
+  		<md-list-item ng-repeat="reservation in reservations" ng-click="" class="noright">
+    	<img alt="{{ reservation.id }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
+    	<p style="color:white"> {{reservation.id}} {{ reservation.comingTime}} {{ reservation.leavingTime}} </p>
+    
+  		<md-icon md-svg-src="images/garbage.svg" ng-click="cancelReservation(reservation.id, reservation.comingTime)" aria-label="Send Email" class="md-secondary md-hue-3" ></md-icon>
+  
+  		</md-list-item>
+	</md-list>
+   
   </div>
   
   <div flex="60">

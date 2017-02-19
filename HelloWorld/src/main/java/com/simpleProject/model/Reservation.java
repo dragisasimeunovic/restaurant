@@ -27,10 +27,10 @@ public class Reservation implements Serializable{
     private String guestId;
 	
 	@Column(name = "restaurantId")
-    private String restaurantId;
+    private Integer restaurantId;
 	
 	@Column(name = "tableId")
-    private String tableId;
+    private Integer tableId;
 	
 	@Column(name = "comingTime")
     private String comingTime;
@@ -58,21 +58,7 @@ public class Reservation implements Serializable{
 		this.guestId = guestId;
 	}
 
-	public String getRestaurantId() {
-		return restaurantId;
-	}
 
-	public void setRestaurantId(String restaurantId) {
-		this.restaurantId = restaurantId;
-	}
-
-	public String getTableId() {
-		return tableId;
-	}
-
-	public void setTableId(String tableId) {
-		this.tableId = tableId;
-	}
 
 	public String getComingTime() {
 		return comingTime;
@@ -88,6 +74,22 @@ public class Reservation implements Serializable{
 
 	public void setLeavingTime(String leavingTime) {
 		this.leavingTime = leavingTime;
+	}
+
+	public Integer getRestaurantId() {
+		return restaurantId;
+	}
+
+	public void setRestaurantId(Integer restaurantId) {
+		this.restaurantId = restaurantId;
+	}
+
+	public Integer getTableId() {
+		return tableId;
+	}
+
+	public void setTableId(Integer tableId) {
+		this.tableId = tableId;
 	}
 	
 	
