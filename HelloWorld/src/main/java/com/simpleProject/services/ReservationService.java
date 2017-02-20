@@ -32,6 +32,10 @@ public class ReservationService {
 	public Collection<Reservation> getByGuestIdAndComingTime(String guestId, String comingTime){
 		return reservationRepository.findByGuestIdAndComingTimeGreaterThan(guestId, comingTime);
 	}
+	
+	public Collection<Reservation> getAllTermReservations(String guestId, Integer restaurantId, String comingTime, String leavingTime) {
+		return reservationRepository.findByGuestIdAndRestaurantIdAndComingTimeAndLeavingTime(guestId, restaurantId, comingTime, leavingTime);
+	}
 
 	public Integer cancelReservation(String guestId, Integer restaurantId, String comingTime, String leavingTime) {
 		return reservationRepository.deleteByGuestIdAndRestaurantIdAndComingTimeAndLeavingTime(guestId, restaurantId, comingTime, leavingTime);

@@ -586,6 +586,13 @@ angular.module('Milica').factory('reservationService' , function reservationServ
 		});
 	}
 	
+	reservationService.getAllTermReservations = function(id){
+		return $http ({
+			method: 'GET',
+			url: 'api/reservation/getAllTermReservations/' + id
+		});
+	}
+	
 	return reservationService;
 });
 
@@ -630,4 +637,14 @@ angular.module('Milica').factory('drinkOrderService' , function drinkOrderServic
 	
 	return drinkOrderService;
 });
+
+angular.module('Milica').factory('orderService' , function orderService($http){
+
+	orderService.activeReservation = {};
+	orderService.reservedTablesIds = [];
+	
+	return orderService;
+	
+});
+
 

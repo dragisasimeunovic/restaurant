@@ -44,10 +44,13 @@ app.config(function($routeProvider) {
     .when("/addEmployed", {
         templateUrl : "views/addEmployed.html"
     })
+    .when("/orderRestaurant", {
+        templateUrl : "views/restaurantOrder.html"
+    })
     .when("/drinkCard", {
         templateUrl : "views/drinkCard.html"
     });
     
-   // $route.reload();
+    
    
 });

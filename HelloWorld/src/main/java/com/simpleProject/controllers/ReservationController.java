@@ -58,6 +58,22 @@ public class ReservationController {
     	return new ResponseEntity<Integer>(deletedReservation, HttpStatus.OK);
     }
 	
+	@RequestMapping(
+    		value = "api/reservation/getAllTermReservations/{id}",
+    		method = RequestMethod.GET,
+    		produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<Reservation>> getAllTermReservations(@PathVariable Integer id){
+		Reservation reservation = reservationService.getReservationById(id);
+		String guestId = reservation.getGuestId();
+		String comingTime = reservation.getComingTime();
+		String leavingTime = reservation.getLeavingTime();
+		Integer restaurantId = reservation.getRestaurantId();
+		Collection<Reservation> reservations = reservationService.getAllTermReservations(guestId, restaurantId, comingTime, leavingTime);
+    	return new ResponseEntity<Collection<Reservation>>(reservations, HttpStatus.OK);
+    }
+	
+	
 	
 	
 }

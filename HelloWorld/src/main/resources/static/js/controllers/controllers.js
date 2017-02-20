@@ -1,4 +1,4 @@
-var app = angular.module('Milica',['ngRoute','ngMaterial','ngAnimate', 'ngAria','mwl.calendar','ui.bootstrap']);
+var app = angular.module('Milica',['ngRoute','ngMaterial','ngAnimate', 'ngAria','mwl.calendar','ui.bootstrap', 'ngCookies']);
 app.controller('registrationController', ['$scope','$location', 'registrationService', function($scope,$location,registrationService){
 	$scope.register = function(){
 		var ime = $scope.name;
@@ -126,8 +126,8 @@ app.controller('LoginController',['$scope', 'loginService','$location', 'restaur
 		/*$scope.emailLogin = "dragi@g.com";
 		$scope.passwordLogin = "dragi";*/
 		
-		$scope.emailLogin = "g1@g.com";
-		$scope.passwordLogin = "g1";
+	/*	$scope.emailLogin = "g1@g.com";
+		$scope.passwordLogin = "g1";*/
 		
 		
 		var email = $scope.emailLogin;
@@ -278,8 +278,14 @@ app.controller('profileController',['$scope', 'loginService','registrationServic
 }]);
 
 
-app.controller('profileGuestController',['$scope', 'loginService','registrationService','$mdDialog', 'guestService', 'friendRequestService', 'friendsService', '$route', 'restaurantsService', 'reservationService', function($scope, loginService,registrationService, $mdDialog, guestService, friendRequestService, friendsService, $route, restaurantsService, reservationService){
+app.controller('profileGuestController',['$scope', 'loginService','registrationService','$mdDialog', 'guestService', 'friendRequestService', 'friendsService', '$route', 'restaurantsService', 'reservationService', 'orderService', '$location', function($scope, loginService,registrationService, $mdDialog, guestService, friendRequestService, friendsService, $route, restaurantsService, reservationService, orderService, $location){
 	
+	
+	$scope.goToRestaurantOrder = function(reservation){
+		orderService.activeReservation = reservation;
+		$location.path("/orderRestaurant");
+		
+	}
 	
 	var currentDateAndTime = new Date();
 	var curDateString = moment(new Date()).format('YYYY-MM-DDTHH:mm:ss.sss')+'Z';
