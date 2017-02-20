@@ -42,6 +42,13 @@ angular.module('Milica').factory('restaurantsService' , function restaurantsServ
 		});
 	}
 	
+	restaurantsService.allRestaurantEmployees = function(){
+		return $http({
+			method: 'GET',
+			url: 'api/korisnici/allRestaurantEmployees'
+		});
+	}
+	
 	
 	
 	var activeRestaurant = {};
@@ -644,6 +651,29 @@ angular.module('Milica').factory('orderService' , function orderService($http){
 	orderService.reservedTablesIds = [];
 	
 	return orderService;
+	
+});
+
+angular.module('Milica').factory('shiftService' , function shiftService($http){
+	
+	shiftService.addShift = function(restaurantId, employee, color, region, startsAt, endsAt){
+		return $http({
+			method: 'POST',
+			url: 'api/shift/addShift',
+			data: {
+				"id" : null,
+				"restaurantId": restaurantId,
+				"employee" : employee,
+				"color" : color,
+				"region" : region,
+				"startsAt" : startsAt,
+				"endsAt" : endsAt			
+			}
+			
+		});
+	}
+	
+	return shiftService;
 	
 });
 

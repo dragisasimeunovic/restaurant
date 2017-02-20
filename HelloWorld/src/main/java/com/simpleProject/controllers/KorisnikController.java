@@ -104,4 +104,15 @@ public class KorisnikController {
     	return new ResponseEntity<Collection<Korisnik>>(guestsExceptActiveUser, HttpStatus.OK);
     }
     
+    @RequestMapping(
+    		value = "api/korisnici/allRestaurantEmployees",
+    		method = RequestMethod.GET,
+    		produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<Korisnik>> allRestaurantEmployees(){
+    	Collection<Korisnik> allRestaurantEmployees = korisnikService.allRestaurantEmployees();
+    	return new ResponseEntity<Collection<Korisnik>>(allRestaurantEmployees, HttpStatus.OK);
+    }
+    
+    
 }

@@ -58,5 +58,9 @@ public class KorisnikService {
 		return korisnikRepository.findOne(id);
 		
 	}
+
+	public Collection<Korisnik> allRestaurantEmployees() {
+		return korisnikRepository.findByTipOrTipOrTip("Waiter", "Cook", "Bartender");
+	}
 	
 }

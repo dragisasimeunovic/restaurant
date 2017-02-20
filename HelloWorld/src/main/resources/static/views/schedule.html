@@ -11,6 +11,31 @@
     
 </mwl-calendar>
 
-	
+	<label style="color: white"> I want to come: </label>
+		<p class="input-group" style="width: 150"> 	
+          	<input type="text" class="form-control" uib-datepicker-popup ng-model="shiftStart" is-open="shiftStartOpened" ng-changed="dateChanged(shiftStart)" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+          	<span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="openShiftStart()"><i class="glyphicon glyphicon-calendar"></i></button>
+          	</span>
+        </p>
+        
+		 <div uib-timepicker ng-model="shiftStartTime" ng-change="shiftStartChanged()" hour-step="hstep" minute-step="mstep" show-meridian="false"></div>
+		
+		
+		<p class="input-group">	
+		<label style="color: white"> Shift hours: </label>
+			<input type="number" class="form-control" ng-model="shiftHours" min="1" max="10">
+		</p>
+		
+		<md-select ng-change="" placeholder="Choose Employee" ng-model="selectedEmployee" style="min-width: 200px; color: white;">
+      		<md-option ng-value="employee" ng-repeat="employee in (filteredEmployees = (employees | filter:{restoran:restoranId}))">{{employee.ime}} {{employee.prezime}} ({{employee.tip}})</md-option>
+		</md-select>
+		
+		<md-select ng-change="" placeholder="Choose Region" ng-model="selectedRegion" style="min-width: 200px; color: white;">
+      		<md-option ng-value="region" ng-repeat="region in regions">{{region.name}}</md-option>
+		</md-select>
+		
+		<md-button class="md-raised md-primary" ng-click="confirmShift()">CONFIRM SHIFT</md-button>
+		
 
 </div>
