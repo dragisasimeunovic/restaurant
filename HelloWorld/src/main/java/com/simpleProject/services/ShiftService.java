@@ -1,5 +1,7 @@
 package com.simpleProject.services;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,10 @@ public class ShiftService {
 	
 	public Shift addShift(Shift shift){
 		return shiftRepository.save(shift);
+	}
+	
+	public Collection<Shift> findRestaurantsShifts(Integer restaurantId){
+		return shiftRepository.findByRestaurantId(restaurantId);
 	}
 	
 }

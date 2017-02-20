@@ -673,6 +673,13 @@ angular.module('Milica').factory('shiftService' , function shiftService($http){
 		});
 	}
 	
+	shiftService.findShifts = function(id){
+		return $http ({
+			method: 'GET',
+			url: 'api/shift/findShifts/' + id
+		});
+	}
+	
 	return shiftService;
 	
 });

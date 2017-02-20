@@ -1,5 +1,21 @@
 app.controller('scheduleController', ['$scope', 'restaurantsService', 'dateFilter', 'shiftService', function($scope, restaurantsService, dateFilter, shiftService){
 
+	shiftService.findShifts(restaurantsService.activeRestaurant.id).then(function(response){
+		$scope.events = response.data;
+		for (var i = 0; i < $scope.events.length; i++) {
+			var endTime = {};
+			var endTimeString = $scope.events[i].endsAt;
+			var endTimeMoment = moment(endTimeString);
+			endTime = moment(endTimeMoment).format('HH:mm');
+			$scope.events[i].title = endTime + " " + $scope.events[i].employee.ime 
+			+ " " + $scope.events[i].employee.prezime 
+			+ " (" + $scope.events[i].employee.tip + ")" + " " + $scope.events[i].region;
+			
+			
+		}
+	});
+	
+	
 	
 	$scope.shiftHours = 1;
 	
@@ -81,14 +97,14 @@ app.controller('scheduleController', ['$scope', 'restaurantsService', 'dateFilte
 	
 	$scope.calendarView = 'month';
 	$scope.viewDate = new Date();
-	$scope.events = [
+	/*$scope.events = [
 	                     {
 	                         title: 'An event',
 	                         color: 'blue',
 	                         startsAt: moment().startOf('week').subtract(2, 'days').add(8, 'hours').toDate(),
 	                         endsAt: moment().startOf('week').add(1, 'week').add(9, 'hours').toDate()
 	                         
-	                     }];
+	                     }];*/
 	$scope.calendarTitle = "Schedule";
 	$scope.eventClicked = function(calendarEvent){
 		alert('opa');
