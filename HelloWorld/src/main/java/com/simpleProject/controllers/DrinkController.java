@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.simpleProject.model.Drink;
 import com.simpleProject.model.DrinkCategory;
-import com.simpleProject.model.Meal;
 import com.simpleProject.services.DrinkCategoryService;
 import com.simpleProject.services.DrinkService;
 
