@@ -13,7 +13,7 @@ import com.simpleProject.repository.DrinkCardRepository;
 public class DrinkCardService {
 	
 	@Autowired
-	DrinkCardRepository drinkCardRepository;
+	private DrinkCardRepository drinkCardRepository;
 	
 	public Collection<DrinkCard> getAll(){
 		return drinkCardRepository.findAll();

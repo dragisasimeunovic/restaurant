@@ -18,7 +18,7 @@ import com.simpleProject.services.DrinkCardService;
 public class DrinkCardController {
 	
 	@Autowired
-	DrinkCardService drinkCardService;
+	private DrinkCardService drinkCardService;
 	
 	@RequestMapping(
             value    = "/api/drinkCard/addDrinkCard",

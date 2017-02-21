@@ -1,4 +1,8 @@
-app.controller('RestaurantController', ['$scope','restaurantsService','$location','$mdDialog','registrationRestaurantService','$route','$window','tableService', function($scope, restaurantsService,$location,$mdDialog, registrationRestaurantService, $route, $window, tableService) {
+app.controller('RestaurantController', ['$scope','restaurantsService','$location','$mdDialog','registrationRestaurantService','$route','$window','tableService', 'bidderService', function($scope, restaurantsService,$location,$mdDialog, registrationRestaurantService, $route, $window, tableService, bidderService) {
+	
+	$scope.addBidder = function() {
+		$location.path("/addBidder");
+	}
 	
 	
 	$scope.goToGroceries = function(){

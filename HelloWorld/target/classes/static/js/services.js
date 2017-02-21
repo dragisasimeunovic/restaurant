@@ -758,3 +758,25 @@ angular.module('Milica').factory('groceriesService' , function groceriesService(
 });
 
 
+angular.module('Milica').factory('bidderService' , function bidderService($http){
+	
+	bidderService.addBidder = function(email, ime, lozinka, tip){
+		return $http({
+			method: 'POST',
+			url: 'api/bidder/addBidder',
+			data: {
+				"email" : email,
+				"ime": ime,
+				"lozinka" : lozinka,
+				"tip" : "bidder"			
+			}
+			
+		});
+	}
+	
+	
+	return bidderService;
+	
+});
+
+

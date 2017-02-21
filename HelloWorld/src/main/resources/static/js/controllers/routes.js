@@ -34,6 +34,9 @@ app.config(function($routeProvider) {
     .when("/addManager", {
         templateUrl : "views/addManager.html"
     })
+    .when("/addBidder", {
+        templateUrl : "views/addOfferer.html"
+    })
     .when("/managerHome", {
         templateUrl : "views/managerHome.html"
     })

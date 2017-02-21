@@ -113,6 +113,16 @@ public class KorisnikController {
     	Collection<Korisnik> allRestaurantEmployees = korisnikService.allRestaurantEmployees();
     	return new ResponseEntity<Collection<Korisnik>>(allRestaurantEmployees, HttpStatus.OK);
     }
+	
+	@RequestMapping(
+            value    = "/api/bidder/addBidder",
+            method   = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Korisnik> addBidder(@RequestBody Korisnik bidder) {
+		Korisnik addingBidder = korisnikService.add(bidder);
+        return new ResponseEntity<Korisnik>(addingBidder, HttpStatus.OK);
+    }
     
     
 }
