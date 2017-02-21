@@ -684,4 +684,48 @@ angular.module('Milica').factory('shiftService' , function shiftService($http){
 	
 });
 
+angular.module('Milica').factory('groceriesService' , function groceriesService($http){
+	
+	groceriesService.addGroceriesCategory = function(categoryName){
+		return $http({
+			method: 'POST',
+			url: 'api/groceriesCategory/addGroceriesCategory',
+			data: {
+				"id" : null,
+				"categoryName": categoryName	
+			}
+			
+		});
+	}
+	
+	groceriesService.getAllCategories = function(){
+		return $http({
+			method: 'GET',
+			url: 'api/groceriesCategory/allCategories'
+		});
+	}
+	
+	
+	
+	groceriesService.addGroceries = function(groceriesName, gCategory){
+		return $http({
+			method: 'POST',
+			url: 'api/groceries/addGroceries/' + gCategory.id,
+			data: {
+				"id" : null,
+				"groceriesName": groceriesName,
+				"gCategory" : gCategory
+			}
+			
+		});
+	}
+	
+	groceriesService.activeCategory = {};
+	
+	
+	
+	return groceriesService;
+	
+});
+
 

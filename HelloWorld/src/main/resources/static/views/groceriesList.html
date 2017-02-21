@@ -1,6 +1,43 @@
 <div ng-controller="groceriesListController"> 
 
-<ul uib-pagination direction-links="false" total-items="totalItems" ng-model="currentPage" 
-page-label="pageLabel($page)"></ul>
+<md-toolbar class="md-small-tall" style="background-color:rgb(0,0,0); opacity:0.6 ; height:20px;">
+      	<div class="md-toolbar-tools">
+        <!-- <md-button aria-label="Go Back">
+          Go Back
+        </md-button> -->
+        <h2>
+          <span style="color:white;">BSA Restaurants</span>
+        </h2>
+        <span flex></span>
+        
+        <md-button class="md-primary" ng-click="addGroceriesCategoryDialog()">
+          	Add Category 
+        </md-button>
+        
+        
+		</div>
+ 	</md-toolbar>
+ 	 
+ 
+  <md-list ng-repeat = "category in categories">
+ 		<md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky"> {{category.categoryName}} 
+ 		
+ 			<md-icon ng-init md-svg-src="images/add.svg" ng-click="addGroceries(category)" aria-label="Add Groceries" class="md-secondary md-hue-3" >
+ 			</md-icon>
+ 		
+ 		</md-subheader>
+ 		
+ 		
+ 		<md-list-item ng-repeat="groceries in category.groceries" ng-click="" class="noright">
+    		<img alt="{{ groceries.groceriesName }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
+    		<p style="color:white"> {{groceries.groceriesName}}</p>
+    		
+    		<md-icon ng-init md-svg-src="images/edit.svg" ng-click="editDrink($event, category, drink)" aria-label="Edit Drink" class="md-secondary md-hue-3" ></md-icon>
+  			<md-icon md-svg-src="images/garbage.svg" ng-click="" aria-label="Send Email" class="md-secondary md-hue-3" ></md-icon>
+  			
+  		</md-list-item>
+ 		
+ 	</md-list>
+
 
 </div>
