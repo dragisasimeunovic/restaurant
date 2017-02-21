@@ -56,6 +56,37 @@
   			</md-list-item>
  		
  		</md-list>
+ 		
+ 		<p class="form-group"  style="width: 200">
+    		<label style="color: white;">List name:</label>
+    		<input type="text" ng-model="listName" class="form-control">
+  		</p>
+ 		
+ 		
+ 		<label style="color: white"><b>Starting date and time:</b></label>
+		<p class="input-group" style="width: 150"> 	
+          	<input type="text" class="form-control" uib-datepicker-popup ng-model="startingDate" is-open="startingDateOpened" ng-changed="" datepicker-options="startingDateOptions" ng-required="true" close-text="Close" />
+          	<span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="openStartingDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+          	</span>
+        </p>
+        
+		 <div uib-timepicker ng-model="startingTime" ng-change="startingTimeChanged()" hour-step="hstep" minute-step="mstep" show-meridian="false"></div>
+	
+	
+		<label style="color: white"><b>Ending date and time:</b></label>
+		<p class="input-group" style="width: 150"> 	
+          	<input type="text" class="form-control" uib-datepicker-popup ng-model="endingDate" is-open="endingDateOpened" ng-changed="dateChanged(comingDate)" datepicker-options="endingDateOptions" ng-required="true" close-text="Close" />
+          	<span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="openEndingDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+          	</span>
+        </p>
+        
+		<div uib-timepicker ng-model="endingTime" ng-change="endingTimeChanged()" hour-step="ehstep" minute-step="emstep" show-meridian="false"></div>
+	
+		<md-button class="md-raised md-primary" ng-click="saveList()">CONFIRM LIST</md-button>
+		
+ 		
 	</div>
 	
 </div>

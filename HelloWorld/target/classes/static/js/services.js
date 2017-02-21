@@ -720,6 +720,35 @@ angular.module('Milica').factory('groceriesService' , function groceriesService(
 		});
 	}
 	
+	groceriesService.addList = function(listName, restaurantId, startingTime, endingTime){
+		return $http({
+			method: 'POST',
+			url: 'api/groceries/addList',
+			data: {
+				"id" : null,
+				"restaurantId" : restaurantId,
+				"listName": listName,
+				"startingTime" : startingTime,
+				"endingTime" : endingTime
+			}
+			
+		});
+	}
+	
+	groceriesService.addListItem = function(grListId, groceries, quantity, gl){
+		return $http({
+			method: 'POST',
+			url: 'api/groceries/addListItem/' + grListId,
+			data: {
+				"id" : null,
+				"groceries": groceries,
+				"quantity" : quantity,
+				"gl" : gl
+			}
+			
+		});
+	}
+	
 	groceriesService.activeCategory = {};
 	
 	

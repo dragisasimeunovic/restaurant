@@ -12,7 +12,7 @@ import com.simpleProject.repository.GroceriesCategoryRepository;
 public class GroceriesCategoryService {
 	
 	@Autowired
-	GroceriesCategoryRepository groceriesCategoryRepository;
+	private GroceriesCategoryRepository groceriesCategoryRepository;
 
 	public GroceriesCategory add(GroceriesCategory groceriesCategory) {
 		
