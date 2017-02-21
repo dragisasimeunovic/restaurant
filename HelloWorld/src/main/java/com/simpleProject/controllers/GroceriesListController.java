@@ -44,6 +44,16 @@ public class GroceriesListController {
         return new ResponseEntity<Collection<GroceriesList>>(groceriesLists, HttpStatus.OK);
     }
 	
+	@RequestMapping(
+            value    = "/api/groceries/getListsByStartingTime/{startingTime}",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<GroceriesList>> getListsByStartingTime(@PathVariable String startingTime) {
+		Collection<GroceriesList> groceriesLists = groceriesListService.getAllOngoingLists(startingTime);
+        return new ResponseEntity<Collection<GroceriesList>>(groceriesLists, HttpStatus.OK);
+    }
+	
 	
 	
 }

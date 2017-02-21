@@ -705,6 +705,13 @@ angular.module('Milica').factory('groceriesService' , function groceriesService(
 		});
 	}
 	
+	groceriesService.getAllCategoriesByStartingTime = function(startingTime){
+		return $http({
+			method: 'GET',
+			url: 'api/groceries/getListsByStartingTime/'+startingTime
+		});
+	}
+	
 	
 	
 	groceriesService.addGroceries = function(groceriesName, gCategory){

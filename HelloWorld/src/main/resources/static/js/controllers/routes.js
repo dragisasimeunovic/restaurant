@@ -53,6 +53,9 @@ app.config(function($routeProvider) {
     .when("/groceries", {
         templateUrl : "views/groceriesList.html"
     })
+    .when("/bidderHome", {
+        templateUrl : "views/bidderHome.html"
+    })
     .when("/drinkCard", {
         templateUrl : "views/drinkCard.html"
     });

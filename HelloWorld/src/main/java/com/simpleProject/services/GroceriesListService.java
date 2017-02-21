@@ -20,11 +20,15 @@ public class GroceriesListService {
 	}
 
 	public Collection<GroceriesList> getAllLists(Integer restaurantId, String startingTime, String endingTime) {
-		return groceriesListRepository.findByRestaurantIdAndStartingTimeAndEndingTime(restaurantId, startingTime, endingTime);
+		return groceriesListRepository.findByRestaurantIdAndStartingTimeGreaterThanAndEndingTimeLessThan(restaurantId, startingTime, endingTime);
 	}
 
 	public GroceriesList getById(Integer id) {
 		return groceriesListRepository.findOne(id);
+	}
+
+	public Collection<GroceriesList> getAllOngoingLists(String startingTime) {
+		return groceriesListRepository.findByStartingTimeGreaterThan(startingTime);
 	}
 	
 }
