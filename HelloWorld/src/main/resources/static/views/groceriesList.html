@@ -18,26 +18,44 @@
 		</div>
  	</md-toolbar>
  	 
- 
-  <md-list ng-repeat = "category in categories">
- 		<md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky"> {{category.categoryName}} 
+<div layout="row">
+	<div flex = 50>
+  		<md-list ng-repeat = "category in categories">
+ 			<md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky"> {{category.categoryName}} 
  		
  			<md-icon ng-init md-svg-src="images/add.svg" ng-click="addGroceries(category)" aria-label="Add Groceries" class="md-secondary md-hue-3" >
  			</md-icon>
  		
- 		</md-subheader>
+ 			</md-subheader>
  		
  		
- 		<md-list-item ng-repeat="groceries in category.groceries" ng-click="" class="noright">
-    		<img alt="{{ groceries.groceriesName }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
-    		<p style="color:white"> {{groceries.groceriesName}}</p>
+ 			<md-list-item ng-repeat="groceries in category.groceries" ng-click="" class="noright">
+    			<img alt="{{ groceries.groceriesName }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
+    			<p style="color:white"> {{groceries.groceriesName}}</p>
     		
-    		<md-icon ng-init md-svg-src="images/edit.svg" ng-click="editDrink($event, category, drink)" aria-label="Edit Drink" class="md-secondary md-hue-3" ></md-icon>
-  			<md-icon md-svg-src="images/garbage.svg" ng-click="" aria-label="Send Email" class="md-secondary md-hue-3" ></md-icon>
+    			<md-icon ng-init md-svg-src="images/plus-one.svg" ng-click="addToGroceriesList(groceries)" aria-label="Edit Drink" class="md-secondary md-hue-3" ></md-icon>
   			
-  		</md-list-item>
+  			</md-list-item>
  		
- 	</md-list>
-
-
+ 		</md-list>
+	</div>
+	
+	<div flex = 50>
+  		<md-list>
+ 			<md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky"> List of Groceries for Order
+ 		
+ 			</md-subheader>
+ 		
+ 		
+ 			<md-list-item ng-repeat="g in groceriesList" ng-click="" class="noright">
+    			<img alt="{{ g.groceriesName }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
+    			<p style="color:white"> {{g.groceriesName}} {{g.brojac}}</p>
+    		
+  				<md-icon md-svg-src="images/garbage.svg" ng-click="deleteFromGroceriesList(g)" aria-label="Delete groceries" class="md-secondary md-hue-3" ></md-icon>
+  			
+  			</md-list-item>
+ 		
+ 		</md-list>
+	</div>
+	
 </div>

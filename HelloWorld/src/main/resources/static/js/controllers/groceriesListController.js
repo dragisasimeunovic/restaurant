@@ -1,5 +1,32 @@
 app.controller('groceriesListController', ['$scope', 'restaurantsService', 'dateFilter', 'shiftService', 'groceriesService', '$mdDialog', '$route', function($scope, restaurantsService, dateFilter, shiftService, groceriesService, $mdDialog, $route){
+	$scope.groceriesList = [];
 	
+	$scope.deleteFromGroceriesList = function(groceries) {
+		var index = $scope.groceriesList.indexOf(groceries);
+		if (index != -1) {
+			if (groceries.brojac == 1) {
+				$scope.groceriesList.splice( index, 1 );
+			}
+			else {
+				groceries.brojac = groceries.brojac - 1;
+			}
+		}
+		
+		
+	}
+	
+	$scope.addToGroceriesList = function(groceries){
+		var index = $scope.groceriesList.indexOf(groceries);
+		if (index != -1) {
+			groceries.brojac = groceries.brojac + 1;
+		}
+		else {
+			groceries.brojac = 1;
+			$scope.groceriesList.push(groceries);
+		}
+		
+		
+	};
 	
 	groceriesService.getAllCategories().then(function(response){
 		$scope.categories = response.data;
