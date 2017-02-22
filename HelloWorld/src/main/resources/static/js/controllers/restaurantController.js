@@ -1,5 +1,9 @@
 app.controller('RestaurantController', ['$scope','restaurantsService','$location','$mdDialog','registrationRestaurantService','$route','$window','tableService', 'bidderService', function($scope, restaurantsService,$location,$mdDialog, registrationRestaurantService, $route, $window, tableService, bidderService) {
 	
+	$scope.goToOffers = function(){
+		$location.path("/offers");
+	}
+	
 	$scope.addBidder = function() {
 		$location.path("/addBidder");
 	}

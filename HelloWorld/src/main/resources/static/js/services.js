@@ -736,9 +736,17 @@ angular.module('Milica').factory('groceriesService' , function groceriesService(
 				"restaurantId" : restaurantId,
 				"listName": listName,
 				"startingTime" : startingTime,
-				"endingTime" : endingTime
+				"endingTime" : endingTime,
+				"active" :true
 			}
 			
+		});
+	}
+	
+	groceriesService.setListActiveToFalse = function(id){
+		return $http({
+			method: 'POST',
+			url: 'api/groceries/addListActive/' + id
 		});
 	}
 	
@@ -783,6 +791,37 @@ angular.module('Milica').factory('bidderService' , function bidderService($http)
 	
 	
 	return bidderService;
+	
+});
+
+angular.module('Milica').factory('offerService' , function offerService($http){
+	
+	offerService.addOffer = function(price, deliveryDate, bidder, gl, warranty){
+		return $http({
+			method: 'POST',
+			url: 'api/offer/addOffer/'+gl.id,
+			data: {
+				"id" : null,
+				"price": price,
+				"deliveryDate" : deliveryDate,
+				"bidder" : bidder, 
+				"gl" : gl ,
+				"warranty" : warranty,
+				"accepted" : false
+			}
+			
+		});
+	}
+	
+	offerService.acceptOffer = function(offerId){
+		return $http({
+			method: 'POST',
+			url: 'api/offer/addOfferAccepted/'+offerId,
+		});
+	}
+	
+	
+	return offerService;
 	
 });
 

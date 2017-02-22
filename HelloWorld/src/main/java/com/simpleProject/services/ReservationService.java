@@ -13,7 +13,7 @@ public class ReservationService {
 
 	
 	@Autowired
-	ReservationRepository reservationRepository;
+	private ReservationRepository reservationRepository;
 	
 	
 	public Collection<Reservation> getAll(){

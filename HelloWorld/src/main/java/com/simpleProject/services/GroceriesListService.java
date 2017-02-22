@@ -12,7 +12,7 @@ import com.simpleProject.repository.GroceriesListRepository;
 public class GroceriesListService {
 
 	@Autowired
-	GroceriesListRepository groceriesListRepository;
+	private GroceriesListRepository groceriesListRepository;
 
 	public GroceriesList add(GroceriesList groceriesList) {
 		
@@ -28,7 +28,11 @@ public class GroceriesListService {
 	}
 
 	public Collection<GroceriesList> getAllOngoingLists(String startingTime) {
-		return groceriesListRepository.findByStartingTimeGreaterThan(startingTime);
+		return groceriesListRepository.findByEndingTimeGreaterThan(startingTime);
+	}
+
+	public Integer setActiveToFalse(boolean b, Integer id) {
+		return groceriesListRepository.setActiveForGroceriesList(b, id);
 	}
 	
 }

@@ -18,6 +18,8 @@
 	</div>
 	
 	</div>
+	
+	
 
    <div layout="row">
 		<div flex="20" style="background-color:rgb(0,0,0); opacity:0.6">
@@ -27,6 +29,10 @@
   		 	<p style="color:white"> Name: {{name}} </p> <br> 
     	
    		 </div>
+   		 
+   		 
+	
+
    		 
    		 <md-list ng-repeat="list in lists">
  		<md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky"> {{list.listName}} 
@@ -44,6 +50,32 @@
    		
 	</div>
 	
+		<md-select ng-change="" placeholder="Choose list" ng-model="selectedList" style="min-width: 200px; color: white;">
+      		<md-option ng-value="list" ng-repeat="list in lists ">{{list.listName}}</md-option>
+	</md-select>
+	
+	<p class="input-group">	
+		<label style="color: white"> Price: </label>
+			<input type="number" class="form-control" ng-model="price" min="1">
+	</p>
+	
+	<label style="color: white"> Date of delivery </label>
+		<p class="input-group" style="width: 150"> 	
+          	<input type="text" class="form-control" uib-datepicker-popup ng-model="deliveryDate" is-open="deliveryDateOpened" ng-changed="" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+          	<span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="openDeliveryDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+          	</span>
+        </p>
+        
+		 <div uib-timepicker ng-model="deliveryTime" ng-change="deliveryTimeChanged()" hour-step="hstep" minute-step="mstep" show-meridian="false"></div>
+		
+		<div>
+   		<md-checkbox ng-model="warranty" aria-label="Warranty" style="color: white;">       
+        		Warranty: 
+       	 </md-checkbox>
+		</div>
+		
+		<md-button class="md-raised md-primary" ng-click="confirmOffer()">CONFIRM OFFER </md-button>
 	
 	
 

@@ -54,6 +54,16 @@ public class GroceriesListController {
         return new ResponseEntity<Collection<GroceriesList>>(groceriesLists, HttpStatus.OK);
     }
 	
+	@RequestMapping(
+            value    = "/api/groceries/addListActive/{id}",
+            method   = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Integer> addGroceriesListActive(@PathVariable Integer id) {
+		Integer indexOfUpdatedList = groceriesListService.setActiveToFalse(false, id);
+        return new ResponseEntity<Integer>(indexOfUpdatedList, HttpStatus.OK);
+    }
+	
 	
 	
 }

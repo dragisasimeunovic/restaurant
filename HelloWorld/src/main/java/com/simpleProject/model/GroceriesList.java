@@ -44,6 +44,11 @@ public class GroceriesList implements Serializable{
 	@OneToMany(mappedBy = "gl", fetch = FetchType.EAGER)
 	private Collection<GroceriesListItem> items;
 	
+	@OneToMany(mappedBy = "gl", fetch = FetchType.LAZY)
+	private Collection<Offer> offers;
+	
+	@Column(name = "active")
+    private boolean active;
 	
 	public GroceriesList() {
 
@@ -107,6 +112,26 @@ public class GroceriesList implements Serializable{
 
 	public void setListName(String listName) {
 		this.listName = listName;
+	}
+
+
+	public Collection<Offer> getOffers() {
+		return offers;
+	}
+
+
+	public void setOffers(Collection<Offer> offers) {
+		this.offers = offers;
+	}
+
+
+	public boolean isActive() {
+		return active;
+	}
+
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 }

@@ -13,7 +13,7 @@ public class MenuService {
 	
 
 	@Autowired
-	MenuRepository menuRepository;
+	private MenuRepository menuRepository;
 	
 	
 	public Collection<Menu> getAll(){
