@@ -1,5 +1,7 @@
 package com.simpleProject.services;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,10 @@ public class DrinkOrderListService {
 
 	public DrinkOrderList getById(Integer id) {
 		return drinkOrderListRepository.findOne(id);
+	}
+	
+	public Collection<DrinkOrderList> getByRestaurantIdAndNonServed(Integer restaurantId, Boolean isServed) {
+		return drinkOrderListRepository.findByRestaurantIdAndIsServed(restaurantId, isServed);
 	}
 
 	

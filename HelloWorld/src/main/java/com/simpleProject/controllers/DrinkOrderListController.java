@@ -1,9 +1,12 @@
 package com.simpleProject.controllers;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +30,16 @@ public class DrinkOrderListController {
     public ResponseEntity<DrinkOrderList> adDrinkOrderList(@RequestBody DrinkOrderList dol) {
 		DrinkOrderList d = drinkOrderListService.add(dol);
         return new ResponseEntity<DrinkOrderList>(d, HttpStatus.OK);
+    }
+	
+	@RequestMapping(
+            value    = "/api/drinkOrderList/getAllRestaurantNonservedLists/{restaurantId}",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<DrinkOrderList>> getNonservedLists(@PathVariable Integer restaurantId) {
+		Collection<DrinkOrderList> d = drinkOrderListService.getByRestaurantIdAndNonServed(restaurantId, false);
+        return new ResponseEntity<Collection<DrinkOrderList>>(d, HttpStatus.OK);
     }
 	
 }

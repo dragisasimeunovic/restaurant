@@ -16,5 +16,9 @@ public class DrinkOrderItemService {
 	public DrinkOrderItem add(DrinkOrderItem doi) {
 		return drinkOrderItemRepository.save(doi);
 	}
+	
+	public Integer setPreparedForDrinkOrderItem(Boolean prepared, Integer id){
+		return drinkOrderItemRepository.setIsPreparedForDrinkOrderItem(prepared, id);
+	}
 
 }

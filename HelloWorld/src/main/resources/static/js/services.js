@@ -655,6 +655,22 @@ angular.module('Milica').factory('drinkOrderService' , function drinkOrderServic
 
 		});
 	}
+	
+	drinkOrderService.setPreparedForListItem = function(id, prepared){
+		return $http({
+			method: 'POST',
+			url: 'api/drinkOrder/setPreparedForListItem/' + id +'/'+prepared
+		});
+	}
+	
+	drinkOrderService.getNonservedLists = function(restaurantId){
+		return $http({
+			method: 'GET',
+			url: 'api/drinkOrderList/getAllRestaurantNonservedLists/' + restaurantId
+		});
+	}
+	
+	
 
 	
 	return drinkOrderService;

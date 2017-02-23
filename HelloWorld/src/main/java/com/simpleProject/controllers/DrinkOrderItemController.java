@@ -36,4 +36,14 @@ public class DrinkOrderItemController {
         return new ResponseEntity<DrinkOrderItem>(a, HttpStatus.OK);
     }
 	
+	@RequestMapping(
+            value    = "/api/drinkOrder/setPreparedForListItem/{id}/{prepared}",
+            method   = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Integer> setPreparedForListItem(@PathVariable Integer id, @PathVariable Boolean prepared) {
+		Integer a = drinkOrderItemService.setPreparedForDrinkOrderItem(prepared, id);
+        return new ResponseEntity<Integer>(a, HttpStatus.OK);
+    }
+	
 }

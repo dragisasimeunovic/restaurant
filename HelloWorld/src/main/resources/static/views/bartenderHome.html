@@ -1,0 +1,52 @@
+<div ng-controller="bartenderController">
+<md-toolbar class="md-small-tall" style="background-color:rgb(0,0,0); opacity:0.6 ; height:20px;">
+      <div class="md-toolbar-tools">
+    
+        <h2>
+          <span style="color:white;">BSA Restaurants</span>
+        </h2>
+        <span flex></span>
+        
+        <md-button class="md-primary" aria-label="Reservation" ng-click="activeTab=0" >
+          	Drink orders 
+        </md-button>
+       
+  
+        <md-button class="md-icon-button" aria-label="Favorite" ng-click="activeTab=1">
+          <md-icon md-svg-icon="images/user.svg" style="color: greenyellow;"></md-icon>
+        </md-button>
+        
+        <md-button class="md-primary md-hue-1" style="color:white;" aria-label="Learn More" ng-click="backToLogin()">
+          LOGout
+        </md-button>
+      </div>
+    </md-toolbar>
+    
+    <div ng-show="activeTab==0">
+    
+    	<md-list ng-repeat = "list in orderLists">
+ 			<md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky"> Order for table: {{list.tableNumber}} 
+ 			</md-subheader>
+ 		
+ 			<md-list-item ng-repeat="item in list.items" ng-click="" class="noright">
+    			<img alt="{{ item.drink.drinkName }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
+    			<p style="color:white"> {{item.drink.drinkName}} {{item.quantity}}</p>
+    		
+    			<md-checkbox ng-model="item.isPrepared" aria-label="Prepared" ng-change="setPrepared(item)" style="color: white;">       
+        		Prepared:
+        		</md-checkbox>
+  			</md-list-item>
+ 		
+ 		</md-list>
+    	
+    </div>
+    
+    
+    <div ng-show="activeTab==1">
+    	
+    </div>
+    
+   
+    
+</div>
+    
