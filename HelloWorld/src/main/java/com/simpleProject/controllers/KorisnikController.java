@@ -123,6 +123,17 @@ public class KorisnikController {
 		Korisnik addingBidder = korisnikService.add(bidder);
         return new ResponseEntity<Korisnik>(addingBidder, HttpStatus.OK);
     }
+	
+	@RequestMapping(
+            value    = "/api/korisnik/setFirstLogin/{email:.+}/{firstLogin}/{password}",
+            method   = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Integer> firstLoginChange(@PathVariable String email, @PathVariable Integer firstLogin, @PathVariable String password) {
+		Integer i = korisnikService.changeFirstLogin(email, firstLogin, password);
+        return new ResponseEntity<Integer>(i, HttpStatus.OK);
+    }
+	
     
     
 }

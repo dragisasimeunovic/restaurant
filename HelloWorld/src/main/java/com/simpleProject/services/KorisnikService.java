@@ -39,28 +39,21 @@ public class KorisnikService {
 		return korisnikRepository.findByTipAndEmailNotOrderByImeDesc("gost", email);
 	}
 	
-
-	
 	public Korisnik add(Korisnik korisnik){
 		return korisnikRepository.save(korisnik);
 	}
 	
 	public Korisnik getOne(String id){
-		/*ArrayList<Korisnik> korisnici = new ArrayList<Korisnik>();
-		korisnici = (ArrayList<Korisnik>) korisnikRepository.findAll();
-		System.out.println(korisnici.size());
-		for(Korisnik korisnik:korisnici){
-			if(korisnik.getEmail().equals(id)){
-				System.out.println(korisnik.getEmail());
-				return korisnik;
-			}
-		}*/
 		return korisnikRepository.findOne(id);
 		
 	}
 
 	public Collection<Korisnik> allRestaurantEmployees() {
 		return korisnikRepository.findByTipOrTipOrTip("Waiter", "Cook", "Bartender");
+	}
+
+	public Integer changeFirstLogin(String email, Integer firstLogin, String lozinka) {
+		return korisnikRepository.setFirstLoginForKorisnik(firstLogin, lozinka, email);
 	}
 	
 }

@@ -3,7 +3,6 @@ package com.simpleProject.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
 
 
 @Entity
@@ -42,6 +41,9 @@ public class Korisnik implements Serializable {
     
     @Column(name="restoran")
     private Integer restoran;
+    
+    @Column(name = "firstLogin")
+    private Integer firstLogin;
     
    /* @OneToMany(mappedBy = "userSender", fetch = FetchType.EAGER)
 	private Collection<FriendRequest> friendRequests;*/
@@ -134,6 +136,19 @@ public class Korisnik implements Serializable {
 	public void setRestoran(Integer restoran) {
 		this.restoran = restoran;
 	}
+
+
+	public Integer getFirstLogin() {
+		return firstLogin;
+	}
+
+
+	public void setFirstLogin(Integer firstLogin) {
+		this.firstLogin = firstLogin;
+	}
+
+
+	
 
 	
 /*	public Collection<Friendship> getSecondsFriendsFS() {

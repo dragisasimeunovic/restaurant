@@ -14,7 +14,8 @@ angular.module('Milica').factory('registrationService' , function registrationSe
 				"restoran" : null,
 				"dateOfBirth":null,
 				"dressSize":null,
-				"footwearSize":null
+				"footwearSize":null,
+				"firstLogin" : 0
 			}
 			
 		});
@@ -87,7 +88,8 @@ angular.module('Milica').factory('registrationManagerService' , function registr
 				"restoran" : restaurant,
 				"dateOfBirth":null,
 				"dressSize":null,
-				"footwearSize":null
+				"footwearSize":null,
+				"firstLogin" : 0
 			}
 			
 		});
@@ -111,7 +113,8 @@ angular.module('Milica').factory('registrationOffererService' , function registr
 				"tip" : "ponudjac",
 				"dateOfBirth":null,
 				"dressSize":null,
-				"footwearSize":null
+				"footwearSize":null,
+				"firstLogin": 0
 			}
 			
 		});
@@ -136,7 +139,8 @@ angular.module('Milica').factory('registrationEmployedService' , function regist
 				"restoran" :restaurantId,
 				"dateOfBirth":dateOfBirth,
 				"dressSize":dressSize,
-				"footwearSize":footwearSize
+				"footwearSize":footwearSize,
+				"firstLogin": 0
 			}
 			
 		});
@@ -170,6 +174,15 @@ angular.module('Milica').factory('loginService' , function loginService($http){
 		return $http({
 			method: 'GET',
 			url: 'api/korisnici/' + email 
+		    
+		});
+		
+	}
+	
+	loginService.changeFirstLogin = function(email, firstLogin, password){
+		return $http({
+			method: 'POST',
+			url: 'api/korisnik/setFirstLogin/' + email + '/' + firstLogin + '/' + password
 		    
 		});
 		
@@ -814,7 +827,8 @@ angular.module('Milica').factory('bidderService' , function bidderService($http)
 				"email" : email,
 				"ime": ime,
 				"lozinka" : lozinka,
-				"tip" : "bidder"			
+				"tip" : "bidder",
+				"firstLogin" : 0
 			}
 			
 		});
