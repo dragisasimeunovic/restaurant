@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -29,8 +30,8 @@ public class Reservation implements Serializable{
 	@Column(name = "restaurantId")
     private Integer restaurantId;
 	
-	@Column(name = "tableId")
-    private Integer tableId;
+	@ManyToOne
+    private Tablee reservedTable;
 	
 	@Column(name = "comingTime")
     private String comingTime;
@@ -84,13 +85,15 @@ public class Reservation implements Serializable{
 		this.restaurantId = restaurantId;
 	}
 
-	public Integer getTableId() {
-		return tableId;
+	public Tablee getReservedTable() {
+		return reservedTable;
 	}
 
-	public void setTableId(Integer tableId) {
-		this.tableId = tableId;
+	public void setReservedTable(Tablee reservedTable) {
+		this.reservedTable = reservedTable;
 	}
+
+	
 	
 	
 	

@@ -1,0 +1,26 @@
+package com.simpleProject.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.simpleProject.model.DrinkOrderList;
+import com.simpleProject.repository.DrinkOrderListRepository;
+
+@Service
+public class DrinkOrderListService {
+
+	@Autowired
+	private DrinkOrderListRepository drinkOrderListRepository;
+
+	public DrinkOrderList add(DrinkOrderList dol) {
+		return drinkOrderListRepository.save(dol);
+	}
+
+	public DrinkOrderList getById(Integer id) {
+		return drinkOrderListRepository.findOne(id);
+	}
+
+	
+	
+	
+}

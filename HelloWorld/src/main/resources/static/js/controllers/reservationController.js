@@ -105,7 +105,7 @@ app.controller('reservationController',['$scope', 'friendsService', 'managerServ
 		for (var i = 0; i < reservedTables.length; i++) {
 			
 			if (i == 0) {
-				reservationService.addReservation(loginService.user.email, $scope.selectedRestaurant.id, reservedTables[i].id, bpTime, endDateString).then(function(response){
+				reservationService.addReservation(loginService.user.email, $scope.selectedRestaurant.id, reservedTables[i], bpTime, endDateString).then(function(response){
 					alert('Saved!');
 					for (var j = 0; j < $scope.selectedFriends.length; j++) {		
 						invitationService.addInvitation(loginService.user.email, response.data.id, false, $scope.selectedFriends[j].email).then(function(response){
@@ -128,7 +128,7 @@ app.controller('reservationController',['$scope', 'friendsService', 'managerServ
 					
 				});
 			}else {
-				reservationService.addReservation(loginService.user.email, $scope.selectedRestaurant.id, reservedTables[i].id, bpTime, endDateString).then(function(response){
+				reservationService.addReservation(loginService.user.email, $scope.selectedRestaurant.id, reservedTables[i], bpTime, endDateString).then(function(response){
 					alert('Saved!');
 				});
 			}

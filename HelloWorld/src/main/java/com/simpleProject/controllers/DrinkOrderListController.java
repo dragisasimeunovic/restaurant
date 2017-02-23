@@ -9,25 +9,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.simpleProject.model.DrinkOrderItem;
-import com.simpleProject.services.DrinkOrderService;
+import com.simpleProject.model.DrinkOrderList;
+import com.simpleProject.services.DrinkOrderListService;
 
 @RestController
-public class DrinkOrderController {
+public class DrinkOrderListController {
 
-	@Autowired
-	private DrinkOrderService drinkOrderService;
 	
+	@Autowired
+	private DrinkOrderListService drinkOrderListService;
 	
 	@RequestMapping(
-            value    = "/api/drinkOrder/addDrinkOrder",
+            value    = "/api/drinkOrderList/addList",
             method   = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<DrinkOrderItem> addDrinkOrder(@RequestBody DrinkOrderItem drinkOrder) {
-		DrinkOrderItem savedDrinkOrder = drinkOrderService.addDrinkOrder(drinkOrder);
-        return new ResponseEntity<DrinkOrderItem>(savedDrinkOrder, HttpStatus.OK);
+    public ResponseEntity<DrinkOrderList> adDrinkOrderList(@RequestBody DrinkOrderList dol) {
+		DrinkOrderList d = drinkOrderListService.add(dol);
+        return new ResponseEntity<DrinkOrderList>(d, HttpStatus.OK);
     }
-	
 	
 }

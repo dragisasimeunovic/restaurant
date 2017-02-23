@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.simpleProject.model.DrinkOrderItem;
 
-public interface DrinkOrderRepository extends JpaRepository<DrinkOrderItem, Integer>{
+public interface DrinkOrderItemRepository extends JpaRepository<DrinkOrderItem, Integer>{
 
 }

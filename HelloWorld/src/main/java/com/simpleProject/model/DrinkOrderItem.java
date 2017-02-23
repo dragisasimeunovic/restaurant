@@ -10,9 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-@Table(name = "drinkOrder")
-public class DrinkOrder implements Serializable{
+@Table(name = "drinkOrderItem")
+public class DrinkOrderItem implements Serializable{
 
 	/**
 	 * 
@@ -24,29 +26,8 @@ public class DrinkOrder implements Serializable{
 	@Column(name = "id")
     private Integer id;
 	
-	@Column(name = "guestId")
-    private String guestId;
-	
 	@ManyToOne
     private Drink drink;
-	
-	@Column(name = "reservationId")
-    private Integer reservationId;
-	
-	@Column(name = "restaurantId")
-	private Integer restaurantId;
-	
-	@Column(name = "tableId")
-	private Integer tableId;
-	
-	@Column(name = "comingTime")
-    private String comingTime;
-	
-	@Column(name = "leavingTime")
-    private String leavingTime;
-	
-	@Column(name = "waiterId")
-    private String waiterId;
 	
 	@Column(name = "preparationDeadline")
     private String preparationDeadline;
@@ -54,13 +35,16 @@ public class DrinkOrder implements Serializable{
 	@Column(name = "isPrepared")
     private boolean isPrepared;
 	
-	@Column(name = "isServed")
-    private boolean isServed;
+	@Column(name = "quantity")
+	private Integer quantity;
 	
-	@Column(name = "isPaid")
-    private boolean isPaid;
+	@Column(name = "price")
+	private Integer price;
 	
-	public DrinkOrder() {
+	@ManyToOne 
+	private DrinkOrderList drinkOrderList;
+	
+	public DrinkOrderItem() {
 		
 	}
 
@@ -70,14 +54,6 @@ public class DrinkOrder implements Serializable{
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getGuestId() {
-		return guestId;
-	}
-
-	public void setGuestId(String guestId) {
-		this.guestId = guestId;
 	}
 
 	public Drink getDrink() {
@@ -103,8 +79,31 @@ public class DrinkOrder implements Serializable{
 	public void setPrepared(boolean isPrepared) {
 		this.isPrepared = isPrepared;
 	}
-	
-	
+
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+
+	public Integer getPrice() {
+		return price;
+	}
+
+	public void setPrice(Integer price) {
+		this.price = price;
+	}
+
+	public DrinkOrderList getDrinkOrderList() {
+		return drinkOrderList;
+	}
+
+	@JsonIgnore
+	public void setDrinkOrderList(DrinkOrderList drinkOrderList) {
+		this.drinkOrderList = drinkOrderList;
+	}
 	
 
 }

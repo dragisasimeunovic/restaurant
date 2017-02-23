@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.simpleProject.model.DrinkOrder;
+import com.simpleProject.model.DrinkOrderItem;
 import com.simpleProject.model.Reservation;
 import com.simpleProject.model.Shift;
 import com.simpleProject.services.ShiftService;

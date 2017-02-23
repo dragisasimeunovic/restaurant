@@ -1,6 +1,5 @@
 angular.module('Milica').factory('registrationService' , function registrationService($http){
 	
-	
 	registrationService.register = function(name,surname, email,password){
 		return $http({
 			method: 'POST',
@@ -562,7 +561,7 @@ angular.module('Milica').factory('friendsService' , function friendsService($htt
 
 angular.module('Milica').factory('reservationService' , function reservationService($http){
 	
-	reservationService.addReservation = function(guestId, restaurantId, tableId, comingTime, leavingTime){
+	reservationService.addReservation = function(guestId, restaurantId, reservedTable, comingTime, leavingTime){
 		return $http({
 			method: 'POST',
 			url: 'api/reservation/addReservation',
@@ -570,7 +569,7 @@ angular.module('Milica').factory('reservationService' , function reservationServ
 				"id" : null,
 				"guestId" : guestId,
 				"restaurantId" : restaurantId,
-				"tableId" : tableId,
+				"reservedTable" : reservedTable,
 				"comingTime" : comingTime,
 				"leavingTime" : leavingTime
 			}
@@ -626,21 +625,37 @@ angular.module('Milica').factory('invitationService' , function invitationServic
 
 angular.module('Milica').factory('drinkOrderService' , function drinkOrderService($http){
 	
-	drinkOrderService.addDrinkOrder = function(guestId, drink, preparationDeadline, isPrepared){
+	drinkOrderService.addDrinkOrderItem = function(drink, preparationDeadline, isPrepared, listId, price, quantity){
 		return $http({
 			method: 'POST',
-			url: 'api/drinkOrder/addDrinkOrder',
+			url: 'api/drinkOrder/addListItem/' + listId,
 			data: {
 				"id" : null,
-				"guestId" : guestId,
 				"drink" : drink,
 				"preparationDeadline" : preparationDeadline,
-				"isPrepared" : isPrepared
+				"isPrepared" : isPrepared,
+				"price" : price,
+				"quantity" : quantity
 			}
-			
+
 		});
 	}
-	
+
+	drinkOrderService.addDrinkOrderList = function(isServed, guestId, restaurantId, tableNumber){
+		return $http({
+			method: 'POST',
+			url: 'api/drinkOrderList/addList',
+			data: {
+				"id" : null,
+				"isServed" : isServed,
+				"guestId" : guestId,
+				"restaurantId" : restaurantId,
+				"tableNumber" : tableNumber
+			}
+
+		});
+	}
+
 	
 	return drinkOrderService;
 });
