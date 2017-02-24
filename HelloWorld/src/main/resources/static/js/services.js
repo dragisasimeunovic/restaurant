@@ -188,6 +188,15 @@ angular.module('Milica').factory('loginService' , function loginService($http){
 		
 	}
 	
+	loginService.changeAbout = function(ime, prezime, dressSize, footwearSize, email){
+		return $http({
+			method: 'POST',
+			url: 'api/korisnik/aboutChange/' + ime + '/' + prezime + '/' + dressSize + '/' + footwearSize + '/' + email
+		    
+		});
+		
+	}
+	
 	var user = {};
 	
 	return loginService;

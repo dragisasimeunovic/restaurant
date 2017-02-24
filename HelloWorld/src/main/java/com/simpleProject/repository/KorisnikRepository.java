@@ -24,5 +24,11 @@ public interface KorisnikRepository extends JpaRepository<Korisnik, String> {
 	@Query("update Korisnik k set k.firstLogin = ?1, k.lozinka = ?2 where k.email = ?3")
 	public Integer setFirstLoginForKorisnik(Integer firstLogin, String lozinka, String email);
 	
+	@Transactional
+	@Modifying
+	@Query("update Korisnik k set k.ime = ?1, k.prezime = ?2, k.dressSize = ?3, k.footwearSize = ?4 where k.email = ?5")
+	public Integer setImePrezimeDressSizeFootwearSizeForKorisnik(String ime, String prezime, String dressSize,
+			Integer footwearSize, String email);
+	
 
 }

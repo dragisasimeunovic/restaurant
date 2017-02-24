@@ -55,5 +55,9 @@ public class KorisnikService {
 	public Integer changeFirstLogin(String email, Integer firstLogin, String lozinka) {
 		return korisnikRepository.setFirstLoginForKorisnik(firstLogin, lozinka, email);
 	}
+
+	public Integer changeAbout(String ime, String prezime, String dressSize, Integer footwearSize, String email) {
+		return korisnikRepository.setImePrezimeDressSizeFootwearSizeForKorisnik(ime, prezime, dressSize, footwearSize, email);
+	}
 	
 }
