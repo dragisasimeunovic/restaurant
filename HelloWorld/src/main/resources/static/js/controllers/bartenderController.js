@@ -1,5 +1,25 @@
-app.controller('bartenderController',['$scope', 'friendsService', 'managerService', '$location', '$mdDialog', 'menuService','menuCategoryService','loginService', '$route', 'restaurantsService', '$window', 'tableService', 'dateFilter', 'drinkCategoryService', 'reservationService', 'invitationService', 'drinkOrderService', 'orderService','$cookies', '$cookieStore','$window', function($scope, friendsService, managerService, $location, $mdDialog, menuService, menuCategoryService, loginService, $route, restaurantsService, $window, tableService, dateFilter, drinkCategoryService, reservationService, invitationService, drinkOrderService, orderService, $cookies, $cookieStore, $window){
+app.controller('bartenderController',['$scope', 'friendsService', 'managerService', '$location', '$mdDialog', 'menuService','menuCategoryService','loginService', '$route', 'restaurantsService', '$window', 'tableService', 'dateFilter', 'drinkCategoryService', 'reservationService', 'invitationService', 'drinkOrderService', 'orderService','$cookies', '$cookieStore','$window', 'shiftService', function($scope, friendsService, managerService, $location, $mdDialog, menuService, menuCategoryService, loginService, $route, restaurantsService, $window, tableService, dateFilter, drinkCategoryService, reservationService, invitationService, drinkOrderService, orderService, $cookies, $cookieStore, $window, shiftService){
 		
+	
+	shiftService.findShiftsForEmployee(loginService.user.email, loginService.user.restoran).then(function(response){
+		$scope.events = response.data;
+		for (var i = 0; i < $scope.events.length; i++) {
+			var endTime = {};
+			var endTimeString = $scope.events[i].endsAt;
+			var endTimeMoment = moment(endTimeString);
+			endTime = moment(endTimeMoment).format('HH:mm');
+			$scope.events[i].title = endTime + " " + $scope.events[i].employee.ime 
+			+ " " + $scope.events[i].employee.prezime 
+			+ " (" + $scope.events[i].employee.tip + ")" + " " + $scope.events[i].region;
+		}
+	});
+	
+	$scope.calendarView = 'month';
+	$scope.viewDate = new Date();
+	$scope.calendarTitle = "Schedule";
+	$scope.eventClicked = function(calendarEvent){
+		alert('opa');
+	}
 	
 	
 	$scope.editProfile = function(){

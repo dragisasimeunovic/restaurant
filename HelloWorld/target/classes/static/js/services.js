@@ -194,7 +194,6 @@ angular.module('Milica').factory('loginService' , function loginService($http){
 			url: 'api/korisnik/aboutChange/' + ime + '/' + prezime + '/' + dressSize + '/' + footwearSize + '/' + email
 		    
 		});
-		
 	}
 	
 	var user = {};
@@ -730,6 +729,13 @@ angular.module('Milica').factory('shiftService' , function shiftService($http){
 		return $http ({
 			method: 'GET',
 			url: 'api/shift/findShifts/' + id
+		});
+	}
+	
+	shiftService.findShiftsForEmployee = function(email, restaurantId){
+		return $http ({
+			method: 'GET',
+			url: 'api/shift/findShiftsForEmployee/' + email + '/' + restaurantId
 		});
 	}
 	

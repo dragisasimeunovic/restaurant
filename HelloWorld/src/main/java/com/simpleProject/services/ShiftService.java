@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.simpleProject.model.Korisnik;
 import com.simpleProject.model.Shift;
 import com.simpleProject.repository.ShiftRepository;
 
@@ -21,5 +22,11 @@ public class ShiftService {
 	public Collection<Shift> findRestaurantsShifts(Integer restaurantId){
 		return shiftRepository.findByRestaurantId(restaurantId);
 	}
+
+	public Collection<Shift> findShiftsForEmployee(Korisnik employee, Integer restaurantId) {
+		return shiftRepository.findByEmployeeAndRestaurantId(employee, restaurantId);
+	}
+	
+	
 	
 }
