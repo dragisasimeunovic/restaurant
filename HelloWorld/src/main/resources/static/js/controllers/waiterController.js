@@ -1,6 +1,11 @@
 app.controller('waiterController',['$scope', 'friendsService', 'managerService', '$location', '$mdDialog', 'menuService','menuCategoryService','loginService', '$route', 'restaurantsService', '$window', 'tableService', 'dateFilter', 'drinkCategoryService', 'reservationService', 'invitationService', 'drinkOrderService', 'orderService','$cookies', '$cookieStore','$window', 'shiftService', function($scope, friendsService, managerService, $location, $mdDialog, menuService, menuCategoryService, loginService, $route, restaurantsService, $window, tableService, dateFilter, drinkCategoryService, reservationService, invitationService, drinkOrderService, orderService, $cookies, $cookieStore, $window, shiftService){
 		
 	
+	drinkOrderService.getNonservedLists(loginService.user.restoran).then(function(response){
+		$scope.orderLists = response.data;
+	});	
+	
+	
 	$scope.activeShift = function() {
 
 		var currentDateAndTime = new Date();
@@ -216,13 +221,23 @@ app.controller('waiterController',['$scope', 'friendsService', 'managerService',
 	}
 	
 	
-	drinkOrderService.getNonservedLists(loginService.user.restoran).then(function(response){
+	drinkOrderService.getNonservedOrNonpaidLists(loginService.user.restoran).then(function(response){
 		$scope.orderLists = response.data;
 	});	
 	
 	
 	$scope.setPrepared = function(item){
 		drinkOrderService.setPreparedForListItem(item.id, item.isPrepared).then(function(response){
+			
+		});	
+	}
+	
+	$scope.setServedAndPaid = function(list){
+		if (list.isServed == false) {
+			list.isPaid = false;
+		}
+		
+		drinkOrderService.setServedAndPaid(list.isServed, list.isPaid, list.id).then(function(response){
 			
 		});	
 	}

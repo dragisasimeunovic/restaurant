@@ -33,7 +33,7 @@ public class DrinkOrderItem implements Serializable{
     private String preparationDeadline;
 	
 	@Column(name = "isPrepared")
-    private boolean isPrepared;
+    private Boolean isPrepared;
 	
 	@Column(name = "quantity")
 	private Integer quantity;
@@ -72,11 +72,11 @@ public class DrinkOrderItem implements Serializable{
 		this.preparationDeadline = preparationDeadline;
 	}
 
-	public boolean isPrepared() {
+	public Boolean isPrepared() {
 		return isPrepared;
 	}
 
-	public void setPrepared(boolean isPrepared) {
+	public void setPrepared(Boolean isPrepared) {
 		this.isPrepared = isPrepared;
 	}
 
@@ -103,6 +103,14 @@ public class DrinkOrderItem implements Serializable{
 	@JsonIgnore
 	public void setDrinkOrderList(DrinkOrderList drinkOrderList) {
 		this.drinkOrderList = drinkOrderList;
+	}
+
+	public Boolean getIsPrepared() {
+		return isPrepared;
+	}
+
+	public void setIsPrepared(Boolean isPrepared) {
+		this.isPrepared = isPrepared;
 	}
 	
 

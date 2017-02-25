@@ -42,4 +42,26 @@ public class DrinkOrderListController {
         return new ResponseEntity<Collection<DrinkOrderList>>(d, HttpStatus.OK);
     }
 	
+	@RequestMapping(
+            value    = "/api/drinkOrderList/getAllRestaurantNonservedOrNonpaidLists/{restaurantId}",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<DrinkOrderList>> getNonservedOrNonpaidLists(@PathVariable Integer restaurantId) {
+		Collection<DrinkOrderList> d = drinkOrderListService.getByRestaurantIdAndNonServedOrNotPaid(restaurantId, false);
+        System.out.println(d.size());
+		return new ResponseEntity<Collection<DrinkOrderList>>(d, HttpStatus.OK);
+    }
+	
+	@RequestMapping(
+            value    = "/api/drinkOrderList/setServedOrPaid/{served}/{paid}/{id}",
+            method   = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Integer> setServedOrPaid(@PathVariable Boolean served, @PathVariable Boolean paid, @PathVariable Integer id) {
+		Integer a = drinkOrderListService.setServedOrPaid(served, paid, id);
+        return new ResponseEntity<Integer>(a, HttpStatus.OK);
+    }
+	
+	
 }

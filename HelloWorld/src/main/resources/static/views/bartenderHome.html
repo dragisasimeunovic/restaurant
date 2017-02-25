@@ -39,10 +39,11 @@
  			<md-list-item ng-repeat="item in list.items" ng-click="" class="noright">
     			<img alt="{{ item.drink.drinkName }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
     			<p style="color:white"> {{item.drink.drinkName}} {{item.quantity}}</p>
-    		
-    			<md-checkbox ng-model="item.isPrepared" aria-label="Prepared" ng-change="setPrepared(item)" style="color: white;">       
-        		Prepared:
-        		</md-checkbox>
+        		
+        		<md-switch ng-disabled="false" aria-label="Disabled switch" ng-change="setPrepared(item)" ng-model="item.isPrepared">
+    				
+  				</md-switch>
+        		
   			</md-list-item>
  		
  		</md-list>

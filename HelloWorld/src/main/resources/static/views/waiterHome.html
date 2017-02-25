@@ -7,6 +7,11 @@
         </h2>
         <span flex></span>
         
+        
+        <md-button class="md-primary" aria-label="Orders" ng-click="activeTab=1" >
+          	Orders
+        </md-button>
+        
         <md-button class="md-primary" aria-label="Schedule" ng-click="activeTab=2" >
           	Schedule
         </md-button>
@@ -45,6 +50,34 @@
     		on-event-times-changed="calendarEvent.startsAt = calendarNewEventStart; calendarEvent.endsAt = calendarNewEventEnd"
     		cell-is-open="true">
 		</mwl-calendar>
+    </div>
+    
+     <div ng-show="activeTab==1">
+    
+    	<md-list ng-repeat = "list in orderLists">
+ 			<md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky"> Order for table: {{list.tableNumber}} 
+ 			</md-subheader>
+ 		
+ 			<md-list-item ng-repeat="item in list.items" ng-click="" class="noright">
+    			<img alt="{{ item.drink.drinkName }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
+    			<p style="color:white"> {{item.drink.drinkName}} {{item.quantity}}</p>
+    		
+    			<md-checkbox ng-model="item.isPrepared" aria-label="Prepared" style="color: white;">       
+        		Prepared:
+        		</md-checkbox>
+  			</md-list-item>
+  			
+  			  
+ 			<md-checkbox ng-model="list.isServed" aria-label="Served" ng-change="setServedAndPaid(list)" style="color: white;">   
+ 			Served
+        	</md-checkbox>
+        	
+        	<md-checkbox ng-model="list.isPaid" aria-label="Paid" ng-change="setServedAndPaid(list)" style="color: white;">   
+ 			Paid
+        	</md-checkbox>
+ 		
+ 		</md-list>
+    	
     </div>
     
    

@@ -131,8 +131,8 @@ app.controller('LoginController',['$scope', 'loginService','$location', 'restaur
 		/*$scope.emailLogin = "bidder2@g.com";
 		$scope.passwordLogin = "b";*/
 		
-		/*$scope.emailLogin = "sanker@g.com";
-		$scope.passwordLogin = "s";*/
+		/*$scope.emailLogin = "kon1@g.com";
+		$scope.passwordLogin = "k";*/
 		
 		
 		var email = $scope.emailLogin;

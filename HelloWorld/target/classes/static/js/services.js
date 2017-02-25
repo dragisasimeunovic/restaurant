@@ -671,7 +671,8 @@ angular.module('Milica').factory('drinkOrderService' , function drinkOrderServic
 				"isServed" : isServed,
 				"guestId" : guestId,
 				"restaurantId" : restaurantId,
-				"tableNumber" : tableNumber
+				"tableNumber" : tableNumber,
+				"isPaid": false
 			}
 
 		});
@@ -684,10 +685,24 @@ angular.module('Milica').factory('drinkOrderService' , function drinkOrderServic
 		});
 	}
 	
+	drinkOrderService.setServedAndPaid = function(served, paid, id){
+		return $http({
+			method: 'POST',
+			url: 'api/drinkOrderList/setServedOrPaid/' + served + '/' + paid + '/' + id
+		});
+	}
+	
 	drinkOrderService.getNonservedLists = function(restaurantId){
 		return $http({
 			method: 'GET',
 			url: 'api/drinkOrderList/getAllRestaurantNonservedLists/' + restaurantId
+		});
+	}
+	
+	drinkOrderService.getNonservedOrNonpaidLists = function(restaurantId){
+		return $http({
+			method: 'GET',
+			url: 'api/drinkOrderList/getAllRestaurantNonservedOrNonpaidLists/' + restaurantId
 		});
 	}
 	

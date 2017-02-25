@@ -28,13 +28,13 @@ public class DrinkOrderList implements Serializable{
     private Integer id;
 	
 	@Column(name = "isServed")
-    private boolean isServed;
+    private Boolean isServed;
 	
 	@Column(name = "isPaid")
-    private boolean isPaid;
+    private Boolean isPaid;
 	
 	@Column(name = "isRated")
-    private boolean isRated;
+    private Boolean isRated;
 	
 	@Column(name = "datePaid")
 	private String datePaid;
@@ -53,6 +53,9 @@ public class DrinkOrderList implements Serializable{
 	
 	@OneToMany(mappedBy = "drinkOrderList", fetch = FetchType.EAGER)
 	private Collection<DrinkOrderItem> items;
+	
+	public DrinkOrderList() {
+	}
 
 	public Integer getId() {
 		return id;
@@ -62,12 +65,36 @@ public class DrinkOrderList implements Serializable{
 		this.id = id;
 	}
 
-	public boolean isServed() {
+	public Boolean getIsServed() {
 		return isServed;
 	}
 
-	public void setServed(boolean isServed) {
+	public void setIsServed(Boolean isServed) {
 		this.isServed = isServed;
+	}
+
+	public Boolean getIsPaid() {
+		return isPaid;
+	}
+
+	public void setIsPaid(Boolean isPaid) {
+		this.isPaid = isPaid;
+	}
+
+	public Boolean getIsRated() {
+		return isRated;
+	}
+
+	public void setIsRated(Boolean isRated) {
+		this.isRated = isRated;
+	}
+
+	public String getDatePaid() {
+		return datePaid;
+	}
+
+	public void setDatePaid(String datePaid) {
+		this.datePaid = datePaid;
 	}
 
 	public String getGuestId() {
@@ -76,6 +103,14 @@ public class DrinkOrderList implements Serializable{
 
 	public void setGuestId(String guestId) {
 		this.guestId = guestId;
+	}
+
+	public Korisnik getWaiter() {
+		return waiter;
+	}
+
+	public void setWaiter(Korisnik waiter) {
+		this.waiter = waiter;
 	}
 
 	public Integer getRestaurantId() {
@@ -102,39 +137,6 @@ public class DrinkOrderList implements Serializable{
 		this.items = items;
 	}
 
-	public boolean isPaid() {
-		return isPaid;
-	}
 
-	public void setPaid(boolean isPaid) {
-		this.isPaid = isPaid;
-	}
-
-	public String getDatePaid() {
-		return datePaid;
-	}
-
-	public void setDatePaid(String datePaid) {
-		this.datePaid = datePaid;
-	}
-
-	public boolean isRated() {
-		return isRated;
-	}
-
-	public void setRated(boolean isRated) {
-		this.isRated = isRated;
-	}
-
-	public Korisnik getWaiter() {
-		return waiter;
-	}
-
-	public void setWaiter(Korisnik waiter) {
-		this.waiter = waiter;
-	}
-	
-	
-	
 
 }

@@ -26,6 +26,14 @@ public class DrinkOrderListService {
 		return drinkOrderListRepository.findByRestaurantIdAndIsServed(restaurantId, isServed);
 	}
 
+	public Integer setServedOrPaid(Boolean isServed, Boolean isPaid, Integer id) {
+		return drinkOrderListRepository.setIsServedIPaidForDrinkOrderList(isServed, isPaid, id);
+	}
+
+	public Collection<DrinkOrderList> getByRestaurantIdAndNonServedOrNotPaid(Integer restaurantId, Boolean b) {
+		return drinkOrderListRepository.findByIsPaid(false);
+	}
+
 	
 	
 	
