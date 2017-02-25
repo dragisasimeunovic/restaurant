@@ -43,6 +43,9 @@ app.config(function($routeProvider) {
     .when("/bartenderHome", {
         templateUrl : "views/bartenderHome.html"
     })
+    .when("/waiterHome", {
+        templateUrl : "views/waiterHome.html"
+    })
     .when("/restaurantManager", {
         templateUrl : "views/restaurantManager.html",
         controller: 'RestaurantController'

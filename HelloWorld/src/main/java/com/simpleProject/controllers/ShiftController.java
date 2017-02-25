@@ -60,5 +60,16 @@ public class ShiftController {
     	return new ResponseEntity<Collection<Shift>>(shifts, HttpStatus.OK);
     }
 	
+	@RequestMapping(
+    		value = "api/shift/getActiveShiftForEmployee/{email:.+}/{restaurantId}/{currentTime}",
+    		method = RequestMethod.GET,
+    		produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Shift> getActiveShiftForEmployee(@PathVariable String email, @PathVariable Integer restaurantId, @PathVariable String currentTime){
+		Korisnik korisnik = korisnikService.getOne(email);
+		Shift shifts = shiftService.getActiveShift(korisnik, restaurantId, currentTime, currentTime);
+    	return new ResponseEntity<Shift>(shifts, HttpStatus.OK);
+    }
+	
 	
 }

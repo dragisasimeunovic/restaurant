@@ -13,7 +13,7 @@ import com.simpleProject.repository.ShiftRepository;
 public class ShiftService {
 
 	@Autowired
-	ShiftRepository shiftRepository;
+	private ShiftRepository shiftRepository;
 	
 	public Shift addShift(Shift shift){
 		return shiftRepository.save(shift);
@@ -25,6 +25,10 @@ public class ShiftService {
 
 	public Collection<Shift> findShiftsForEmployee(Korisnik employee, Integer restaurantId) {
 		return shiftRepository.findByEmployeeAndRestaurantId(employee, restaurantId);
+	}
+	
+	public Shift getActiveShift(Korisnik employee, Integer restaurantId, String startsAt, String endsAt) {
+		return shiftRepository.findByEmployeeAndRestaurantIdAndStartsAtLessThanAndEndsAtGreaterThan(employee, restaurantId, startsAt, endsAt);
 	}
 	
 	

@@ -161,6 +161,9 @@ app.controller('LoginController',['$scope', 'loginService','$location', 'restaur
 					else if (response.data.tip == "Bartender") {
 						$location.path("/bartenderHome");
 					}
+					else if (response.data.tip == "Waiter") {
+						$location.path("/waiterHome");
+					}
 					else{
 						$location.path("/home");
 					}

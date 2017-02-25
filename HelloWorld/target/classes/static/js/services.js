@@ -738,6 +738,13 @@ angular.module('Milica').factory('shiftService' , function shiftService($http){
 			url: 'api/shift/findShiftsForEmployee/' + email + '/' + restaurantId
 		});
 	}
+
+	shiftService.findActiveShiftForEmployee = function(email, restaurantId, currentTime){
+		return $http ({
+			method: 'GET',
+			url: 'api/shift/getActiveShiftForEmployee/' + email + '/' + restaurantId  + '/' + currentTime
+		});
+	}
 	
 	return shiftService;
 	

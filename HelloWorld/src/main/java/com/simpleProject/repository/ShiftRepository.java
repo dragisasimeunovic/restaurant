@@ -13,4 +13,7 @@ public interface ShiftRepository extends JpaRepository<Shift, Integer>{
 	
 	public Collection<Shift> findByEmployeeAndRestaurantId(Korisnik employee, Integer restaurantId);
 	
+	public Shift findByEmployeeAndRestaurantIdAndStartsAtLessThanAndEndsAtGreaterThan(Korisnik employee, 
+			Integer restaurantId, String startsAt, String endsAt);
+	
 }
