@@ -153,6 +153,18 @@ public class KorisnikController {
 		Integer i = korisnikService.changeAbout(ime, prezime, dressSize, footwearSize, email);
         return new ResponseEntity<Integer>(i, HttpStatus.OK);
     }
+
+	@RequestMapping(
+            value    = "/api/korisnik/aboutBidderChange/{ime}/{email:.+}",
+            method   = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Integer> aboutBidderChange(@PathVariable String ime, @PathVariable String email) {
+		Integer i = korisnikService.changeAboutBidder(ime, email);
+        return new ResponseEntity<Integer>(i, HttpStatus.OK);
+    }
+	
+	
 	
     
     

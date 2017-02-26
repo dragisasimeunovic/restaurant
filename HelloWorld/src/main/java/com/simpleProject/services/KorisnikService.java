@@ -63,5 +63,9 @@ public class KorisnikService {
 	public Collection<Korisnik> getAllEmployeesWithType(Integer restaurantId, String typeOfEmployee) {
 		return korisnikRepository.findByRestoranAndTip(restaurantId, typeOfEmployee);
 	}
+
+	public Integer changeAboutBidder(String ime, String email) {
+		return korisnikRepository.setImeForKorisnik(ime, email);
+	}
 	
 }

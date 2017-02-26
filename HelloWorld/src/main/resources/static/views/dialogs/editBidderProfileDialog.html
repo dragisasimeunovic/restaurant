@@ -1,0 +1,61 @@
+<md-dialog aria-label="Confirm table reservation!">
+
+	<md-dialog-content>
+		<div class="md-dialog-content">
+
+		<h2 align="center"> Edit your profile!</h2>
+		
+		<p align="center">Hello <b> {{username}} </b> </p>
+		<p align="center"> You can change whatever you want!</p>
+		
+		<form name='form1' ng-show="activeForm==1">
+		
+			<md-input-container class="md-block" flex-gt-sm>
+         		 <label>Name:</label>
+          		 <input type="text" md-maxlength="30" required name="ime" ng-model="ime" />
+			</md-input-container>
+		
+   		</form>
+
+		<form name='form2' ng-show="activeForm==2">
+		
+			<md-input-container class="md-block" flex-gt-sm>
+         		 <label>Given password:</label>
+          		 <input type="password" md-maxlength="30" required name="oldPassword" ng-model="oldPassword" />
+			</md-input-container>
+		
+      		<md-input-container class="md-block" flex-gt-sm>
+         		 <label>New password:</label>
+          		 <input type="password" md-maxlength="30" required name="password1" ng-model="password1" />
+			</md-input-container>
+			
+
+			<md-input-container class="md-block" flex-gt-sm>
+          		<label>Confirm password:</label>
+          		<input type="password" md-maxlength="30" required name="password2" ng-model="password2" />
+			</md-input-container>
+   		</form>
+		
+
+		</div>
+	</md-dialog-content>
+
+	<md-dialog-actions layout="row">
+		<md-button class="md-raised md-primary" ng-click="apply()" >
+       		Apply
+     	</md-button>
+     	
+     	<md-button class="md-raised md-primary" ng-click="cancel()" >
+       		Cancel
+     	</md-button>
+     	
+     	<md-button class="md-raised md-primary" ng-click="changePassword()" ng-show="activeForm==1" >
+       		Change password
+     	</md-button>
+      
+     
+</md-dialog-actions>
+
+
+
+</md-dialog>

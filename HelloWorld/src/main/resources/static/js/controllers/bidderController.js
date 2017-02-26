@@ -1,4 +1,132 @@
-app.controller('bidderController', ['$scope','$location', 'loginService', 'bidderService', 'groceriesService', 'offerService', 'dateFilter', function($scope, $location, loginService, bidderService, groceriesService, offerService, dateFilter){
+app.controller('bidderController', ['$scope','$location', 'loginService', 'bidderService', 'groceriesService', 'offerService', 'dateFilter', '$mdDialog', function($scope, $location, loginService, bidderService, groceriesService, offerService, dateFilter, $mdDialog){
+	
+	
+	$scope.username = loginService.user.ime;
+	
+	$scope.editProfile = function(){
+		
+		$mdDialog.show({
+    		controller: EditBidderProfileController,
+    		templateUrl: '/views/dialogs/editBidderProfileDialog.html',
+    		parent: angular.element(document.body),
+    		scope: $scope,
+    		preserveScope: true,
+    		clickOutsideToClose:false
+    	});
+		
+		function EditBidderProfileController($scope, loginService, $mdDialog, $route) {
+			 
+			$scope.activeForm = 1;
+			if ($scope.activeForm == 1) {			
+				$scope.ime = loginService.user.ime;
+			}
+			
+	  		$scope.apply = function(){	
+	  			
+	  			if ($scope.activeForm == 1) {
+	  				
+	  				loginService.changeAboutBidder($scope.ime, loginService.user.email).then(function(response){
+
+					});	
+	  					
+	  				loginService.user.ime = $scope.ime;
+					$scope.username = loginService.user.ime;
+					
+					var confirm = $mdDialog.confirm()
+						.textContent('Profile successfully updated!')
+						.ok('Ok');
+					
+					$mdDialog.show(confirm);
+						$mdDialog.hide();
+						
+						$route.reload();
+	  				
+	  			}
+	  			
+	  			if ($scope.activeForm == 2) {
+
+	  				if ($scope.oldPassword == loginService.user.lozinka) {
+	  					if ($scope.password1 == $scope.password2) {
+
+	  						var confirm = $mdDialog.confirm()
+	  						.textContent('Password successfully changed!')
+	  						.ok('Ok');
+	  						
+	  						loginService.user.lozinka = $scope.password1;
+
+	  						loginService.changeFirstLogin(loginService.user.email, 1, $scope.password1).then(function(response){
+
+	  						});	
+
+	  						$mdDialog.show(confirm);
+	  						$mdDialog.hide();
+	  						$route.reload();
+
+	  					}
+	  				}	
+	  			}
+	  		}
+	  		
+	  		$scope.changePassword = function(){
+	  			$scope.activeForm = 2;
+	  		}
+	  		
+	  		$scope.cancel = function(){
+	  			if ($scope.activeForm == 2) {
+	  				$scope.activeForm = 1;
+	  			}
+	  			else if ($scope.activeForm == 1) {
+	  				$mdDialog.cancel();
+	  			}
+	  		}
+	  		
+	  	}
+		
+	}
+	
+	
+	$scope.backToLogin = function() {
+		$location.path("/");
+	}
+	
+	if (loginService.user.firstLogin == 0) {
+		$mdDialog.show({
+	    		controller: FirstLoginController,
+	    		templateUrl: '/views/dialogs/firstLoginDialog.html',
+	    		parent: angular.element(document.body),
+	    		scope: $scope,
+	    		preserveScope: true,
+	    		clickOutsideToClose:false
+	    	});
+		
+		function FirstLoginController($scope, loginService, $mdDialog, $route) {
+ 
+		  		$scope.apply = function(){	
+		  			if ($scope.oldPassword == loginService.user.lozinka) {
+		  				if ($scope.password1 == $scope.password2) {
+		  					
+		  				var confirm = $mdDialog.confirm()
+		  		          				.textContent('Password successfully changed!')
+		  		          				.ok('Ok');
+		  				
+		  				loginService.changeFirstLogin(loginService.user.email, 1, $scope.password1).then(function(response){
+		  					
+		  				});	
+		  				loginService.user.firstLogin = 1;
+
+		  				$mdDialog.show(confirm);
+		  				$mdDialog.hide();
+		  				$route.reload();
+		  				
+		  				}
+		  			}
+		  			
+		  		}
+		  		
+
+		  	}
+	}
+	
 	
 	$scope.confirmOffer = function(){
 		

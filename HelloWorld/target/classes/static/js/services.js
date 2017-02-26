@@ -203,6 +203,14 @@ angular.module('Milica').factory('loginService' , function loginService($http){
 		});
 	}
 	
+	loginService.changeAboutBidder = function(ime, email){
+		return $http({
+			method: 'POST',
+			url: 'api/korisnik/aboutBidderChange/' + ime + '/' + email
+		    
+		});
+	}
+	
 	var user = {};
 	
 	return loginService;
