@@ -29,6 +29,11 @@ public interface DrinkOrderListRepository extends JpaRepository<DrinkOrderList, 
 	@Query("update DrinkOrderList dol set dol.isRated = ?1 where dol.id = ?2")
 	public Integer setIsRatedForDrinkOrderList(Boolean isRated, Integer id);
 	
+	public Collection<DrinkOrderList> findByRestaurantIdAndDatePaidBetween(Integer restaurantId, String date1, String date2);
+
+	public Collection<DrinkOrderList> findByRestaurantIdAndWaiter(Integer restaurantId, Korisnik waiter);
+	
+	
 	
 	
 }

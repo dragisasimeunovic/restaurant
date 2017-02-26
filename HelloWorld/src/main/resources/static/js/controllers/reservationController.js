@@ -129,7 +129,7 @@ app.controller('reservationController',['$scope', 'friendsService', 'managerServ
 				});
 			}else {
 				reservationService.addReservation(loginService.user.email, $scope.selectedRestaurant.id, reservedTables[i], bpTime, endDateString).then(function(response){
-					alert('Saved!');
+					$route.reload();
 				});
 			}
 			

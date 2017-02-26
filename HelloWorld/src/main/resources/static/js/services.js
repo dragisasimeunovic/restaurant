@@ -727,11 +727,24 @@ angular.module('Milica').factory('drinkOrderService' , function drinkOrderServic
 			url: 'api/drinkOrderList/getAllRestaurantNonservedOrNonpaidLists/' + restaurantId
 		});
 	}
-	
-	
 
+	drinkOrderService.getProfitsInRange = function(restaurantId, date1, date2){
+		return $http({
+			method: 'GET',
+			url: 'api/drinkOrderList/getProfitsInRange/' + restaurantId + '/' + date1 + '/' + date2
+		});
+	}
+	
+	drinkOrderService.getProfitsForWaiter = function(restaurantId, waiterEmail){
+		return $http({
+			method: 'GET',
+			url: 'api/drinkOrderList/getProfitsForWaiter/' + restaurantId + '/' + waiterEmail
+		});
+	}
 	
 	return drinkOrderService;
+	
+	
 });
 
 angular.module('Milica').factory('orderService' , function orderService($http){

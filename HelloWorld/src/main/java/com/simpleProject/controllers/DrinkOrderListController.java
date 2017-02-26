@@ -88,5 +88,27 @@ public class DrinkOrderListController {
 		return new ResponseEntity<Integer>(d, HttpStatus.OK);
     }
 	
+	@RequestMapping(
+            value    = "/api/drinkOrderList/getProfitsInRange/{resId}/{date1}/{date2}",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<DrinkOrderList>> getProfitsInRange(@PathVariable Integer resId, @PathVariable String date1, @PathVariable String date2) {
+		Collection<DrinkOrderList> d = drinkOrderListService.getProfitsInRange(resId, date1, date2);
+		return new ResponseEntity<Collection<DrinkOrderList>>(d, HttpStatus.OK);
+    }
+	
+	@RequestMapping(
+            value    = "/api/drinkOrderList/getProfitsForWaiter/{resId}/{waiterEmail:.+}",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<DrinkOrderList>> getProfitsforWaiter(@PathVariable Integer resId, @PathVariable String waiterEmail) {
+		Korisnik waiter = korisnikService.getOne(waiterEmail);
+		Collection<DrinkOrderList> d = drinkOrderListService.getProfitsForWaiter(resId, waiter);
+		System.out.println(d.size());
+		return new ResponseEntity<Collection<DrinkOrderList>>(d, HttpStatus.OK);
+    }
+	
 	
 }

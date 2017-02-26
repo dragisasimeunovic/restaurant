@@ -46,7 +46,15 @@ public class DrinkOrderListService {
 	public Integer setRatedForDrinkOrderList(Integer id){
 		return drinkOrderListRepository.setIsRatedForDrinkOrderList(true, id);
 	}
+	
+	
+	public Collection<DrinkOrderList> getProfitsInRange(Integer restaurantId, String date1, String date2) {
+		return drinkOrderListRepository.findByRestaurantIdAndDatePaidBetween(restaurantId, date1, date2);
+	}
 
+	public Collection<DrinkOrderList> getProfitsForWaiter(Integer restaurantId, Korisnik waiter) {
+		return drinkOrderListRepository.findByRestaurantIdAndWaiter(restaurantId, waiter);
+	}
 	
 	
 	

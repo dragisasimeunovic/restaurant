@@ -13,10 +13,12 @@
 	</div>
 	</div>
 
-   	<div layout="column">	
-  		<h3 align="center" style="color: white;">Reports for restaurant: {{restaurantName}}</h3>		
-	
-		<h3 align="left" style="color: white;">Current restaurant rate: {{rate}}</h3>		
+   	<div layout="row">	
+   		
+  				
+	<div layout = "column" flex = 50 align="center">
+	<h3 align="center" style="color: white;">Reports for restaurant: {{restaurantName}}</h3>
+		<h4 align="center" style="color: white;">Current restaurant rate: {{rate}}</h4>		
 		
 		<p class="form-group" style="width: 200">
     		<label style="color: white;">Search by waiter name:</label>
@@ -27,7 +29,7 @@
       		<md-option ng-value="waiter" ng-repeat="waiter in (filteredWaiters = (waiters | filter:{ime:nameFilter}))">{{waiter.ime}} {{waiter.prezime}}</md-option>
 		</md-select>
 		
-		<h3 align="left" style="color: white;">Current waiter rate: {{waiterRate}}</h3>	
+		<h4 align="center" style="color: white;">Current waiter rate: {{waiterRate}}</h4>	
 		
 		<p class="form-group" style="width: 200">
     		<label style="color: white;">Search by drink name:</label>
@@ -42,8 +44,41 @@
           	
         </md-select>
         
-        <h3 align="left" style="color: white;">Current drink rate: {{drinkRate}}</h3>
+        <h4 align="center" style="color: white;">Current drink rate: {{drinkRate}}</h4>
+     </div>
+     <div layout = "column" flex = 50>
+     <h3 align="center" style="color: white;">Profits for restaurant: {{restaurantName}}</h3>
+     
+      <div layout = "row">
+       <div layout = "column" align="center">
+        <label style="color: white"> Profits from date: </label>
+		<p class="input-group" style="width: 200"> 	
+          	<input type="text" class="form-control" uib-datepicker-popup ng-model="fromDate" is-open="fromDateOpened" ng-changed="dateChanged(fromDate)" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+          	<span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="openFromDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+          	</span>
+        </p>
+        </div>
+        <div flex></div>
+        <div layout = "column" align="center">
+        <label style="color: white"> Profits to date: </label>
+		<p class="input-group" style="width: 200"> 	
+          	<input type="text" class="form-control" uib-datepicker-popup ng-model="toDate" is-open="toDateOpened" ng-changed="dateChanged(toDate)" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+          	<span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="openToDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+          	</span>
+        </p>
+        </div>
+      </div>
         
+        <md-button class="md-raised md-primary" ng-click="calculate()">Calculate</md-button>
+        
+        <h4 align="center" style="color: white;">Profits in selected date range: {{rangeProfits}}</h4>
+        
+        
+        <h4 align="center" style="color: white;">Profits for selected waiter: {{waiterProfit}}</h4> 
+        
+    </div>
         
 	</div>
 	

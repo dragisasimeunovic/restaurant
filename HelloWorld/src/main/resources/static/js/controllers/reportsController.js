@@ -18,6 +18,16 @@ app.controller('reportsController',['$scope', 'friendsService', 'managerService'
 	});
 	
 	$scope.selectedWaiterChanged = function() {
+		drinkOrderService.getProfitsForWaiter(loginService.user.restoran, $scope.selectedWaiter.email).then(function(response){
+			var sum = 0; 
+			for (var i = 0; i < response.data.length; i++) {
+				for (var j = 0; j < response.data[i].items.length; j++) {
+					sum +=  response.data[i].items[j].price;
+				}
+			}
+			$scope.waiterProfit = sum;
+		});
+		
 		markService.getWaiterMark($scope.selectedWaiter.email).then(function(response){
 			var sum = 0;  
 			for (var i = 0; i < response.data.length; i++) {
@@ -42,8 +52,35 @@ app.controller('reportsController',['$scope', 'friendsService', 'managerService'
 		$scope.categories = response.data;
 	});
 	
+	$scope.fromDateOpened = false;
+	$scope.openFromDate = function() {
+	    $scope.fromDateOpened = true;
+	};
 	
+	$scope.toDateOpened = false;
+	$scope.openToDate = function() {
+	    $scope.toDateOpened = true;
+	};
 	
+	$scope.calculate = function() {
+		var fromDateString = moment($scope.fromDate).format('YYYY-MM-DDTHH:mm:ss.sss')+'Z';
+		var toDateString = moment($scope.toDate).format('YYYY-MM-DDTHH:mm:ss.sss')+'Z';
+		
+		drinkOrderService.getProfitsInRange(loginService.user.restoran, fromDateString, toDateString).then(function(response){
+			var sum = 0; 
+			for (var i = 0; i < response.data.length; i++) {
+				for (var j = 0; j < response.data[i].items.length; j++) {
+					sum +=  response.data[i].items[j].price;
+				}
+			}
+			$scope.rangeProfits = sum;
+		});
+		
+	}
 	
+	$scope.fromDate = new Date();
+	$scope.toDate = new Date();
+	
+
 	
 }]);
