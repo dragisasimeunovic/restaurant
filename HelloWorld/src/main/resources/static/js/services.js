@@ -952,6 +952,27 @@ angular.module('Milica').factory('markService' , function markService($http){
 		});
 	}
 	
+	markService.addRestaurantMark = function(userEmail, restaurantId, mark){
+		return $http({
+			method: 'POST',
+			url: 'api/marks/addRestaurantMark',
+			data: {
+				"id" : null,
+				"restaurantId" : restaurantId,
+				"userEmail": userEmail,
+				"mark" : mark
+			}
+			
+		});
+	}
+	
+	markService.getRestaurantMarkForUser = function(userEmail, restaurantId){
+		return $http({
+			method: 'GET',
+			url: 'api/marks/getRestaurantMarkForUser/' + '/' + userEmail  + '/' + restaurantId,
+		});
+	}
+	
 	return markService;
 	
 });
