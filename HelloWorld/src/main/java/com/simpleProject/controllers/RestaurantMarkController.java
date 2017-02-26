@@ -41,4 +41,17 @@ public class RestaurantMarkController {
         return new ResponseEntity<Collection<RestaurantMark>>(restaurantMarks, HttpStatus.OK);
     }
 	
+	@RequestMapping(
+            value    = "/api/marks/getRestaurantMark/{id}",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<RestaurantMark>> getRestaurantMark(@PathVariable Integer id) {
+		Collection<RestaurantMark> restaurantMarks = restaurantMarkService.getRestaurantMark(id);
+        return new ResponseEntity<Collection<RestaurantMark>>(restaurantMarks, HttpStatus.OK);
+    }
+	
+	
+	
+	
 }

@@ -43,6 +43,16 @@ public class KorisnikController {
     }
     
     @RequestMapping(
+    		value = "/api/korisnici/allEmployeesWithType/{restaurantId}/{typeOfEmployee}",
+    		method = RequestMethod.GET,
+    		produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<Korisnik>> emailKorisnika(@PathVariable Integer restaurantId, @PathVariable String typeOfEmployee){
+    	Collection<Korisnik> kk = korisnikService.getAllEmployeesWithType(restaurantId, typeOfEmployee);
+    	return new ResponseEntity<Collection<Korisnik>>(kk, HttpStatus.OK);
+    }
+    
+    @RequestMapping(
     		value = "/api/korisnici/sviKorisnici",
     		method = RequestMethod.GET,
     		produces = MediaType.APPLICATION_JSON_VALUE

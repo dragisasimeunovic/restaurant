@@ -59,5 +59,9 @@ public class KorisnikService {
 	public Integer changeAbout(String ime, String prezime, String dressSize, Integer footwearSize, String email) {
 		return korisnikRepository.setImePrezimeDressSizeFootwearSizeForKorisnik(ime, prezime, dressSize, footwearSize, email);
 	}
+
+	public Collection<Korisnik> getAllEmployeesWithType(Integer restaurantId, String typeOfEmployee) {
+		return korisnikRepository.findByRestoranAndTip(restaurantId, typeOfEmployee);
+	}
 	
 }

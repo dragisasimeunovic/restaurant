@@ -30,5 +30,8 @@ public interface KorisnikRepository extends JpaRepository<Korisnik, String> {
 	public Integer setImePrezimeDressSizeFootwearSizeForKorisnik(String ime, String prezime, String dressSize,
 			Integer footwearSize, String email);
 	
+	
+	public Collection<Korisnik> findByRestoranAndTip(Integer restoran, String tip);
+	
 
 }

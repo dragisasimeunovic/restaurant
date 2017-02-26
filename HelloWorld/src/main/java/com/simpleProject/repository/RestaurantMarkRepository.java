@@ -10,6 +10,8 @@ public interface RestaurantMarkRepository extends JpaRepository<RestaurantMark, 
 
 	
 	public Collection<RestaurantMark> findByUserEmailAndRestaurantId(String userEmail, Integer restaurantId);
+
+	public Collection<RestaurantMark> findByRestaurantId(Integer restaurantId);
 	
 	
 }

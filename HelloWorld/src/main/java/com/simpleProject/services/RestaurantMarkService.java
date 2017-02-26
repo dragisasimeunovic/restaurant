@@ -22,6 +22,10 @@ public class RestaurantMarkService {
 	public Collection<RestaurantMark> ratedUserRestaurant(String email, Integer id) {
 		return restaurantMarkRepository.findByUserEmailAndRestaurantId(email, id);
 	}
+
+	public Collection<RestaurantMark> getRestaurantMark(Integer id) {
+		return restaurantMarkRepository.findByRestaurantId(id);
+	}
 	
 	
 }

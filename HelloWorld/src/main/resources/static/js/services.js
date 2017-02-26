@@ -66,6 +66,13 @@ angular.module('Milica').factory('korisnikService', function korisnikService($ht
 			url: 'api/korisnici/sviKorisnici'
 		});
 	}
+	korisnikService.gettAllRestaurantEmployeesWithType = function(restaurantId, typeOfEmployee){
+		return $http({
+			method: 'GET',
+			url: 'api/korisnici/allEmployeesWithType/' + restaurantId + '/' + typeOfEmployee
+		});
+	}
+	
 	return korisnikService;
 })
 
@@ -969,7 +976,21 @@ angular.module('Milica').factory('markService' , function markService($http){
 	markService.getRestaurantMarkForUser = function(userEmail, restaurantId){
 		return $http({
 			method: 'GET',
-			url: 'api/marks/getRestaurantMarkForUser/' + '/' + userEmail  + '/' + restaurantId,
+			url: 'api/marks/getRestaurantMarkForUser/' + '/' + userEmail  + '/' + restaurantId
+		});
+	}
+	
+	markService.getRestaurantMark = function(restaurantId){
+		return $http({
+			method: 'GET',
+			url: 'api/marks/getRestaurantMark/' + restaurantId
+		});
+	}
+	
+	markService.getWaiterMark = function(waiterEmail){
+		return $http({
+			method: 'GET',
+			url: 'api/marks/getWaiterMark/' + waiterEmail
 		});
 	}
 	
