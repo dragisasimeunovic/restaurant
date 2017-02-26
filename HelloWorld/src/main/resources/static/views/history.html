@@ -1,0 +1,28 @@
+<div ng-controller="historyController">
+	
+   <div layout="row">	
+  			
+   	<div layout ="column" flex = "50">
+   		<md-list ng-repeat = "order in orders">
+ 			<md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky"> Waiter: {{order.waiter.ime}} Table: {{order.tableNumber}} 
+ 			</md-subheader>
+ 		
+ 			<md-list-item ng-repeat="item in order.items" ng-click="" class="noright">
+    			<img alt="{{ item.drink.drinkName }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
+    			<p style="color:white"> {{item.drink.drinkName}}</p>
+  			</md-list-item>
+  			
+  			<p style="color:white"> Drinks rate: </p>
+  			<span uib-rating ng-model="drink.rate" style="color: white" max="max" read-only="isReadonly" aria-labelledby="Rate!"></span>
+  			<p style="color:white"> Waiter rate: </p>
+  			<span uib-rating ng-model="order.waiter.rate" style="color: white" max="max" read-only="isReadonly" aria-labelledby="Rate!"></span>
+  			<md-button class="md-raised md-primary" ng-click="submitRate(order.items, drink.rate, order.waiter.email, order.waiter.rate)">SUBMIT</md-button>
+ 		
+ 		</md-list>
+ 		
+ 		</div>
+ 		
+ 		
+	</div>
+
+</div>

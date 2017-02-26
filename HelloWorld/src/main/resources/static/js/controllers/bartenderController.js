@@ -156,22 +156,6 @@ app.controller('bartenderController',['$scope', 'friendsService', 'managerServic
 	
 	drinkOrderService.getNonservedLists(loginService.user.restoran).then(function(response){
 		$scope.orderLists = response.data;
-		
-
-		for (var i = 0; i <$scope.orderLists.length; i++) {
-			alert('da vidimo '  +  $scope.orderLists[i].items.length);
-			for (var j = 0; j < $scope.orderLists[i].items.length; j++) {
-				
-				console.log($scope.orderLists[i].items[j].quantity);
-				
-				if ($scope.orderLists[i].items[j].isPrepared == true) {
-					$scope.orderLists[i].items[j].isPrepared = true;
-				}
-				else {
-					$scope.orderLists[i].items[j].isPrepared = false;
-				}
-			}
-		}
 	});	
 	
 	

@@ -62,19 +62,19 @@
     			<img alt="{{ item.drink.drinkName }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
     			<p style="color:white"> {{item.drink.drinkName}} {{item.quantity}}</p>
     		
-    			<md-checkbox ng-model="item.isPrepared" aria-label="Prepared" style="color: white;">       
+    			<md-checkbox ng-model="item.isPrepared" aria-label="Prepared" style="color: white;" ng-disabled="true">       
         		Prepared:
         		</md-checkbox>
   			</md-list-item>
   			
   			  
- 			<md-checkbox ng-model="list.isServed" aria-label="Served" ng-change="setServedAndPaid(list)" style="color: white;">   
+ 			<md-switch ng-model="list.isServed" aria-label="Served" ng-change="setServedAndPaid(list)" style="color: white;">   
  			Served
-        	</md-checkbox>
+        	</md-switch>
         	
-        	<md-checkbox ng-model="list.isPaid" aria-label="Paid" ng-change="setServedAndPaid(list)" style="color: white;">   
+        	<md-switch ng-model="list.isPaid" aria-label="Paid" ng-change="setServedAndPaid(list)" style="color: white;">   
  			Paid
-        	</md-checkbox>
+        	</md-switch>
  		
  		</md-list>
     	

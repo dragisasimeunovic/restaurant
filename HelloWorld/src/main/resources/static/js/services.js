@@ -672,9 +672,17 @@ angular.module('Milica').factory('drinkOrderService' , function drinkOrderServic
 				"guestId" : guestId,
 				"restaurantId" : restaurantId,
 				"tableNumber" : tableNumber,
-				"isPaid": false
+				"isPaid": false,
+				"isRated" : false
 			}
 
+		});
+	}
+	
+	drinkOrderService.ratingOrders = function(email){
+		return $http({
+			method: 'GET',
+			url: 'api/drinkOrderList/getAllUserOrdersForRating/' + email
 		});
 	}
 	
@@ -685,10 +693,10 @@ angular.module('Milica').factory('drinkOrderService' , function drinkOrderServic
 		});
 	}
 	
-	drinkOrderService.setServedAndPaid = function(served, paid, id){
+	drinkOrderService.setServedAndPaid = function(served, paid, id, waiterEmail, datePaid){
 		return $http({
 			method: 'POST',
-			url: 'api/drinkOrderList/setServedOrPaid/' + served + '/' + paid + '/' + id
+			url: 'api/drinkOrderList/setServedOrPaid/' + served + '/' + paid + '/' + id + '/' + waiterEmail + '/' + datePaid
 		});
 	}
 	

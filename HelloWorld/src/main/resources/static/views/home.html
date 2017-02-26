@@ -9,6 +9,10 @@
         </h2>
         <span flex></span>
         
+        <md-button class="md-primary" aria-label="Reservation" ng-click="activeTab=4" >
+          History 
+        </md-button>
+        
         <md-button class="md-primary" aria-label="Reservation" ng-click="activeTab=3" >
           Reservation 
         </md-button>
@@ -47,6 +51,10 @@
     
     <div ng-show="activeTab==3">
     	<div ng-include="'views/reservation.html'"></div>
+    </div>
+    
+    <div ng-show="activeTab==4">
+    	<div ng-include="'views/history.html'"></div>
     </div>
    
     

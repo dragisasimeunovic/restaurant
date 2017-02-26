@@ -237,7 +237,10 @@ app.controller('waiterController',['$scope', 'friendsService', 'managerService',
 			list.isPaid = false;
 		}
 		
-		drinkOrderService.setServedAndPaid(list.isServed, list.isPaid, list.id).then(function(response){
+		var currentDateAndTime = new Date();
+		var curDateString = moment(currentDateAndTime).format('YYYY-MM-DDTHH:mm:ss.sss')+'Z';
+		
+		drinkOrderService.setServedAndPaid(list.isServed, list.isPaid, list.id, loginService.user.email, curDateString).then(function(response){
 			
 		});	
 	}

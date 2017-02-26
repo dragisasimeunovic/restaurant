@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.simpleProject.model.DrinkOrderList;
+import com.simpleProject.model.Korisnik;
 import com.simpleProject.repository.DrinkOrderListRepository;
 
 @Service
@@ -26,12 +27,20 @@ public class DrinkOrderListService {
 		return drinkOrderListRepository.findByRestaurantIdAndIsServed(restaurantId, isServed);
 	}
 
-	public Integer setServedOrPaid(Boolean isServed, Boolean isPaid, Integer id) {
-		return drinkOrderListRepository.setIsServedIPaidForDrinkOrderList(isServed, isPaid, id);
+	public Integer setServedOrPaid(Boolean isServed, Boolean isPaid, Integer id, Korisnik waiter, String datePaid) {
+		if (isPaid == false) {
+			datePaid = null;
+			waiter = null;
+		}
+		return drinkOrderListRepository.setIsServedIPaidForDrinkOrderList(isServed, isPaid, id, waiter, datePaid);
 	}
 
 	public Collection<DrinkOrderList> getByRestaurantIdAndNonServedOrNotPaid(Integer restaurantId, Boolean b) {
 		return drinkOrderListRepository.findByIsPaid(false);
+	}
+
+	public Collection<DrinkOrderList> getAllUserOrdersForRating(String email) {
+		return drinkOrderListRepository.findByGuestIdAndIsRatedAndIsPaid(email, false, true);
 	}
 
 	
