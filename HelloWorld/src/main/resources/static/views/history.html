@@ -16,7 +16,7 @@
   			<span uib-rating ng-model="drink.rate" style="color: white" max="max" read-only="isReadonly" aria-labelledby="Rate!"></span>
   			<p style="color:white"> Waiter rate: </p>
   			<span uib-rating ng-model="order.waiter.rate" style="color: white" max="max" read-only="isReadonly" aria-labelledby="Rate!"></span>
-  			<md-button class="md-raised md-primary" ng-click="submitRate(order.items, drink.rate, order.waiter.email, order.waiter.rate)">SUBMIT</md-button>
+  			<md-button class="md-raised md-primary" ng-click="submitRate(order.items, drink.rate, order.waiter.email, order.waiter.rate, order.id)">SUBMIT</md-button>
  		
  		</md-list>
  		

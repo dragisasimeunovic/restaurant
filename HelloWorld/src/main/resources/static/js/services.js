@@ -686,6 +686,13 @@ angular.module('Milica').factory('drinkOrderService' , function drinkOrderServic
 		});
 	}
 	
+	drinkOrderService.setRated = function(orderListId){
+		return $http({
+			method: 'POST',
+			url: 'api/drinkOrderList/setIsRated/' + orderListId
+		});
+	}
+	
 	drinkOrderService.setPreparedForListItem = function(id, prepared){
 		return $http({
 			method: 'POST',
@@ -912,6 +919,40 @@ angular.module('Milica').factory('offerService' , function offerService($http){
 	
 	
 	return offerService;
+	
+});
+
+angular.module('Milica').factory('markService' , function markService($http){
+	
+	markService.addDrinkMark = function(userEmail, drinkId, mark){
+		return $http({
+			method: 'POST',
+			url: 'api/marks/addDrinkMark',
+			data: {
+				"id" : null,
+				"drinkId" : drinkId,
+				"userEmail": userEmail,
+				"mark" : mark
+			}
+			
+		});
+	}
+	
+	markService.addWaiterMark = function(userEmail, waiterEmail, mark){
+		return $http({
+			method: 'POST',
+			url: 'api/marks/addWaiterMark',
+			data: {
+				"id" : null,
+				"waiterEmail" : waiterEmail,
+				"userEmail": userEmail,
+				"mark" : mark
+			}
+			
+		});
+	}
+	
+	return markService;
 	
 });
 

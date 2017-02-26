@@ -42,6 +42,10 @@ public class DrinkOrderListService {
 	public Collection<DrinkOrderList> getAllUserOrdersForRating(String email) {
 		return drinkOrderListRepository.findByGuestIdAndIsRatedAndIsPaid(email, false, true);
 	}
+	
+	public Integer setRatedForDrinkOrderList(Integer id){
+		return drinkOrderListRepository.setIsRatedForDrinkOrderList(true, id);
+	}
 
 	
 	

@@ -78,5 +78,15 @@ public class DrinkOrderListController {
 		return new ResponseEntity<Collection<DrinkOrderList>>(d, HttpStatus.OK);
     }
 	
+	@RequestMapping(
+            value    = "/api/drinkOrderList/setIsRated/{id}",
+            method   = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Integer> setRated(@PathVariable Integer id) {
+		Integer d = drinkOrderListService.setRatedForDrinkOrderList(id);
+		return new ResponseEntity<Integer>(d, HttpStatus.OK);
+    }
+	
 	
 }

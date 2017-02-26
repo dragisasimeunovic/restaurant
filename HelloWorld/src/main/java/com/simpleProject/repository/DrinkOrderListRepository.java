@@ -24,4 +24,11 @@ public interface DrinkOrderListRepository extends JpaRepository<DrinkOrderList, 
 
 	public Collection<DrinkOrderList> findByGuestIdAndIsRatedAndIsPaid(String email, Boolean b, Boolean c);
 	
+	@Transactional
+	@Modifying
+	@Query("update DrinkOrderList dol set dol.isRated = ?1 where dol.id = ?2")
+	public Integer setIsRatedForDrinkOrderList(Boolean isRated, Integer id);
+	
+	
+	
 }
