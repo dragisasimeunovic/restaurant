@@ -27,6 +27,23 @@ app.controller('reportsController',['$scope', 'friendsService', 'managerService'
 		});
 	}
 	
+	$scope.selectedDrinkChanged = function() {
+		
+		markService.getDrinkMark($scope.selectedDrink.id).then(function(response){
+			var sum = 0;  
+			for (var i = 0; i < response.data.length; i++) {
+				sum += response.data[i].mark;
+			}
+			$scope.drinkRate = sum / response.data.length;
+		});
+	}
+	
+	drinkCategoryService.getAllDrinkCategories(loginService.user.restoran).then(function(response){
+		$scope.categories = response.data;
+	});
+	
+	
+	
 	
 	
 }]);

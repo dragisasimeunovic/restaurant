@@ -994,6 +994,13 @@ angular.module('Milica').factory('markService' , function markService($http){
 		});
 	}
 	
+	markService.getDrinkMark = function(drinkId){
+		return $http({
+			method: 'GET',
+			url: 'api/marks/getDrinkMark/' + drinkId
+		});
+	}
+	
 	return markService;
 	
 });

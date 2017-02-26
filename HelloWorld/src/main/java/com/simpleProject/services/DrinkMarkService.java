@@ -1,5 +1,7 @@
 package com.simpleProject.services;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,10 @@ public class DrinkMarkService {
 
 	public DrinkMark add(DrinkMark drinkM) {
 		return drinkMarkRepository.save(drinkM);
+	}
+
+	public Collection<DrinkMark> getDrinkMark(Integer drinkId) {
+		return drinkMarkRepository.findByDrinkId(drinkId);
 	}
 
 	

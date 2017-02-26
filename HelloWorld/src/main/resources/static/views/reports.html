@@ -16,7 +16,7 @@
    	<div layout="column">	
   		<h3 align="center" style="color: white;">Reports for restaurant: {{restaurantName}}</h3>		
 	
-		<h3 align="left" style="color: white;">Current rate: {{rate}}</h3>		
+		<h3 align="left" style="color: white;">Current restaurant rate: {{rate}}</h3>		
 		
 		<p class="form-group" style="width: 200">
     		<label style="color: white;">Search by waiter name:</label>
@@ -27,9 +27,24 @@
       		<md-option ng-value="waiter" ng-repeat="waiter in (filteredWaiters = (waiters | filter:{ime:nameFilter}))">{{waiter.ime}} {{waiter.prezime}}</md-option>
 		</md-select>
 		
-		<h3 align="left" style="color: white;">Current rate: {{waiterRate}}</h3>	
+		<h3 align="left" style="color: white;">Current waiter rate: {{waiterRate}}</h3>	
 		
-	
+		<p class="form-group" style="width: 200">
+    		<label style="color: white;">Search by drink name:</label>
+    		<input type="text" ng-model="drinkNameFilter" class="form-control">
+  		</p>
+  		
+		<md-select ng-change="selectedDrinkChanged()" ng-model="selectedDrink" placeholder="Select your drink">
+    		
+          	<md-optgroup label="{{category.drinkCategoryName}}" ng-repeat="category in categories">
+            	<md-option ng-value="drink" ng-repeat="drink in (filteredDrinks = (category.drinks | filter:{drinkName:drinkNameFilter}))">{{drink.drinkName}}</md-option>
+          	</md-optgroup>
+          	
+        </md-select>
+        
+        <h3 align="left" style="color: white;">Current drink rate: {{drinkRate}}</h3>
+        
+        
 	</div>
 	
 	
