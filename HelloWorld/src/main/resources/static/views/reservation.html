@@ -68,14 +68,42 @@
     </div>
     
     <div ng-show="currentPage==4">
-    
-    	<md-select ng-model="selectedDrinks" multiple="" placeholder="Select your drinks">
+    <div layout = "row">
+    		<div layout ="column" flex = 50>
+   		<md-list ng-repeat = "category in categories">
+ 			<md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky"> {{category.drinkCategoryName}} 
+ 			</md-subheader>
+ 		
+ 		
+ 			<md-list-item ng-repeat="drink in category.drinks" ng-click="" class="noright">
+    			<img alt="{{ drink.drinkName }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
+    			<p style="color:white"> {{drink.drinkName}} {{drink.price}}</p>
     		
-          	<md-optgroup label="{{category.drinkCategoryName}}" ng-repeat="category in categories">
-            	<md-option ng-value="drink" ng-repeat="drink in category.drinks">{{drink.drinkName}} {{drink.price}}</md-option>
-          	</md-optgroup>
-          	
-        </md-select>
+    			<md-icon ng-init md-svg-src="images/plus-one.svg" ng-click="addToOrderList(drink)" aria-label="Add to List" class="md-secondary md-hue-3" ></md-icon>
+  			
+  			</md-list-item>
+ 		
+ 		</md-list>
+ 		
+ 		</div>
+ 		<div flex = 50>
+ 		<md-list>
+ 			<md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky"> Ordered - Quantity - Price
+ 		
+ 			</md-subheader>
+ 		
+ 		
+ 			<md-list-item ng-repeat="order in orderList" ng-click="" class="noright">
+    			<img alt="{{ order.drink.drinkName}}" ng-src="images/pozadina2.jpg" class="md-avatar" />
+    			<p style="color:white"> {{order.drinkName}} - {{order.brojac}} - {{order.cena}}</p>
+    		
+  				<md-icon md-svg-src="images/garbage.svg" ng-click="deleteFromOrderList(order)" aria-label="Delete groceries" class="md-secondary md-hue-3" ></md-icon>
+  			
+  			</md-list-item>
+ 		
+ 		</md-list>
+ 		</div>
+ 		</div>
         
        	<md-checkbox ng-model="prepared" aria-label="Prepared" style="color: white;">       
         		Prepared before I come : {{prepared}}

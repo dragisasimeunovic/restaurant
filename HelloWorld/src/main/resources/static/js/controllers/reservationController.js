@@ -90,6 +90,37 @@ app.controller('reservationController',['$scope', 'friendsService', 'managerServ
 	
 	$scope.prepared = true;
 	
+$scope.orderList = [];
+	
+	$scope.deleteFromOrderList = function(drink) {
+		var index = $scope.orderList.indexOf(drink);
+		if (index != -1) {
+			if (drink.brojac == 1) {
+				$scope.orderList.splice( index, 1 );
+			}
+			else {
+				drink.brojac = drink.brojac - 1;
+				drink.cena = drink.cena - drink.price;
+			}
+		}
+		
+		
+	}
+	
+	$scope.addToOrderList = function(drink){
+		var index = $scope.orderList.indexOf(drink);
+		if (index != -1) {
+			drink.brojac = drink.brojac + 1;
+			drink.cena = drink.cena + drink.price;
+		}
+		else {
+			drink.brojac = 1;
+			drink.cena = drink.price;
+			$scope.orderList.push(drink);
+		}
+		
+		
+	};
 	
 	$scope.confirmRes = function() {
 		
@@ -107,24 +138,51 @@ app.controller('reservationController',['$scope', 'friendsService', 'managerServ
 			if (i == 0) {
 				reservationService.addReservation(loginService.user.email, $scope.selectedRestaurant.id, reservedTables[i], bpTime, endDateString).then(function(response){
 					alert('Saved!');
-					for (var j = 0; j < $scope.selectedFriends.length; j++) {		
-						invitationService.addInvitation(loginService.user.email, response.data.id, false, $scope.selectedFriends[j].email).then(function(response){
-							alert('Invitation sent!');
-						});
+					if (!angular.isUndefined($scope.selectedFriends)) {
+						for (var j = 0; j < $scope.selectedFriends.length; j++) {		
+							invitationService.addInvitation(loginService.user.email, response.data.id, false, $scope.selectedFriends[j].email).then(function(response){
+								alert('Invitation sent!');
+							});
+						}
 					}
 					
-					for (var k = 0; k < $scope.selectedDrinks.length; k++) {	
+					
 						if ($scope.prepared == true) {
-							drinkOrderService.addDrinkOrder(loginService.user.email, $scope.selectedDrinks[k], bpTime, false).then(function(response){
-								alert('Drink order sent!');
+							
+							tableService.getTableByRestaurantIdAndNumber($scope.selectedRestaurant.id, response.data.reservedTable.id+"").then(function(response){			
+								$scope.selectedTable = response.data;	
+								
+								drinkOrderService.addDrinkOrderList(false, loginService.user.email, $scope.selectedRestaurant.id, response.data.number).then(function(response){
+									alert('Dodata lista');
+									for (var i = 0; i < $scope.orderList.length; i++) {
+										drinkOrderService.addDrinkOrderItem($scope.orderList[i], bpTime, false, response.data.id, $scope.orderList[i].cena, $scope.orderList[i].brojac).then(function(response){
+											alert('Dodat item u listu');
+										});
+									}
+									
+									
+								});
+								
 							});
 						}
 						else {
-							drinkOrderService.addDrinkOrder(loginService.user.email, $scope.selectedDrinks[k], null, false).then(function(response){
-								alert('Drink order without deadline sent!');
+							tableService.getTableByRestaurantIdAndNumber($scope.selectedRestaurant.id, response.data.reservedTable.id+"").then(function(response){			
+								$scope.selectedTable = response.data;	
+								
+								drinkOrderService.addDrinkOrderList(false, loginService.user.email, $scope.selectedRestaurant.id,  response.data.number).then(function(response){
+									alert('Dodata lista');
+									for (var i = 0; i < $scope.orderList.length; i++) {
+										drinkOrderService.addDrinkOrderItem($scope.orderList[i], null, false, response.data.id, $scope.orderList[i].cena, $scope.orderList[i].brojac).then(function(response){
+											alert('Dodat item u listu');
+										});
+									}
+									
+									
+								});
+								
 							});
 						}
-					}
+					
 					
 				});
 			}else {

@@ -48,7 +48,7 @@ app.controller('orderController',['$scope', 'friendsService', 'managerService', 
 				
 				$scope.tableNumber = canvas.getActiveObject().item(1).get('text');
 				$scope.selectedTable = [];
-				tableService.getTableByRestaurantIdAndNumber(orderService.activeReservation.id, $scope.tableNumber+"").then(function(response){			
+				tableService.getTableByRestaurantIdAndNumber(orderService.activeReservation.restaurantId, $scope.tableNumber+"").then(function(response){			
 					$scope.selectedTable = response.data;	
 					
 					drinkOrderService.addDrinkOrderList(false, loginService.user.email, orderService.activeReservation.restaurantId, $scope.tableNumber).then(function(response){
