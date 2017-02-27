@@ -55,6 +55,16 @@ public class GroceriesListController {
     }
 	
 	@RequestMapping(
+            value    = "/api/groceries/getListsByRestaurantId/{restaurantId}",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<GroceriesList>> getListsByRestaurantId(@PathVariable Integer restaurantId) {
+		Collection<GroceriesList> groceriesLists = groceriesListService.getListsByRestaurantId(restaurantId);
+        return new ResponseEntity<Collection<GroceriesList>>(groceriesLists, HttpStatus.OK);
+    }
+	
+	@RequestMapping(
             value    = "/api/groceries/addListActive/{id}",
             method   = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE

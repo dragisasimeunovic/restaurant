@@ -34,5 +34,9 @@ public class GroceriesListService {
 	public Integer setActiveToFalse(boolean b, Integer id) {
 		return groceriesListRepository.setActiveForGroceriesList(b, id);
 	}
+
+	public Collection<GroceriesList> getListsByRestaurantId(Integer restaurantId) {
+		return groceriesListRepository.findByRestaurantId(restaurantId);
+	}
 	
 }

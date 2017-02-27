@@ -1,5 +1,10 @@
-app.controller('bidderController', ['$scope','$location', 'loginService', 'bidderService', 'groceriesService', 'offerService', 'dateFilter', '$mdDialog', function($scope, $location, loginService, bidderService, groceriesService, offerService, dateFilter, $mdDialog){
+app.controller('bidderController', ['$scope','$location', 'loginService', 'bidderService', 'groceriesService', 'offerService', 'dateFilter', '$mdDialog', '$route', function($scope, $location, loginService, bidderService, groceriesService, offerService, dateFilter, $mdDialog, $route){
 	
+	groceriesService.getAllCategoriesByRestaurantId(loginService.user.restoran).then(function(response){
+		$scope.allLists = response.data;
+	});
+	
+	$scope.activeTab = 1;
 	
 	$scope.username = loginService.user.ime;
 	
@@ -137,6 +142,8 @@ app.controller('bidderController', ['$scope','$location', 'loginService', 'bidde
 		offerService.addOffer($scope.price, bpTime, loginService.user, $scope.selectedList, $scope.warranty).then(function(response){
 			
 		});
+		
+		$route.reload();
 	}
 	
 	

@@ -21,4 +21,7 @@ public interface GroceriesListRepository extends JpaRepository<GroceriesList, In
 	@Query("update GroceriesList gl set gl.active = ?1 where gl.id = ?2")
 	public Integer setActiveForGroceriesList(Boolean active, Integer id);
 	
+	
+	public Collection<GroceriesList> findByRestaurantId(Integer restaurantId);
+	
 }

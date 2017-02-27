@@ -8,8 +8,11 @@
         		</h2>
         		<span flex></span>
         		     		
+        		<md-button class="md-primary" ng-click = "activeTab=1">
+          			MAKE OFFER 
+        		</md-button>
         
-        		<md-button class="md-primary" ng-click = "goToOffers()">
+        		<md-button class="md-primary" ng-click = "activeTab=2">
           			OFFERS 
         		</md-button>
         		
@@ -40,51 +43,83 @@
    		 
    		 
 	
-
-   		 
+	<div ng-show="activeTab == 1">
+	
    		 <md-list ng-repeat="list in lists">
- 		<md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky"> {{list.listName}} 
+ 			<md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky"> {{list.listName}} 
  		
- 		</md-subheader>
+ 			</md-subheader>
  			
- 		<md-list-item ng-repeat="item in list.items" ng-click="goToRestaurant(restaurant, $event)" class="noright">
-    		<img alt="{{ item.groceries.groceriesName }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
-    		<p style="color:white"> {{item.groceries.groceriesName}} {{item.quantity}}</p>
+ 			<md-list-item ng-repeat="item in list.items" ng-click="goToRestaurant(restaurant, $event)" class="noright">
+    			<img alt="{{ item.groceries.groceriesName }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
+    			<p style="color:white"> {{item.groceries.groceriesName}} {{item.quantity}}</p>
     		
-  		</md-list-item>
+  			</md-list-item>
  		
- 	</md-list>
+ 		</md-list>
    			
    		
+		
+	
+			<md-select ng-change="" placeholder="Choose list" ng-model="selectedList" style="min-width: 200px; color: white;">
+      			<md-option ng-value="list" ng-repeat="list in lists ">{{list.listName}}</md-option>
+			</md-select>
+	
+			<p class="input-group">	
+				<label style="color: white"> Price: </label>
+				<input type="number" class="form-control" ng-model="price" min="1">
+			</p>
+	
+			<label style="color: white"> Date of delivery </label>
+				<p class="input-group" style="width: 150"> 	
+          			<input type="text" class="form-control" uib-datepicker-popup ng-model="deliveryDate" is-open="deliveryDateOpened" ng-changed="" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+          			<span class="input-group-btn">
+            		<button type="button" class="btn btn-default" ng-click="openDeliveryDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+          			</span>
+        		</p>
+        
+		 	<div uib-timepicker ng-model="deliveryTime" ng-change="deliveryTimeChanged()" hour-step="hstep" minute-step="mstep" show-meridian="false"></div>
+		
+			<div>
+   				<md-checkbox ng-model="warranty" aria-label="Warranty" style="color: white;">       
+        			Warranty 
+       	 		</md-checkbox>
+			</div>
+		
+			<md-button class="md-raised md-primary" ng-click="confirmOffer()">CONFIRM OFFER </md-button>
 	</div>
 	
-		<md-select ng-change="" placeholder="Choose list" ng-model="selectedList" style="min-width: 200px; color: white;">
-      		<md-option ng-value="list" ng-repeat="list in lists ">{{list.listName}}</md-option>
-	</md-select>
+	<div ng-show="activeTab == 2">
 	
-	<p class="input-group">	
-		<label style="color: white"> Price: </label>
-			<input type="number" class="form-control" ng-model="price" min="1">
-	</p>
+		<md-list ng-repeat = "list in allLists">
+ 			<md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky"> {{list.listName}} 
+ 				 <md-icon ng-init ng-show="list.active" md-svg-src="images/checked.svg"  aria-label="Edit Drink" class="md-secondary md-hue-3" ></md-icon>
+ 			 	<md-icon ng-init ng-show="!list.active" md-svg-src="images/cancel.svg"  aria-label="Edit Drink" class="md-secondary md-hue-3" ></md-icon>
+ 			</md-subheader>
+ 		
+ 		
+ 			<md-list-item ng-repeat="item in list.items" ng-click="" class="noright">
+    			<img alt="{{ item.groceriesName }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
+    			<p style="color:white"> {{item.groceries.groceriesName}} {{item.quantity}}</p>
+    		
+    			
+  			</md-list-item>
+  			
+  			<md-list-item ng-repeat="offer in list.offers" ng-click="" class="noright">
+    			<img alt="{{ offer.bidder.ime }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
+    			<p style="color:white"><u>{{offer.bidder.ime}} Price: {{offer.price}} |  Warranty: {{offer.warranty}}  Delivery: {{offer.deliveryDate | date:'dd, MMMM yyyy - HH:mm:ss'}}</u></p>
+    			
+    				<md-icon ng-init ng-show="offer.accepted" md-svg-src="images/checked.svg" ng-click="" aria-label="Edit Drink" class="md-secondary md-hue-3" ></md-icon>
+  					<md-icon ng-init ng-show="!offer.accepted" md-svg-src="images/cancel.svg" ng-click="" aria-label="Edit Drink" class="md-secondary md-hue-3" ></md-icon>
+  					
+  				
+  			</md-list-item>
+ 		
+ 		</md-list>
+ 		
+ 		</md-list>
 	
-	<label style="color: white"> Date of delivery </label>
-		<p class="input-group" style="width: 150"> 	
-          	<input type="text" class="form-control" uib-datepicker-popup ng-model="deliveryDate" is-open="deliveryDateOpened" ng-changed="" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
-          	<span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="openDeliveryDate()"><i class="glyphicon glyphicon-calendar"></i></button>
-          	</span>
-        </p>
-        
-		 <div uib-timepicker ng-model="deliveryTime" ng-change="deliveryTimeChanged()" hour-step="hstep" minute-step="mstep" show-meridian="false"></div>
-		
-		<div>
-   		<md-checkbox ng-model="warranty" aria-label="Warranty" style="color: white;">       
-        		Warranty: 
-       	 </md-checkbox>
-		</div>
-		
-		<md-button class="md-raised md-primary" ng-click="confirmOffer()">CONFIRM OFFER </md-button>
-	
+	</div>
 	
 
 </div>

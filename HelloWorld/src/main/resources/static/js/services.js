@@ -836,6 +836,13 @@ angular.module('Milica').factory('groceriesService' , function groceriesService(
 		});
 	}
 	
+	groceriesService.getAllCategoriesByRestaurantId = function(restaurantId){
+		return $http({
+			method: 'GET',
+			url: 'api/groceries/getListsByRestaurantId/' + restaurantId
+		});
+	}
+	
 	
 	
 	groceriesService.addGroceries = function(groceriesName, gCategory){
@@ -899,7 +906,7 @@ angular.module('Milica').factory('groceriesService' , function groceriesService(
 
 angular.module('Milica').factory('bidderService' , function bidderService($http){
 	
-	bidderService.addBidder = function(email, ime, lozinka, tip){
+	bidderService.addBidder = function(email, ime, lozinka, tip, restaurantId){
 		return $http({
 			method: 'POST',
 			url: 'api/bidder/addBidder',
@@ -908,7 +915,8 @@ angular.module('Milica').factory('bidderService' , function bidderService($http)
 				"ime": ime,
 				"lozinka" : lozinka,
 				"tip" : "bidder",
-				"firstLogin" : 0
+				"firstLogin" : 0,
+				"restoran" : restaurantId
 			}
 			
 		});

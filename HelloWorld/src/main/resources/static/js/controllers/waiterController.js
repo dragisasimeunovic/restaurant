@@ -233,6 +233,14 @@ app.controller('waiterController',['$scope', 'friendsService', 'managerService',
 	}
 	
 	$scope.setServedAndPaid = function(list){
+		
+		for(var i = 0; i < list.items.length; i++) {
+			if (list.items[i].isPrepared == false){
+				list.isServed = false;
+				break;
+			} 
+		}
+		
 		if (list.isServed == false) {
 			list.isPaid = false;
 		}

@@ -21,10 +21,8 @@
 <div layout="column">
   		<md-list ng-repeat = "list in lists">
  			<md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky"> {{list.listName}} 
- 		
- 			<md-icon ng-init md-svg-src="images/add.svg" ng-click="addGroceries(category)" aria-label="Add Groceries" class="md-secondary md-hue-3" >
- 			</md-icon>
- 		
+ 		 		<md-icon ng-init ng-show="list.active" md-svg-src="images/checked.svg"  aria-label="Edit Drink" class="md-secondary md-hue-3" ></md-icon>
+ 			 	<md-icon ng-init ng-show="!list.active" md-svg-src="images/cancel.svg"  aria-label="Edit Drink" class="md-secondary md-hue-3" ></md-icon>
  			</md-subheader>
  		
  		
@@ -36,11 +34,16 @@
   			</md-list-item>
   			
   			<md-list-item ng-repeat="offer in list.offers" ng-click="" class="noright">
-    			<img alt="{{ groceries.groceriesName }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
+    			<img alt="{{ offer.bidder.ime }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
     			<p style="color:white"><u>{{offer.bidder.ime}} Price: {{offer.price}} |  Warranty: {{offer.warranty}}  Delivery: {{offer.deliveryDate | date:'dd, MMMM yyyy - HH:mm:ss'}}</u></p>
-    		
-    			<md-icon ng-init md-svg-src="images/checked.svg" ng-click="acceptedBidder(offer.id, list.id)" aria-label="Edit Drink" class="md-secondary md-hue-3" ></md-icon>
-  			
+    			
+    				
+    				<md-icon ng-init ng-show="list.active" md-svg-src="images/checked.svg" ng-click="acceptedBidder(offer.id, list.id)" aria-label="Edit Drink" class="md-secondary md-hue-3" ></md-icon>
+  				
+    				<md-icon ng-init ng-show="offer.accepted" md-svg-src="images/checked.svg" ng-click="" aria-label="Edit Drink" class="md-secondary md-hue-3" ></md-icon>
+  					<md-icon ng-init ng-show="!offer.accepted" md-svg-src="images/cancel.svg" ng-click="" aria-label="Edit Drink" class="md-secondary md-hue-3" ></md-icon>
+  					
+  				
   			</md-list-item>
  		
  		</md-list>

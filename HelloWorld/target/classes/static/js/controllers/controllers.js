@@ -38,13 +38,13 @@ app.controller('registrationManagerController', ['$scope','$location', 'registra
 	
 	
 }]);
-app.controller('registrationOffererController', ['$scope','$location', 'registrationOffererService', 'bidderService', function($scope,$location,registrationOffererService, bidderService){
+app.controller('registrationOffererController', ['$scope','$location', 'registrationOffererService', 'bidderService', 'loginService', function($scope,$location,registrationOffererService, bidderService, loginService){
 	
 	$scope.registerOfferer = function(){
 		var ime = $scope.name;
 		var email = $scope.email;
 		var lozinka = $scope.password1;
-		bidderService.addBidder(email, ime, lozinka, "bidder").then(function(response){
+		bidderService.addBidder(email, ime, lozinka, "bidder", loginSerive.user.restoran).then(function(response){
 			//$location.path("/");
 		});
 		

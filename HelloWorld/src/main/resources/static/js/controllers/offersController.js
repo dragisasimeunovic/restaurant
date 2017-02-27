@@ -1,4 +1,4 @@
-app.controller('offersController', ['$scope','$location', 'loginService', 'bidderService', 'groceriesService', 'offerService', 'dateFilter', function($scope, $location, loginService, bidderService, groceriesService, offerService, dateFilter){
+app.controller('offersController', ['$scope','$location', 'loginService', 'bidderService', 'groceriesService', 'offerService', 'dateFilter', '$route', function($scope, $location, loginService, bidderService, groceriesService, offerService, dateFilter, $route){
 	
 	
 	$scope.acceptedBidder = function(offerId, listId){
@@ -9,6 +9,8 @@ app.controller('offersController', ['$scope','$location', 'loginService', 'bidde
 		groceriesService.setListActiveToFalse(listId).then(function(response){
 			alert('List deactivated!');
 		});	
+		
+		$route.reload();
 	}
 	
 	

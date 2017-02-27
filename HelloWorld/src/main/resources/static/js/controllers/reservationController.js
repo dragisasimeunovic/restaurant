@@ -146,6 +146,7 @@ $scope.orderList = [];
 						}
 					}
 					
+					if ($scope.orderList.length > 0){
 					
 						if ($scope.prepared == true) {
 							
@@ -182,6 +183,8 @@ $scope.orderList = [];
 								
 							});
 						}
+						
+					}
 					
 					
 				});
