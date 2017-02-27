@@ -48,7 +48,7 @@ public class GroceriesList implements Serializable{
 	private Collection<Offer> offers;
 	
 	@Column(name = "active")
-    private boolean active;
+    private Boolean active;
 	
 	public GroceriesList() {
 
@@ -125,13 +125,15 @@ public class GroceriesList implements Serializable{
 	}
 
 
-	public boolean isActive() {
+	public Boolean getActive() {
 		return active;
 	}
 
 
-	public void setActive(boolean active) {
+	public void setActive(Boolean active) {
 		this.active = active;
 	}
+
+	
 
 }

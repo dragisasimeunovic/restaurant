@@ -30,7 +30,7 @@ public class Invitation implements Serializable{
     private String reservationId;
 	
 	@Column(name = "accepted")
-    private boolean accepted;
+    private Boolean accepted;
 	
 	@Column(name = "recieverId")
     private String recieverId;
@@ -63,20 +63,20 @@ public class Invitation implements Serializable{
 		this.reservationId = reservationId;
 	}
 
-	public boolean isAccepted() {
-		return accepted;
-	}
-
-	public void setAccepted(boolean accepted) {
-		this.accepted = accepted;
-	}
-
 	public String getRecieverId() {
 		return recieverId;
 	}
 
 	public void setRecieverId(String recieverId) {
 		this.recieverId = recieverId;
+	}
+
+	public Boolean getAccepted() {
+		return accepted;
+	}
+
+	public void setAccepted(Boolean accepted) {
+		this.accepted = accepted;
 	}
 
 	

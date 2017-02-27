@@ -16,6 +16,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "tablee")
 public class Tablee implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")

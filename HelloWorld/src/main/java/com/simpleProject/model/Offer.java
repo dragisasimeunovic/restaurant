@@ -39,13 +39,13 @@ public class Offer implements Serializable {
 	private GroceriesList gl;
 	
 	@Column(name = "warranty")
-    private boolean warranty;
+    private Boolean warranty;
 	
 	@Column(name = "accepted")
-    private boolean accepted;
+    private Boolean accepted;
 	
 	public Offer() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public Integer getId() {
@@ -89,24 +89,23 @@ public class Offer implements Serializable {
 		this.gl = gl;
 	}
 
-	public boolean isWarranty() {
+	public Boolean getWarranty() {
 		return warranty;
 	}
 
-	public void setWarranty(boolean warranty) {
+	public void setWarranty(Boolean warranty) {
 		this.warranty = warranty;
 	}
 
-	public boolean isAccepted() {
+	public Boolean getAccepted() {
 		return accepted;
 	}
 
-	public void setAccepted(boolean accepted) {
+	public void setAccepted(Boolean accepted) {
 		this.accepted = accepted;
 	}
-	
-	
-	
+
+
 	
 
 }
