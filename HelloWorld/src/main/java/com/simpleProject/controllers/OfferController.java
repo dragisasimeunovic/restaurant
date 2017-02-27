@@ -29,6 +29,16 @@ public class OfferController {
 	private GroceriesListService groceriesListService;
 	
 	
+	@RequestMapping(
+            value    = "/api/offer/updateOffer/{price}/{deliveryDate}/{warranty}/{id}",
+            method   = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Integer> updateOffer(@PathVariable Integer price, @PathVariable String deliveryDate, @PathVariable Boolean warranty, @PathVariable Integer id) {
+		Integer addingOffer = offerService.update(price, deliveryDate, warranty, id);
+        return new ResponseEntity<Integer>(addingOffer, HttpStatus.OK);
+    }
+	
 	
 	@RequestMapping(
             value    = "/api/offer/addOffer/{id}",

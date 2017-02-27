@@ -10,25 +10,35 @@ app.controller('bidderController', ['$scope','$location', 'loginService', 'bidde
     		clickOutsideToClose:false
     	});
 		
-		function EditBidderOfferController($scope, loginService, $mdDialog, $route) {
+		function EditBidderOfferController($scope, loginService, $mdDialog, $route, offerService) {
 			 			
-				$scope.ime = loginService.user.ime;
-			
+			$scope.ime = loginService.user.ime;
+			$scope.price = offer.price;
+			$scope.deliveryDate = new Date(offer.deliveryDate);
+			$scope.deliveryTime = new Date(offer.deliveryDate);
+			$scope.warranty = offer.warranty;
 			
 	  		$scope.apply = function(){		
 	  			
-	  			///IZMENA PORUDZBINE
-	  				loginService.user.ime = $scope.ime;
-					$scope.username = loginService.user.ime;
+	  			var dateString = dateFilter($scope.deliveryDate, 'yyyy-MM-ddT');
+	  			var timeString = dateFilter($scope.deliveryTime, 'HH:mm:00.000');
+	  			var bpTime = dateString + timeString + 'Z';
+	  			
+	  			
+				$scope.username = loginService.user.ime;
 					
 					var confirm = $mdDialog.confirm()
-						.textContent('Profile successfully updated!')
+						.textContent('Offer successfully updated!')
 						.ok('Ok');
 					
-					$mdDialog.show(confirm);
-						$mdDialog.hide();
+					offerService.updateOffer($scope.price, bpTime, $scope.warranty, offer.id).then(function(response){
 						
-						$route.reload();
+					});
+					
+					$mdDialog.show(confirm);
+					
+					$mdDialog.hide();
+					$route.reload();
 	  		}
 	  		
 	  		

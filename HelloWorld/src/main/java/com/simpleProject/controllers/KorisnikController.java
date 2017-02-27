@@ -42,7 +42,6 @@ public class KorisnikController {
     		produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<String> emailActivationKorisnika(@PathVariable String email){
-    	System.out.println("Dosao sam do metode");
     	String s = "opa";
     	//Korisnik emailKorisnika1 = korisnikService.getOne(email);
     	return new ResponseEntity<String>(s, HttpStatus.OK);

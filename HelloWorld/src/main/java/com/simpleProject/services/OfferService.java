@@ -20,4 +20,8 @@ public class OfferService {
 	public Integer acceptedField(Boolean accepted, Integer id){
 		return offerRepository.setAcceptedForOffer(accepted, id);
 	}
+
+	public Integer update(Integer price, String deliveryDate, Boolean warranty, Integer id) {
+		return offerRepository.setPriceDeliveryDateWarrantyForOffer(price, deliveryDate, warranty, id);
+	}
 }

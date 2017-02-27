@@ -946,6 +946,14 @@ angular.module('Milica').factory('offerService' , function offerService($http){
 		});
 	}
 	
+	offerService.updateOffer = function(price, bpTime, warranty, offerId){
+		return $http({
+			method: 'POST',
+			url: 'api/offer/updateOffer/'+ price + '/' + bpTime + '/' + warranty + '/' + offerId
+		});
+	}
+	
+	
 	offerService.acceptOffer = function(offerId){
 		return $http({
 			method: 'POST',
