@@ -18,8 +18,37 @@
 		</div>
  	</md-toolbar>
  	 
-<div layout="column">
-  		<md-list ng-repeat = "list in lists">
+<div layout="row">
+	<div flex = 50>
+  		<md-list ng-repeat = "list in (filteredLists = (lists | filter:{active:true}))">
+ 			<md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky"> {{list.listName}} 
+ 		 		<md-icon ng-init ng-show="list.active" md-svg-src="images/checked.svg"  aria-label="Edit Drink" class="md-secondary md-hue-3" ></md-icon>
+ 			 	<md-icon ng-init ng-show="!list.active" md-svg-src="images/cancel.svg"  aria-label="Edit Drink" class="md-secondary md-hue-3" ></md-icon>
+ 			</md-subheader>
+ 		
+ 		
+ 			<md-list-item ng-repeat="item in list.items" ng-click="" class="noright">
+    			<img alt="{{ item.groceriesName }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
+    			<p style="color:white"> {{item.groceries.groceriesName}} {{item.quantity}}</p>
+    		
+    			
+  			</md-list-item>
+  			
+  			<md-list-item ng-repeat="offer in list.offers" ng-click="" class="noright">
+    			<img alt="{{ offer.bidder.ime }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
+    			<p style="color:white"><u>{{offer.bidder.ime}} Price: {{offer.price}} |  Warranty: {{offer.warranty}}  Delivery: {{offer.deliveryDate | date:'dd, MMMM yyyy - HH:mm:ss'}}</u></p>
+    			
+    				
+    				<md-icon ng-init ng-show="list.active" md-svg-src="images/checked.svg" ng-click="acceptedBidder(offer.id, list.id)" aria-label="Edit Drink" class="md-secondary md-hue-3" ></md-icon>
+  				
+  				
+  			</md-list-item>
+ 		
+ 		</md-list>
+	</div>
+	
+	<div flex = 50>
+  		<md-list ng-repeat = "list in (filteredLists = (lists | filter:{active:false}))">
  			<md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky"> {{list.listName}} 
  		 		<md-icon ng-init ng-show="list.active" md-svg-src="images/checked.svg"  aria-label="Edit Drink" class="md-secondary md-hue-3" ></md-icon>
  			 	<md-icon ng-init ng-show="!list.active" md-svg-src="images/cancel.svg"  aria-label="Edit Drink" class="md-secondary md-hue-3" ></md-icon>
@@ -47,7 +76,7 @@
   			</md-list-item>
  		
  		</md-list>
-
+	</div>
 	
 	
 </div>

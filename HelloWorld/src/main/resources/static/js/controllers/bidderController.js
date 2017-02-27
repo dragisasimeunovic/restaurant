@@ -1,5 +1,47 @@
 app.controller('bidderController', ['$scope','$location', 'loginService', 'bidderService', 'groceriesService', 'offerService', 'dateFilter', '$mdDialog', '$route', function($scope, $location, loginService, bidderService, groceriesService, offerService, dateFilter, $mdDialog, $route){
 	
+	$scope.editOffer = function(offer){
+		$mdDialog.show({
+    		controller: EditBidderOfferController,
+    		templateUrl: '/views/dialogs/editBidderOfferDialog.html',
+    		parent: angular.element(document.body),
+    		scope: $scope,
+    		preserveScope: true,
+    		clickOutsideToClose:false
+    	});
+		
+		function EditBidderOfferController($scope, loginService, $mdDialog, $route) {
+			 			
+				$scope.ime = loginService.user.ime;
+			
+			
+	  		$scope.apply = function(){		
+	  			
+	  			///IZMENA PORUDZBINE
+	  				loginService.user.ime = $scope.ime;
+					$scope.username = loginService.user.ime;
+					
+					var confirm = $mdDialog.confirm()
+						.textContent('Profile successfully updated!')
+						.ok('Ok');
+					
+					$mdDialog.show(confirm);
+						$mdDialog.hide();
+						
+						$route.reload();
+	  		}
+	  		
+	  		
+	  		
+	  		$scope.cancel = function(){
+	  			$mdDialog.cancel();	
+	  		}
+	  		
+	  	}
+	}
+	
+	$scope.activeBidder = loginService.user;
+	
 	groceriesService.getAllCategoriesByRestaurantId(loginService.user.restoran).then(function(response){
 		$scope.allLists = response.data;
 	});

@@ -30,22 +30,13 @@
 	
 	</div>
 	
-	
-
-   <div layout="row">
-		<div flex="20" style="background-color:rgb(0,0,0); opacity:0.6">
-   			<br>
- 		 <p>     </p>
-   			<img ng-src="images/pozadina2.jpg" height="150" width="205" class="md-avatar" />
-  		 	<p style="color:white"> Name: {{name}} </p> <br> 
-    	
-   		 </div>
-   		 
-   		 
-	
 	<div ng-show="activeTab == 1">
 	
-   		 <md-list ng-repeat="list in lists">
+	<div layout = "row">
+		
+		<div flex = 50>
+	
+   		 <md-list ng-repeat="list in (filteredLists = (lists | filter:{active:true}))">
  			<md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky"> {{list.listName}} 
  		
  			</md-subheader>
@@ -57,12 +48,14 @@
   			</md-list-item>
  		
  		</md-list>
+ 		
+ 		</div>
    			
    		
-		
+		<div flex = 50>
 	
 			<md-select ng-change="" placeholder="Choose list" ng-model="selectedList" style="min-width: 200px; color: white;">
-      			<md-option ng-value="list" ng-repeat="list in lists ">{{list.listName}}</md-option>
+      			<md-option ng-value="list" ng-repeat="list in (filteredLists = (lists | filter:{active:true})) ">{{list.listName}}</md-option>
 			</md-select>
 	
 			<p class="input-group">	
@@ -87,11 +80,18 @@
 			</div>
 		
 			<md-button class="md-raised md-primary" ng-click="confirmOffer()">CONFIRM OFFER </md-button>
+			
+			</div>
+			
+		</div>
 	</div>
 	
 	<div ng-show="activeTab == 2">
+		<div layout = "row">
+		
+		<div flex = 50>
 	
-		<md-list ng-repeat = "list in allLists">
+		<md-list ng-repeat = "list in (filteredLists = (allLists | filter:{active:true}))">
  			<md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky"> {{list.listName}} 
  				 <md-icon ng-init ng-show="list.active" md-svg-src="images/checked.svg"  aria-label="Edit Drink" class="md-secondary md-hue-3" ></md-icon>
  			 	<md-icon ng-init ng-show="!list.active" md-svg-src="images/cancel.svg"  aria-label="Edit Drink" class="md-secondary md-hue-3" ></md-icon>
@@ -105,7 +105,38 @@
     			
   			</md-list-item>
   			
-  			<md-list-item ng-repeat="offer in list.offers" ng-click="" class="noright">
+  			<md-list-item ng-repeat="offer in (filteredOffers = (list.offers | filter:{bidder:activeBidder}))" ng-click="" class="noright">
+    			<img alt="{{ offer.bidder.ime }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
+    			<p style="color:white"><u>{{offer.bidder.ime}} Price: {{offer.price}} |  Warranty: {{offer.warranty}}  Delivery: {{offer.deliveryDate | date:'dd, MMMM yyyy - HH:mm:ss'}}</u></p>
+    			
+    				<md-icon ng-init md-svg-src="images/edit.svg" ng-click="editOffer(offer)" aria-label="Edit Drink" class="md-secondary md-hue-3" ></md-icon>
+  					
+  				
+  			</md-list-item>
+ 		
+ 			</md-list>
+ 			
+ 			</div>
+ 		
+ 		
+ 		
+ 		<div flex = 50>
+	
+		<md-list ng-repeat = "list in (filteredLists = (allLists | filter:{active:false}))">
+ 			<md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky"> {{list.listName}} 
+ 				 <md-icon ng-init ng-show="list.active" md-svg-src="images/checked.svg"  aria-label="Edit Drink" class="md-secondary md-hue-3" ></md-icon>
+ 			 	<md-icon ng-init ng-show="!list.active" md-svg-src="images/cancel.svg"  aria-label="Edit Drink" class="md-secondary md-hue-3" ></md-icon>
+ 			</md-subheader>
+ 		
+ 		
+ 			<md-list-item ng-repeat="item in list.items" ng-click="" class="noright">
+    			<img alt="{{ item.groceriesName }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
+    			<p style="color:white"> {{item.groceries.groceriesName}} {{item.quantity}}</p>
+    		
+    			
+  			</md-list-item>
+  			
+  			<md-list-item ng-repeat="offer in (filteredLists = (list.offers | filter:{bidder:activeBidder}))" ng-click="" class="noright">
     			<img alt="{{ offer.bidder.ime }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
     			<p style="color:white"><u>{{offer.bidder.ime}} Price: {{offer.price}} |  Warranty: {{offer.warranty}}  Delivery: {{offer.deliveryDate | date:'dd, MMMM yyyy - HH:mm:ss'}}</u></p>
     			
@@ -115,9 +146,13 @@
   				
   			</md-list-item>
  		
- 		</md-list>
+ 			</md-list>
+ 			
+ 			</div>
+ 			
+ 			</div>
  		
- 		</md-list>
+ 		</div>
 	
 	</div>
 	

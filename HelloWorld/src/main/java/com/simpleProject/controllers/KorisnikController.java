@@ -2,6 +2,8 @@ package com.simpleProject.controllers;
 
 import java.util.Collection;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.simpleProject.MailSending;
 import com.simpleProject.model.Korisnik;
 import com.simpleProject.services.KorisnikService;
 
@@ -27,9 +30,22 @@ public class KorisnikController {
             method   = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Korisnik> registerKorisnik(@RequestBody Korisnik korisnik) {
+    public ResponseEntity<Korisnik> registerKorisnik(@RequestBody Korisnik korisnik) throws MessagingException {
         Korisnik registrovanKorisnik = korisnikService.add(korisnik);
+        MailSending.sendMail("feddelegrand17@gmail.com", "Aktivacija", "http://localhost:8099/api/korisnici/activate/"+registrovanKorisnik.getEmail());
         return new ResponseEntity<Korisnik>(registrovanKorisnik, HttpStatus.OK);
+    }
+    
+    @RequestMapping(
+    		value = "/api/korisnici/activate/{email:.+}",
+    		method = RequestMethod.GET,
+    		produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<String> emailActivationKorisnika(@PathVariable String email){
+    	System.out.println("Dosao sam do metode");
+    	String s = "opa";
+    	//Korisnik emailKorisnika1 = korisnikService.getOne(email);
+    	return new ResponseEntity<String>(s, HttpStatus.OK);
     }
     
     @RequestMapping(
