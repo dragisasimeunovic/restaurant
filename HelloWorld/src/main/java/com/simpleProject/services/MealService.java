@@ -26,6 +26,11 @@ public class MealService {
 	public Collection<Meal> findAllCategoryMeals(Integer menuCategoryId) {
 		return mealRepository.findByIdMenuCategory(menuCategoryId);
 	}
+
+
+	public Meal update(Meal meal) {
+		return mealRepository.save(meal);
+	}
 	
 	
 }

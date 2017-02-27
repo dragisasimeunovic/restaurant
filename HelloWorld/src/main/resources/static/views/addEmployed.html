@@ -61,6 +61,12 @@ BSA Restraurants
     <hr />
 
     <p>Selected Value: <span class="radioValue">{{ employed }}</span></p>
+    
+    <md-select ng-model="selectedCategory" multiple="" placeholder="Invite your friends">
+          	<md-optgroup label="Menu category">
+            	<md-option ng-value="category" ng-repeat="category in categories">{{category.categoryName}}</md-option>
+          	</md-optgroup>
+    </md-select>
 
 
 

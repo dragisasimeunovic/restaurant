@@ -37,7 +37,7 @@ public class DrinkCategory implements Serializable {
 	private Collection<Drink> drinks;
 	
 	public DrinkCategory() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public Integer getId() {

@@ -1,12 +1,15 @@
 package com.simpleProject.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -29,8 +32,11 @@ public class MenuCategory implements Serializable{
 	@Column(name = "categoryName")
     private String categoryName;
 	
+	@OneToMany(mappedBy = "mc", fetch = FetchType.EAGER)
+	private Collection<Meal> meals;
+	
 	public MenuCategory() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public Integer getId() {
@@ -56,5 +62,15 @@ public class MenuCategory implements Serializable{
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
+
+	public Collection<Meal> getMeals() {
+		return meals;
+	}
+
+	public void setMeals(Collection<Meal> meals) {
+		this.meals = meals;
+	}
+
+	
 
 }

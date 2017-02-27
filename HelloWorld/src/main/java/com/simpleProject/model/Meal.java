@@ -7,7 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "meal")
@@ -34,6 +37,9 @@ public class Meal implements Serializable{
 	
 	@Column(name = "price")
     private Integer price;
+	
+	@ManyToOne
+	private MenuCategory mc;
 	
 	public Meal() {
 		// TODO Auto-generated constructor stub
@@ -83,6 +89,15 @@ public class Meal implements Serializable{
 
 	public void setPrice(Integer price) {
 		this.price = price;
+	}
+
+	public MenuCategory getMc() {
+		return mc;
+	}
+
+	@JsonIgnore
+	public void setMc(MenuCategory mc) {
+		this.mc = mc;
 	}
 
 }

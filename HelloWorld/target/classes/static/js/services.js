@@ -15,7 +15,8 @@ angular.module('Milica').factory('registrationService' , function registrationSe
 				"dateOfBirth":null,
 				"dressSize":null,
 				"footwearSize":null,
-				"firstLogin" : 0
+				"firstLogin" : 0,
+				"activated": false
 			}
 			
 		});
@@ -132,7 +133,7 @@ angular.module('Milica').factory('registrationOffererService' , function registr
 angular.module('Milica').factory('registrationEmployedService' , function registrationEmployedService($http){
 	
 	
-	registrationEmployedService.registerEmployed = function(name,surname, email,password, type, restaurantId,dateOfBirth,dressSize,footwearSize){
+	registrationEmployedService.registerEmployed = function(name,surname, email,password, type, restaurantId,dateOfBirth,dressSize,footwearSize, menuCategoryId){
 		return $http({
 			method: 'POST',
 			url: 'api/korisnici/korisnik',
@@ -147,7 +148,8 @@ angular.module('Milica').factory('registrationEmployedService' , function regist
 				"dateOfBirth":dateOfBirth,
 				"dressSize":dressSize,
 				"footwearSize":footwearSize,
-				"firstLogin": 0
+				"firstLogin": 0,
+				"menuCategoryId" : menuCategoryId
 			}
 			
 		});
@@ -275,14 +277,6 @@ angular.module('Milica').factory('menuCategoryService' , function menuCategorySe
 		});
 		
 	}
-
-
-/*	menuCategoryService.getMenuCategoryByMenuId = function(idMenu){
-		return $http({
-			method: 'GET',
-			url: 'api/menu/category/'+idMenu,			
-		});	
-	}*/
 	
 	menuCategoryService.getAllMenuCategories = function(idMenu){
 		return $http({
@@ -296,14 +290,36 @@ angular.module('Milica').factory('menuCategoryService' , function menuCategorySe
 
 angular.module('Milica').factory('mealService' , function mealService($http){
 	
+	mealService.mealCategoryId = {};
+	mealService.mealCategory = {};
+	
+	mealService.activeMealCategory = {};
+	mealService.meal = {};
+	
+	mealService.updateMeal = function(mealID, mealName, mealPrice, mealDescription, idMenuCategory, mc){
+		return $http({
+			method: 'POST',
+			url: 'api/meal/updateMeal',
+			data: {
+				"id" : mealID,
+				"idMenuCategory" : idMenuCategory,
+				"mealName" : mealName,
+				"mealDescription" : mealDescription,
+				"price" : mealPrice,
+				"mc" : mc
+			}
+			
+		});
+	}
 	
 	mealService.addMeal = function(idMenuCategory, mealName, mealDescription, mealPrice){
+		alert('Id menu cat: ' + idMenuCategory.id);
 		return $http({
 			method: 'POST',
 			url: 'api/menu/addMeal',
 			data: {
 				"id" : null,
-				"idMenuCategory" : idMenuCategory,
+				"idMenuCategory" : idMenuCategory.id,
 				"mealName" : mealName,
 				"mealDescription" : mealDescription,
 				"price" : mealPrice

@@ -45,12 +45,11 @@ public class Korisnik implements Serializable {
     @Column(name = "firstLogin")
     private Integer firstLogin;
     
-   /* @OneToMany(mappedBy = "userSender", fetch = FetchType.EAGER)
-	private Collection<FriendRequest> friendRequests;*/
+    @Column(name = "activated")
+    private Boolean activated;
     
-
-/*	//@OneToMany(mappedBy = "secondUserFS", fetch = FetchType.LAZY)
-	private Collection<Friendship> secondsFriendsFS;*/
+    @Column(name = "menuCategoryId")
+    private Integer menuCategoryId;
     
     public Korisnik() {
 		
@@ -148,28 +147,24 @@ public class Korisnik implements Serializable {
 	}
 
 
-	
-
-	
-/*	public Collection<Friendship> getSecondsFriendsFS() {
-		return secondsFriendsFS;
+	public Boolean getActivated() {
+		return activated;
 	}
 
 
-	public void setSecondsFriendsFS(Collection<Friendship> secondsFriendsFS) {
-		this.secondsFriendsFS = secondsFriendsFS;
-	}*/
-	
-    
-   /* public Collection<FriendRequest> getFriendRequests() {
-		return friendRequests;
+	public void setActivated(Boolean activated) {
+		this.activated = activated;
 	}
 
 
-	public void setFriendRequests(Collection<FriendRequest> friendRequests) {
-		this.friendRequests = friendRequests;
+	public Integer getMenuCategoryId() {
+		return menuCategoryId;
 	}
-*/
+
+
+	public void setMenuCategoryId(Integer menuCategoryId) {
+		this.menuCategoryId = menuCategoryId;
+	}
  
    
 }
