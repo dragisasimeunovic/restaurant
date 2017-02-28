@@ -36,6 +36,11 @@ public interface KorisnikRepository extends JpaRepository<Korisnik, String> {
 			Integer footwearSize, String email);
 	
 	
+	@Transactional
+	@Modifying
+	@Query("update Korisnik k set k.ime = ?1, k.prezime = ?2 where k.email = ?3")
+	public Integer setImePrezimeForKorisnik(String ime, String prezime, String email);
+	
 	public Collection<Korisnik> findByRestoranAndTip(Integer restoran, String tip);
 	
 	

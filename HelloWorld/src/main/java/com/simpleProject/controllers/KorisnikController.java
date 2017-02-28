@@ -170,6 +170,16 @@ public class KorisnikController {
 		Integer i = korisnikService.changeAbout(ime, prezime, dressSize, footwearSize, email);
         return new ResponseEntity<Integer>(i, HttpStatus.OK);
     }
+	
+	@RequestMapping(
+            value    = "/api/korisnik/aboutChangeGuest/{ime}/{prezime}/{email:.+}",
+            method   = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Integer> aboutChangeGuest(@PathVariable String ime, @PathVariable String prezime, @PathVariable String email) {
+		Integer i = korisnikService.changeAboutGuest(ime, prezime, email);
+        return new ResponseEntity<Integer>(i, HttpStatus.OK);
+    }
 
 	@RequestMapping(
             value    = "/api/korisnik/aboutBidderChange/{ime}/{email:.+}",

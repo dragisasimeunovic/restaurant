@@ -214,100 +214,91 @@ app.controller('profileController',['$scope', 'loginService','registrationServic
 	
 	$scope.customFullscreen = false;
     
-	 $scope.showDialog = function(ev) {
-		    $mdDialog.show({
-		      controller: GuestDialogController,
-		      templateUrl: '/views/dialogs/guestUpdateDialog.html',
-		      parent: angular.element(document.body),
-		      targetEvent: ev,
-		      clickOutsideToClose:true,
-		      fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
-		    })
-		    .then(function(answer) {
-		      $scope.status = 'You said the information was "' + answer + '".';
-		    }, function() {
-		      $scope.status = 'You cancelled the dialog.';
-		    });
-		  };
+	$scope.editProfile = function(){
+		
+		$mdDialog.show({
+    		controller: EditProfileController,
+    		templateUrl: '/views/dialogs/editProfileGuestDialog.html',
+    		parent: angular.element(document.body),
+    		scope: $scope,
+    		preserveScope: true,
+    		clickOutsideToClose:false
+    	});
+		
+		function EditProfileController($scope, loginService, $mdDialog, $route) {
+			 
+			$scope.activeForm = 1;
+			if ($scope.activeForm == 1) {			
+				$scope.ime = loginService.user.ime;
+				$scope.prezime = loginService.user.prezime;
+			}
+			
+	  		$scope.apply = function(){	
+	  			
+	  			if ($scope.activeForm == 1) {
+	  				
+	  				loginService.changeAboutGuest($scope.ime, $scope.prezime, loginService.user.email).then(function(response){
+
+					});	
+	  					
+	  				loginService.user.ime = $scope.ime;
+					loginService.user.prezime = $scope.prezime;
+					
+					$scope.username = loginService.user.ime;
+					
+					var confirm = $mdDialog.confirm()
+						.textContent('Profile successfully updated!')
+						.ok('Ok');
+					
+					$mdDialog.show(confirm);
+						$mdDialog.hide();
+						
+						$route.reload();
+	  				
+	  			}
+	  			
+	  			if ($scope.activeForm == 2) {
+
+	  				if ($scope.oldPassword == loginService.user.lozinka) {
+	  					if ($scope.password1 == $scope.password2) {
+
+	  						var confirm = $mdDialog.confirm()
+	  						.textContent('Password successfully changed!')
+	  						.ok('Ok');
+	  						
+	  						loginService.user.lozinka = $scope.password1;
+
+	  						loginService.changeFirstLogin(loginService.user.email, 1, $scope.password1).then(function(response){
+
+	  						});	
+
+	  						$mdDialog.show(confirm);
+	  						$mdDialog.hide();
+	  						$route.reload();
+
+	  					}
+	  				}	
+	  			}
+	  		}
+	  		
+	  		$scope.changePassword = function(){
+	  			$scope.activeForm = 2;
+	  		}
+	  		
+	  		$scope.cancel = function(){
+	  			if ($scope.activeForm == 2) {
+	  				$scope.activeForm = 1;
+	  			}
+	  			else if ($scope.activeForm == 1) {
+	  				$mdDialog.cancel();
+	  			}
+	  		}
+	  		
+	  	}
+		
+	}
 		  
-		  function GuestDialogController($scope,loginService,registrationService, $mdDialog) {
-			  
-			  $scope.imeDialog = loginService.user.ime;
-			  $scope.prezimeDialog = loginService.user.prezime;
-			  
-			  $scope.enableOrDisable = true;
-			  $scope.aboutDiv = true;
-			  
-			  $scope.changePasswordDiv = false;
-			  $scope.changePasswordButtonDiv = true;
-			  
-			  $scope.showChangePasswordDiv = function(){
-				  
-				  $scope.changePasswordDiv = true;
-				  $scope.changePasswordButtonDiv = false;
-				  $scope.aboutDiv = false;
-			  } 
-			  
-			  $scope.applyAboutDiv = function(){
-				  
-				  var newName = $scope.imeDialog;
-				  var newSurname = $scope.prezimeDialog;
-				  var email = loginService.user.email;
-				  var password = loginService.user.lozinka;
-				  registrationService.register(newName,newSurname,email,password).then(function(response){
-					  $mdDialog.hide();
-					  loginService.user.ime = newName;
-					  loginService.user.prezime = newSurname;
-				  });
-				  
-			  }
-			  
-			  $scope.closePasswordDiv = function(){
-				  $scope.aboutDiv= true;
-				  $scope.changePasswordDiv = false;
-				  $scope.changePasswordButtonDiv = true;  
-			  }
-			  
-			  $scope.change = function(){
-				  if($scope.lozinka1 == loginService.user.lozinka){
-					  if($scope.lozinka2 == $scope.lozinka3){
-						  $scope.enableOrDisable = false;
-					  }else
-					  	{
-						  $scope.enableOrDisable = true;
-					  	}
-				  }else{
-					  $scope.enableOrDisable = true;
-				  }
-			  }
-			  
-			  
-			  $scope.applyPasswordChangeDiv = function(){
-				  var newPassword = $scope.lozinka2;
-				  var name = loginService.user.ime;	  
-				  var surname = loginService.user.prezime;
-				  var email = loginService.user.email;
-				  registrationService.register(name,surname,email,newPassword).then(function(response){
-					  loginService.user.lozinka = newPassword;
-					  $scope.aboutDiv= true;
-					  $scope.changePasswordDiv = false;
-					  $scope.changePasswordButtonDiv = true;  
-				  });
-				  
-			  }
-			  
-			  $scope.hide = function() {
-			      $mdDialog.hide();
-			    };
-
-			    $scope.cancel = function() {
-			      $mdDialog.cancel();
-			    };
-
-			    $scope.answer = function(answer) {
-			      $mdDialog.hide(answer);
-			    };
-			  }
+		 
 }]);
 
 
@@ -435,100 +426,92 @@ app.controller('profileGuestController',['$scope', 'loginService','registrationS
 	
 	$scope.customFullscreen = false;
     
-	 $scope.showDialog = function(ev) {
-		    $mdDialog.show({
-		      controller: GuestDialogController,
-		      templateUrl: '/views/dialogs/guestUpdateDialog.html',
-		      parent: angular.element(document.body),
-		      targetEvent: ev,
-		      clickOutsideToClose:true,
-		      fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
-		    })
-		    .then(function(answer) {
-		      $scope.status = 'You said the information was "' + answer + '".';
-		    }, function() {
-		      $scope.status = 'You cancelled the dialog.';
-		    });
-		  };
-		  
-		  function GuestDialogController($scope,loginService,registrationService, $mdDialog) {
-			  
-			  $scope.imeDialog = loginService.user.ime;
-			  $scope.prezimeDialog = loginService.user.prezime;
-			  
-			  $scope.enableOrDisable = true;
-			  $scope.aboutDiv = true;
-			  
-			  $scope.changePasswordDiv = false;
-			  $scope.changePasswordButtonDiv = true;
-			  
-			  $scope.showChangePasswordDiv = function(){
-				  
-				  $scope.changePasswordDiv = true;
-				  $scope.changePasswordButtonDiv = false;
-				  $scope.aboutDiv = false;
-			  } 
-			  
-			  $scope.applyAboutDiv = function(){
-				  
-				  var newName = $scope.imeDialog;
-				  var newSurname = $scope.prezimeDialog;
-				  var email = loginService.user.email;
-				  var password = loginService.user.lozinka;
-				  registrationService.register(newName,newSurname,email,password).then(function(response){
-					  $mdDialog.hide();
-					  loginService.user.ime = newName;
-					  loginService.user.prezime = newSurname;
-				  });
-				  
-			  }
-			  
-			  $scope.closePasswordDiv = function(){
-				  $scope.aboutDiv= true;
-				  $scope.changePasswordDiv = false;
-				  $scope.changePasswordButtonDiv = true;  
-			  }
-			  
-			  $scope.change = function(){
-				  if($scope.lozinka1 == loginService.user.lozinka){
-					  if($scope.lozinka2 == $scope.lozinka3){
-						  $scope.enableOrDisable = false;
-					  }else
-					  	{
-						  $scope.enableOrDisable = true;
-					  	}
-				  }else{
-					  $scope.enableOrDisable = true;
-				  }
-			  }
-			  
-			  
-			  $scope.applyPasswordChangeDiv = function(){
-				  var newPassword = $scope.lozinka2;
-				  var name = loginService.user.ime;	  
-				  var surname = loginService.user.prezime;
-				  var email = loginService.user.email;
-				  registrationService.register(name,surname,email,newPassword).then(function(response){
-					  loginService.user.lozinka = newPassword;
-					  $scope.aboutDiv= true;
-					  $scope.changePasswordDiv = false;
-					  $scope.changePasswordButtonDiv = true;  
-				  });
-				  
-			  }
-			  
-			  $scope.hide = function() {
-			      $mdDialog.hide();
-			    };
+	
+$scope.editProfile = function(){
+		
+		$mdDialog.show({
+    		controller: EditProfileController,
+    		templateUrl: '/views/dialogs/editProfileGuestDialog.html',
+    		parent: angular.element(document.body),
+    		scope: $scope,
+    		preserveScope: true,
+    		clickOutsideToClose:false
+    	});
+		
+		function EditProfileController($scope, loginService, $mdDialog, $route) {
+			 
+			$scope.activeForm = 1;
+			if ($scope.activeForm == 1) {			
+				$scope.ime = loginService.user.ime;
+				$scope.prezime = loginService.user.prezime;
+			}
+			
+	  		$scope.apply = function(){	
+	  			
+	  			if ($scope.activeForm == 1) {
+	  				
+	  				loginService.changeAboutGuest($scope.ime, $scope.prezime, loginService.user.email).then(function(response){
 
-			    $scope.cancel = function() {
-			      $mdDialog.cancel();
-			    };
+					});	
+	  					
+	  				loginService.user.ime = $scope.ime;
+					loginService.user.prezime = $scope.prezime;
+					
+					$scope.username = loginService.user.ime;
+					
+					var confirm = $mdDialog.confirm()
+						.textContent('Profile successfully updated!')
+						.ok('Ok');
+					
+					$mdDialog.show(confirm);
+						$mdDialog.hide();
+						
+						$route.reload();
+	  				
+	  			}
+	  			
+	  			if ($scope.activeForm == 2) {
 
-			    $scope.answer = function(answer) {
-			      $mdDialog.hide(answer);
-			    };
-			  }
+	  				if ($scope.oldPassword == loginService.user.lozinka) {
+	  					if ($scope.password1 == $scope.password2) {
+
+	  						var confirm = $mdDialog.confirm()
+	  						.textContent('Password successfully changed!')
+	  						.ok('Ok');
+	  						
+	  						loginService.user.lozinka = $scope.password1;
+
+	  						loginService.changeFirstLogin(loginService.user.email, 1, $scope.password1).then(function(response){
+
+	  						});	
+
+	  						$mdDialog.show(confirm);
+	  						$mdDialog.hide();
+	  						$route.reload();
+
+	  					}
+	  				}	
+	  			}
+	  		}
+	  		
+	  		$scope.changePassword = function(){
+	  			$scope.activeForm = 2;
+	  		}
+	  		
+	  		$scope.cancel = function(){
+	  			if ($scope.activeForm == 2) {
+	  				$scope.activeForm = 1;
+	  			}
+	  			else if ($scope.activeForm == 1) {
+	  				$mdDialog.cancel();
+	  			}
+	  		}
+	  		
+	  	}
+		
+	}
+	
+	
 }]);
 
 app.controller('adminController',['$scope','$location','loginService', function($scope,$location, loginService){

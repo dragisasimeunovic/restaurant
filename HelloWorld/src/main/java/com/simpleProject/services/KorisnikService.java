@@ -63,6 +63,10 @@ public class KorisnikService {
 	public Integer changeAbout(String ime, String prezime, String dressSize, Integer footwearSize, String email) {
 		return korisnikRepository.setImePrezimeDressSizeFootwearSizeForKorisnik(ime, prezime, dressSize, footwearSize, email);
 	}
+	
+	public Integer changeAboutGuest(String ime, String prezime, String email) {
+		return korisnikRepository.setImePrezimeForKorisnik(ime, prezime, email);
+	}
 
 	public Collection<Korisnik> getAllEmployeesWithType(Integer restaurantId, String typeOfEmployee) {
 		return korisnikRepository.findByRestoranAndTip(restaurantId, typeOfEmployee);

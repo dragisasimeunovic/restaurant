@@ -226,6 +226,14 @@ angular.module('Milica').factory('loginService' , function loginService($http){
 		});
 	}
 	
+	loginService.changeAboutGuest = function(ime, prezime, email){
+		return $http({
+			method: 'POST',
+			url: 'api/korisnik/aboutChangeGuest/' + ime + '/' + prezime + '/' + email
+		    
+		});
+	}
+	
 	loginService.changeAboutBidder = function(ime, email){
 		return $http({
 			method: 'POST',
