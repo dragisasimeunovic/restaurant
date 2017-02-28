@@ -792,6 +792,102 @@ angular.module('Milica').factory('drinkOrderService' , function drinkOrderServic
 	
 });
 
+angular.module('Milica').factory('mealOrderService' , function mealOrderService($http){
+	
+	mealOrderService.addMealOrderItem = function(meal, preparationDeadline, isPrepared, listId, price, quantity){
+		return $http({
+			method: 'POST',
+			url: 'api/mealOrder/addListItem/' + listId,
+			data: {
+				"id" : null,
+				"meal" : meal,
+				"preparationDeadline" : preparationDeadline,
+				"isPrepared" : isPrepared,
+				"price" : price,
+				"quantity" : quantity
+			}
+
+		});
+	}
+
+	mealOrderService.addMealOrderList = function(isServed, guestId, restaurantId, tableNumber){
+		return $http({
+			method: 'POST',
+			url: 'api/mealOrderList/addList',
+			data: {
+				"id" : null,
+				"isServed" : isServed,
+				"guestId" : guestId,
+				"restaurantId" : restaurantId,
+				"tableNumber" : tableNumber,
+				"isPaid": false,
+				"isRated" : false
+			}
+
+		});
+	}
+	
+	mealOrderService.ratingOrders = function(email){
+		return $http({
+			method: 'GET',
+			url: 'api/mealOrderList/getAllUserOrdersForRating/' + email
+		});
+	}
+	
+	mealOrderService.setRated = function(orderListId){
+		return $http({
+			method: 'POST',
+			url: 'api/mealOrderList/setIsRated/' + orderListId
+		});
+	}
+	
+	mealOrderService.setPreparedForListItem = function(id, prepared){
+		return $http({
+			method: 'POST',
+			url: 'api/mealOrder/setPreparedForListItem/' + id +'/'+prepared
+		});
+	}
+	
+	mealOrderService.setServedAndPaid = function(served, paid, id, waiterEmail, datePaid){
+		return $http({
+			method: 'POST',
+			url: 'api/mealOrderList/setServedOrPaid/' + served + '/' + paid + '/' + id + '/' + waiterEmail + '/' + datePaid
+		});
+	}
+	
+	mealOrderService.getNonservedLists = function(restaurantId){
+		return $http({
+			method: 'GET',
+			url: 'api/mealOrderList/getAllRestaurantNonservedLists/' + restaurantId
+		});
+	}
+	
+	mealOrderService.getNonservedOrNonpaidLists = function(restaurantId){
+		return $http({
+			method: 'GET',
+			url: 'api/mealOrderList/getAllRestaurantNonservedOrNonpaidLists/' + restaurantId
+		});
+	}
+
+	mealOrderService.getProfitsInRange = function(restaurantId, date1, date2){
+		return $http({
+			method: 'GET',
+			url: 'api/mealOrderList/getProfitsInRange/' + restaurantId + '/' + date1 + '/' + date2
+		});
+	}
+	
+	mealOrderService.getProfitsForWaiter = function(restaurantId, waiterEmail){
+		return $http({
+			method: 'GET',
+			url: 'api/mealOrderList/getProfitsForWaiter/' + restaurantId + '/' + waiterEmail
+		});
+	}
+	
+	return mealOrderService;
+	
+	
+});
+
 angular.module('Milica').factory('orderService' , function orderService($http){
 
 	orderService.activeReservation = {};

@@ -1,4 +1,4 @@
-app.controller('reservationController',['$scope', 'friendsService', 'managerService', '$location', '$mdDialog', 'menuService','menuCategoryService','loginService', '$route', 'restaurantsService', '$window', 'tableService', 'dateFilter', 'drinkCategoryService', 'reservationService', 'invitationService', 'drinkOrderService', function($scope, friendsService, managerService, $location, $mdDialog, menuService, menuCategoryService, loginService, $route, restaurantsService, $window, tableService, dateFilter, drinkCategoryService, reservationService, invitationService, drinkOrderService){
+app.controller('reservationController',['$scope', 'friendsService', 'managerService', '$location', '$mdDialog', 'menuService','menuCategoryService','loginService', '$route', 'restaurantsService', '$window', 'tableService', 'dateFilter', 'drinkCategoryService', 'reservationService', 'invitationService', 'drinkOrderService', 'mealOrderService', function($scope, friendsService, managerService, $location, $mdDialog, menuService, menuCategoryService, loginService, $route, restaurantsService, $window, tableService, dateFilter, drinkCategoryService, reservationService, invitationService, drinkOrderService, mealOrderService){
 	
 	$scope.currentPage = 1;
 	$scope.totalItems = 50;
@@ -90,7 +90,7 @@ app.controller('reservationController',['$scope', 'friendsService', 'managerServ
 	
 	$scope.prepared = true;
 	
-$scope.orderList = [];
+	$scope.orderList = [];
 	
 	$scope.deleteFromOrderList = function(drink) {
 		var index = $scope.orderList.indexOf(drink);
@@ -121,6 +121,41 @@ $scope.orderList = [];
 		
 		
 	};
+	
+	
+	
+	$scope.orderListMeal = [];
+	
+	$scope.deleteFromOrderListMeal = function(meal) {
+		var index = $scope.orderListMeal.indexOf(meal);
+		if (index != -1) {
+			if (meal.brojac == 1) {
+				$scope.orderListMeal.splice( index, 1 );
+			}
+			else {
+				meal.brojac = meal.brojac - 1;
+				meal.cena = meal.cena - meal.price;
+			}
+		}
+		
+		
+	}
+	
+	$scope.addToOrderListMeal = function(meal){
+		var index = $scope.orderListMeal.indexOf(meal);
+		if (index != -1) {
+			meal.brojac = meal.brojac + 1;
+			meal.cena = meal.cena + meal.price;
+		}
+		else {
+			meal.brojac = 1;
+			meal.cena = meal.price;
+			$scope.orderListMeal.push(meal);
+		}
+		
+		
+	};
+	
 	
 	$scope.confirmRes = function() {
 		
@@ -185,6 +220,43 @@ $scope.orderList = [];
 						}
 						
 					}
+					if ($scope.orderListMeal.length > 0){
+						
+						if ($scope.prepared == true) {
+
+							tableService.getTableByRestaurantIdAndNumber($scope.selectedRestaurant.id, response.data.reservedTable.id+"").then(function(response){			
+								$scope.selectedTable = response.data;	
+
+								mealOrderService.addMealOrderList(false, loginService.user.email, $scope.selectedRestaurant.id, response.data.number).then(function(response){
+									alert('Dodata lista jela');
+									for (var i = 0; i < $scope.orderListMeal.length; i++) {
+										mealOrderService.addMealOrderItem($scope.orderListMeal[i], bpTime, false, response.data.id, $scope.orderListMeal[i].cena, $scope.orderListMeal[i].brojac).then(function(response){
+											alert('Dodat item u listu jela');
+										});
+									}
+
+
+								});
+							});
+						}
+						else {
+							tableService.getTableByRestaurantIdAndNumber($scope.selectedRestaurant.id, response.data.reservedTable.id+"").then(function(response){			
+								$scope.selectedTable = response.data;	
+								
+								mealOrderService.addMealOrderList(false, loginService.user.email, $scope.selectedRestaurant.id, response.data.number).then(function(response){
+									alert('Dodata lista jela');
+									for (var i = 0; i < $scope.orderListMeal.length; i++) {
+										mealOrderService.addMealOrderItem($scope.orderListMeal[i], null, false, response.data.id, $scope.orderListMeal[i].cena, $scope.orderListMeal[i].brojac).then(function(response){
+											alert('Dodat item u listu jela');
+										});
+									}
+
+
+								});
+								
+							});
+						}
+					}
 					
 					
 				});
@@ -211,6 +283,10 @@ $scope.orderList = [];
     $scope.getAllRestaurantTables = function(){
     	drinkCategoryService.getAllDrinkCategories($scope.selectedRestaurant.id).then(function(response){
     		$scope.categories = response.data;
+    	});
+    	
+    	menuCategoryService.getAllMenuCategories($scope.selectedRestaurant.id).then(function(response){
+    		$scope.menuCategories = response.data;
     	});
     	
     	if ($scope.selectedRestaurant != undefined) {

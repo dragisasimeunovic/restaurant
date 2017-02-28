@@ -1,4 +1,4 @@
-app.controller('orderController',['$scope', 'friendsService', 'managerService', '$location', '$mdDialog', 'menuService','menuCategoryService','loginService', '$route', 'restaurantsService', '$window', 'tableService', 'dateFilter', 'drinkCategoryService', 'reservationService', 'invitationService', 'drinkOrderService', 'orderService','$cookies', '$cookieStore','$window', function($scope, friendsService, managerService, $location, $mdDialog, menuService, menuCategoryService, loginService, $route, restaurantsService, $window, tableService, dateFilter, drinkCategoryService, reservationService, invitationService, drinkOrderService, orderService, $cookies, $cookieStore, $window){
+app.controller('orderController',['$scope', 'friendsService', 'managerService', '$location', '$mdDialog', 'menuService','menuCategoryService','loginService', '$route', 'restaurantsService', '$window', 'tableService', 'dateFilter', 'drinkCategoryService', 'reservationService', 'invitationService', 'drinkOrderService', 'orderService','$cookies', '$cookieStore','$window', 'mealOrderService', function($scope, friendsService, managerService, $location, $mdDialog, menuService, menuCategoryService, loginService, $route, restaurantsService, $window, tableService, dateFilter, drinkCategoryService, reservationService, invitationService, drinkOrderService, orderService, $cookies, $cookieStore, $window, mealOrderService){
 		
 	//Uzmi number stola stola!
 
@@ -34,7 +34,41 @@ app.controller('orderController',['$scope', 'friendsService', 'managerService', 
 		
 	};
 	
+$scope.orderListMeal = [];
 	
+	$scope.deleteFromOrderListMeal = function(meal) {
+		var index = $scope.orderListMeal.indexOf(meal);
+		if (index != -1) {
+			if (meal.brojac == 1) {
+				$scope.orderListMeal.splice( index, 1 );
+			}
+			else {
+				meal.brojac = meal.brojac - 1;
+				meal.cena = meal.cena - meal.price;
+			}
+		}
+		
+		
+	}
+	
+	$scope.addToOrderListMeal = function(meal){
+		var index = $scope.orderListMeal.indexOf(meal);
+		if (index != -1) {
+			meal.brojac = meal.brojac + 1;
+			meal.cena = meal.cena + meal.price;
+		}
+		else {
+			meal.brojac = 1;
+			meal.cena = meal.price;
+			$scope.orderListMeal.push(meal);
+		}
+		
+		
+	};
+	
+	menuCategoryService.getAllMenuCategories(orderService.activeReservation.restaurantId).then(function(response){
+		$scope.menuCategories = response.data;
+	});
 	
     	$scope.allTables = [];
     	drinkCategoryService.getAllDrinkCategories(orderService.activeReservation.restaurantId).then(function(response){
@@ -60,6 +94,18 @@ app.controller('orderController',['$scope', 'friendsService', 'managerService', 
 						}
 						
 						
+					});
+					
+					
+					mealOrderService.addMealOrderList(false, loginService.user.email, orderService.activeReservation.restaurantId, $scope.tableNumber).then(function(response){
+						alert('Dodata lista jela');
+						for (var i = 0; i < $scope.orderListMeal.length; i++) {
+							mealOrderService.addMealOrderItem($scope.orderListMeal[i], null, false, response.data.id, $scope.orderListMeal[i].cena, $scope.orderListMeal[i].brojac).then(function(response){
+								alert('Dodat item u listu jela');
+							});
+						}
+
+
 					});
 					
 				});
