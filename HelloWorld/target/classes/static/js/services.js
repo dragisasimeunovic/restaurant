@@ -138,7 +138,7 @@ angular.module('Milica').factory('registrationEmployedService' , function regist
 			method: 'POST',
 			url: 'api/korisnici/korisnik',
 			data: {
-				/*"id" : null,*/
+				"id" : null,
 				"email" : email,
 				"ime" : name,
 				"prezime" : surname,

@@ -54,7 +54,12 @@ app.controller('registrationOffererController', ['$scope','$location', 'registra
 }]);
 
 
-app.controller('registrationEmployedController', ['$scope','$location', 'registrationEmployedService','restaurantsService', function($scope,$location,registrationEmployedService,restaurantsService){
+app.controller('registrationEmployedController', ['$scope','$location', 'registrationEmployedService','restaurantsService','loginService', 'menuCategoryService', function($scope,$location,registrationEmployedService,restaurantsService, loginService, menuCategoryService){
+	
+	
+	menuCategoryService.getAllMenuCategories(loginService.user.restoran).then(function(response){
+		$scope.categories = response.data;
+	});
 	
 	$scope.employed = "Waiter" ;
 	
@@ -71,18 +76,16 @@ app.controller('registrationEmployedController', ['$scope','$location', 'registr
 		var dressSize = $scope.dressSize;
 		var footwearSize = $scope.footwearSize;
 		
-		menuCategoryService.getAllMenuCategories(restaurantsService.activeRestaurant.id).then(function(response){
-			$scope.categories = response.data;
-		});
+		
 		var menuCategoryId = null;
 		
-		if (tip == "Cook") {
+		/*if (tip == "Cook") {
 			menuCategoryId = $scope.selectedCategory.id;
 		}
 		else{
 			menuCategoryId = null;
-		}
-		var restaurantId = restaurantsService.activeRestaurant.id;
+		}*/
+		var restaurantId = loginService.user.restoran;
 		
 		registrationEmployedService.registerEmployed(ime, prezime,email,lozinka,tip,restaurantId,dateOfBirth,dressSize,footwearSize, menuCategoryId).then(function(response){
 			alert(restaurantId + "ovo je id restorana");
@@ -91,7 +94,7 @@ app.controller('registrationEmployedController', ['$scope','$location', 'registr
 			$scope.email = null;
 			$scope.password1 = null;
 			$scope.password2 = null;
-			$scope.employed = "Waiter" ;
+			$scope.employed = "Waiter";
 			$scope.dateOfBirth = null;
 			$scope.dressSize = null;
 			$scope.footwearSize = null;

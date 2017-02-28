@@ -36,6 +36,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/Dragisa/Downloads/javamail1_4_7/javamail-1.4.7/mail.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/static/js/javamail-1.4.7/mail.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
