@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.simpleProject.model.DrinkOrderList;
 import com.simpleProject.model.Korisnik;
+import com.simpleProject.model.MealOrderList;
 import com.simpleProject.services.DrinkOrderListService;
 import com.simpleProject.services.KorisnikService;
 
@@ -95,6 +96,16 @@ public class DrinkOrderListController {
     )
     public ResponseEntity<Collection<DrinkOrderList>> getProfitsInRange(@PathVariable Integer resId, @PathVariable String date1, @PathVariable String date2) {
 		Collection<DrinkOrderList> d = drinkOrderListService.getProfitsInRange(resId, date1, date2);
+		return new ResponseEntity<Collection<DrinkOrderList>>(d, HttpStatus.OK);
+    }
+	
+	@RequestMapping(
+            value    = "/api/drinkOrderList/getVisitsInRange/{resId}/{date1}/{date2}",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<DrinkOrderList>> getVisitsInRange(@PathVariable Integer resId, @PathVariable String date1, @PathVariable String date2) {
+		Collection<DrinkOrderList> d = drinkOrderListService.getVisitsInRange(true, resId, date1, date2);
 		return new ResponseEntity<Collection<DrinkOrderList>>(d, HttpStatus.OK);
     }
 	

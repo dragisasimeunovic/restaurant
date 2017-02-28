@@ -34,5 +34,8 @@ public Collection<MealOrderList> findByRestaurantIdAndIsServed(Integer restauran
 	public Collection<MealOrderList> findByRestaurantIdAndWaiter(Integer restaurantId, Korisnik waiter);
 	
 	
+	public Collection<MealOrderList> findByIsPaidAndRestaurantIdAndDatePaidBetween(Boolean isPaid,Integer restaurantId, String date1, String date2);
+
+	
 	
 }

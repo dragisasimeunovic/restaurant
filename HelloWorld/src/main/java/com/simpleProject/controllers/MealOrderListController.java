@@ -101,6 +101,16 @@ public class MealOrderListController {
     }
 	
 	@RequestMapping(
+            value    = "/api/mealOrderList/getVisitsInRange/{resId}/{date1}/{date2}",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<MealOrderList>> getVisitsInRange(@PathVariable Integer resId, @PathVariable String date1, @PathVariable String date2) {
+		Collection<MealOrderList> d = mealOrderListService.getVisitsInRange(true, resId, date1, date2);
+		return new ResponseEntity<Collection<MealOrderList>>(d, HttpStatus.OK);
+    }
+	
+	@RequestMapping(
             value    = "/api/mealOrderList/getProfitsForWaiter/{resId}/{waiterEmail:.+}",
             method   = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE

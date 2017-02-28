@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.simpleProject.model.DrinkOrderList;
 import com.simpleProject.model.Korisnik;
+import com.simpleProject.model.MealOrderList;
 
 public interface DrinkOrderListRepository extends JpaRepository<DrinkOrderList, Integer>{
 
@@ -33,7 +34,8 @@ public interface DrinkOrderListRepository extends JpaRepository<DrinkOrderList, 
 
 	public Collection<DrinkOrderList> findByRestaurantIdAndWaiter(Integer restaurantId, Korisnik waiter);
 	
-	
+	public Collection<DrinkOrderList> findByIsPaidAndRestaurantIdAndDatePaidBetween(Boolean isPaid,Integer restaurantId, String date1, String date2);
+
 	
 	
 }

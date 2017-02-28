@@ -51,6 +51,11 @@ public class MealOrderListService {
 	public Collection<MealOrderList> getProfitsInRange(Integer restaurantId, String date1, String date2) {
 		return mealOrderListRepository.findByRestaurantIdAndDatePaidBetween(restaurantId, date1, date2);
 	}
+	
+	
+	public Collection<MealOrderList> getVisitsInRange(Boolean isPaid, Integer restaurantId, String date1, String date2) {
+		return mealOrderListRepository.findByIsPaidAndRestaurantIdAndDatePaidBetween(isPaid, restaurantId, date1, date2);
+	}
 
 	public Collection<MealOrderList> getProfitsForWaiter(Integer restaurantId, Korisnik waiter) {
 		return mealOrderListRepository.findByRestaurantIdAndWaiter(restaurantId, waiter);

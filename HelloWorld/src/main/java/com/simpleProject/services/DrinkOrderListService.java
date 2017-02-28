@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.simpleProject.model.DrinkOrderList;
 import com.simpleProject.model.Korisnik;
+import com.simpleProject.model.MealOrderList;
 import com.simpleProject.repository.DrinkOrderListRepository;
 
 @Service
@@ -50,6 +51,10 @@ public class DrinkOrderListService {
 	
 	public Collection<DrinkOrderList> getProfitsInRange(Integer restaurantId, String date1, String date2) {
 		return drinkOrderListRepository.findByRestaurantIdAndDatePaidBetween(restaurantId, date1, date2);
+	}
+	
+	public Collection<DrinkOrderList> getVisitsInRange(Boolean isPaid, Integer restaurantId, String date1, String date2) {
+		return drinkOrderListRepository.findByIsPaidAndRestaurantIdAndDatePaidBetween(isPaid, restaurantId, date1, date2);
 	}
 
 	public Collection<DrinkOrderList> getProfitsForWaiter(Integer restaurantId, Korisnik waiter) {

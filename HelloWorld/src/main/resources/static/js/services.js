@@ -788,6 +788,13 @@ angular.module('Milica').factory('drinkOrderService' , function drinkOrderServic
 		});
 	}
 	
+	drinkOrderService.getVisitsInRange = function(restaurantId, date1, date2){
+		return $http({
+			method: 'GET',
+			url: 'api/drinkOrderList/getVisitsInRange/' + restaurantId + '/' + date1 + '/' + date2
+		});
+	}
+	
 	drinkOrderService.getProfitsForWaiter = function(restaurantId, waiterEmail){
 		return $http({
 			method: 'GET',
@@ -889,6 +896,13 @@ angular.module('Milica').factory('mealOrderService' , function mealOrderService(
 		return $http({
 			method: 'GET',
 			url: 'api/mealOrderList/getProfitsInRange/' + restaurantId + '/' + date1 + '/' + date2
+		});
+	}
+	
+	mealOrderService.getVisitsInRange = function(restaurantId, date1, date2){
+		return $http({
+			method: 'GET',
+			url: 'api/mealOrderList/getVisitsInRange/' + restaurantId + '/' + date1 + '/' + date2
 		});
 	}
 	
