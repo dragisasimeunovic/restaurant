@@ -82,6 +82,27 @@ angular.module('Milica').factory('korisnikService', function korisnikService($ht
 angular.module('Milica').factory('registrationManagerService' , function registrationManagerService($http){
 	
 	
+	registrationManagerService.registerAdmin = function (ime, prezime, email, lozinka){
+		return $http({
+			method: 'POST',
+			url: 'api/korisnici/korisnik',
+			data: {
+				/*"id" : null,*/
+				"email" : email,
+				"ime" : ime,
+				"prezime" : prezime,
+				"lozinka" : lozinka,
+				"tip" : "admin",
+				"restoran" : null,
+				"dateOfBirth":null,
+				"dressSize":null,
+				"footwearSize":null,
+				"firstLogin" : 0
+			}
+			
+		});
+	}
+	
 	registrationManagerService.registerManager = function(name,surname, email,password, restaurant){
 		return $http({
 			method: 'POST',

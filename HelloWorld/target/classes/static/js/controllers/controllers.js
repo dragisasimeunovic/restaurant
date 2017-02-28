@@ -526,7 +526,22 @@ app.controller('profileGuestController',['$scope', 'loginService','registrationS
 			  }
 }]);
 
-app.controller('adminController',['$scope','$location', function($scope,$location){
+app.controller('adminController',['$scope','$location','loginService', function($scope,$location, loginService){
+	
+	$scope.ime = loginService.user.ime;
+	$scope.prezime = loginService.user.prezime;
+	
+	
+	$scope.isMaster = false;
+	
+	if (loginService.user.email == "admin@g.com") {
+		$scope.isMaster = true;
+	}
+	
+	
+	$scope.backToLogin = function(){
+		$location.path("/");
+	}
 	
 	$scope.addRestaurant = function(){
 		$location.path("/addRestaurant");
@@ -534,6 +549,10 @@ app.controller('adminController',['$scope','$location', function($scope,$locatio
 	$scope.addManager = function(){
 		$location.path("/addManager");
 	}
+	$scope.addAdmin = function(){
+		$location.path("/addAdmin");
+	}
+	
 }]);
 
 app.controller('managerController', ['$scope','managerService','$location', function($scope, managerService,$location) {
