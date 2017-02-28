@@ -51,6 +51,16 @@ public class MealOrderItemController {
         return new ResponseEntity<Integer>(a, HttpStatus.OK);
     }
 	
+	@RequestMapping(
+            value    = "/api/mealOrder/setPreparingForListItem/{id}/{preparing}",
+            method   = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Integer> setPreparingForListItem(@PathVariable Integer id, @PathVariable Boolean preparing) {
+		Integer a = mealOrderItemService.setPreparingForMealOrderItem(preparing, id);
+        return new ResponseEntity<Integer>(a, HttpStatus.OK);
+    }
+	
 	
 	
 }

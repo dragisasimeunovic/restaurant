@@ -53,30 +53,63 @@
     </div>
     
      <div ng-show="activeTab==1">
-    
-    	<md-list ng-repeat = "list in orderLists">
+     	
+     	<div layout = "row">
+    		<div flex = 50>
+    		<md-list ng-repeat = "list in orderLists">
+ 				<md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky"> Order for table: {{list.tableNumber}} 
+ 				</md-subheader>
+ 		
+ 				<md-list-item ng-repeat="item in list.items" ng-click="" class="noright">
+    				<img alt="{{ item.drink.drinkName }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
+    				<p style="color:white"> {{item.drink.drinkName}} {{item.quantity}}</p>
+    		
+    				<md-checkbox ng-model="item.isPrepared" aria-label="Prepared" style="color: white;" ng-disabled="true">       
+        			Prepared:
+        			</md-checkbox>
+  				</md-list-item>
+  			
+  			  
+ 				<md-switch ng-model="list.isServed" aria-label="Served" ng-change="setServedAndPaid(list)" style="color: white;">   
+ 				Served
+        		</md-switch>
+        	
+        		<md-switch ng-model="list.isPaid" aria-label="Paid" ng-change="setServedAndPaid(list)" style="color: white;">   
+ 				Paid
+        		</md-switch>
+ 		
+ 			</md-list>
+ 			</div>
+ 			<div flex = 50>
+ 			<md-list ng-repeat = "list in orderListsMeal">
  			<md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky"> Order for table: {{list.tableNumber}} 
  			</md-subheader>
  		
  			<md-list-item ng-repeat="item in list.items" ng-click="" class="noright">
-    			<img alt="{{ item.drink.drinkName }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
-    			<p style="color:white"> {{item.drink.drinkName}} {{item.quantity}}</p>
-    		
-    			<md-checkbox ng-model="item.isPrepared" aria-label="Prepared" style="color: white;" ng-disabled="true">       
-        		Prepared:
-        		</md-checkbox>
-  			</md-list-item>
+    			<img alt="{{ item.meal.mealName }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
+    			<p style="color:white"> {{item.meal.mealName}} {{item.quantity}}</p>
+        		
+        		<md-checkbox ng-disabled="true" aria-label="Disabled switch" ng-change="setPreparing(item)" ng-model="item.isPreparing">
+    			Preparing
+  				</md-checkbox>
+        		
+        		<md-checkbox ng-disabled="true" aria-label="Disabled switch" ng-change="setPrepared(item)" ng-model="item.isPrepared">
+    			Prepared
+  				</md-checkbox>
+        		
+  				</md-list-item>
   			
-  			  
- 			<md-switch ng-model="list.isServed" aria-label="Served" ng-change="setServedAndPaid(list)" style="color: white;">   
- 			Served
-        	</md-switch>
+  				<md-switch ng-model="list.isServed" aria-label="Served" ng-change="setServedAndPaidMeal(list)" style="color: white;">   
+ 					Served
+        		</md-switch>
         	
-        	<md-switch ng-model="list.isPaid" aria-label="Paid" ng-change="setServedAndPaid(list)" style="color: white;">   
- 			Paid
-        	</md-switch>
+        		<md-switch ng-model="list.isPaid" aria-label="Paid" ng-change="setServedAndPaidMeal(list)" style="color: white;">   
+ 					Paid
+        		</md-switch>
  		
- 		</md-list>
+ 			</md-list>
+ 			</div>
+ 		</div>
     	
     </div>
     

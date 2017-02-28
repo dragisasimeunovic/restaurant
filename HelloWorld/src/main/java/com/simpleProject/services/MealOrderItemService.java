@@ -22,5 +22,9 @@ public class MealOrderItemService {
 	public Integer setPreparedForMealOrderItem(Boolean prepared, Integer id){
 		return mealOrderItemRepository.setIsPreparedForMealOrderItem(prepared, id);
 	}
+
+	public Integer setPreparingForMealOrderItem(Boolean preparing, Integer id) {
+		return mealOrderItemRepository.setIsPreparingForMealOrderItem(preparing, id);
+	}
 	
 }

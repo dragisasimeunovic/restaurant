@@ -30,6 +30,9 @@ private static final long serialVersionUID = 1L;
 	@Column(name = "isPrepared")
     private Boolean isPrepared;
 	
+	@Column(name = "isPreparing")
+    private Boolean isPreparing;
+	
 	@Column(name = "quantity")
 	private Integer quantity;
 	
@@ -94,6 +97,14 @@ private static final long serialVersionUID = 1L;
 	@JsonIgnore
 	public void setMealOrderList(MealOrderList mealOrderList) {
 		this.mealOrderList = mealOrderList;
+	}
+
+	public Boolean getIsPreparing() {
+		return isPreparing;
+	}
+
+	public void setIsPreparing(Boolean isPreparing) {
+		this.isPreparing = isPreparing;
 	}
 	
 

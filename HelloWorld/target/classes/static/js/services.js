@@ -803,6 +803,7 @@ angular.module('Milica').factory('mealOrderService' , function mealOrderService(
 				"meal" : meal,
 				"preparationDeadline" : preparationDeadline,
 				"isPrepared" : isPrepared,
+				"isPreparing" : false,
 				"price" : price,
 				"quantity" : quantity
 			}
@@ -845,6 +846,13 @@ angular.module('Milica').factory('mealOrderService' , function mealOrderService(
 		return $http({
 			method: 'POST',
 			url: 'api/mealOrder/setPreparedForListItem/' + id +'/'+prepared
+		});
+	}
+	
+	mealOrderService.setPreparingForListItem = function(id, preparing){
+		return $http({
+			method: 'POST',
+			url: 'api/mealOrder/setPreparingForListItem/' + id +'/'+preparing
 		});
 	}
 	

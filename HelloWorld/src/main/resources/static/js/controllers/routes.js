@@ -46,6 +46,9 @@ app.config(function($routeProvider) {
     .when("/bartenderHome", {
         templateUrl : "views/bartenderHome.html"
     })
+    .when("/cookHome", {
+        templateUrl : "views/cookHome.html"
+    })
     .when("/waiterHome", {
         templateUrl : "views/waiterHome.html"
     })

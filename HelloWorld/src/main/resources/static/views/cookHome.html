@@ -1,0 +1,73 @@
+<div ng-controller="cookController">
+<md-toolbar class="md-small-tall" style="background-color:rgb(0,0,0); opacity:0.6 ; height:20px;">
+      <div class="md-toolbar-tools">
+    
+        <h2>
+          <span style="color:white;">BSA Restaurants</span>
+        </h2>
+        <span flex></span>
+        
+        <md-button class="md-primary" aria-label="Schedule" ng-click="activeTab=2" >
+          	Schedule
+        </md-button>
+        
+        <md-button class="md-primary" aria-label="Meal orders" ng-click="activeTab=0" >
+          	Meal orders 
+        </md-button>
+        
+        <md-button class="md-primary" aria-label="Edit profile" ng-click="editProfile()" >
+          	Edit
+        </md-button>
+       
+  
+        <md-button class="md-icon-button" aria-label="Favorite" ng-click="activeTab=1">
+          <md-icon md-svg-icon="images/user.svg" style="color: greenyellow;"></md-icon>
+        </md-button>
+        
+        <md-button class="md-primary md-hue-1" style="color:white;" aria-label="Learn More" ng-click="backToLogin()">
+          LOGout
+        </md-button>
+      </div>
+    </md-toolbar>
+    
+    <div ng-show="activeTab==0">
+    
+    	<md-list ng-repeat = "list in orderLists">
+ 			<md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky"> Order for table: {{list.tableNumber}} 
+ 			</md-subheader>
+ 		
+ 			<md-list-item ng-repeat="item in list.items" ng-click="" class="noright">
+    			<img alt="{{ item.meal.mealName }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
+    			<p style="color:white"> {{item.meal.mealName}} {{item.quantity}}</p>
+        		
+        		<md-switch ng-show="item.meal.idMenuCategory==cookCategoryFilter" ng-disabled="false" aria-label="Disabled switch" ng-change="setPreparing(item)" ng-model="item.isPreparing">
+    			Preparing
+  				</md-switch>
+        		
+        		<md-switch ng-show="item.meal.idMenuCategory==cookCategoryFilter" ng-disabled="false" aria-label="Disabled switch" ng-change="setPrepared(item)" ng-model="item.isPrepared">
+    			Prepared
+  				</md-switch>
+        		
+  			</md-list-item>
+ 		
+ 		</md-list>
+    	
+    </div>
+    
+    
+    <div ng-show="activeTab==2">
+    	<mwl-calendar
+    		view="calendarView"
+    		view-date="viewDate"
+    		events="events"
+    		view-title="calendarTitle"
+    		on-event-click="eventClicked(calendarEvent)"
+    		on-event-times-changed="calendarEvent.startsAt = calendarNewEventStart; calendarEvent.endsAt = calendarNewEventEnd"
+    		cell-is-open="true">
+		</mwl-calendar>
+    </div>
+    
+   
+    
+</div>
+    

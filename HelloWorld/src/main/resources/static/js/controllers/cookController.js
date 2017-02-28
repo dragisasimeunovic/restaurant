@@ -1,71 +1,6 @@
-app.controller('waiterController',['$scope', 'friendsService', 'managerService', '$location', '$mdDialog', 'menuService','menuCategoryService','loginService', '$route', 'restaurantsService', '$window', 'tableService', 'dateFilter', 'drinkCategoryService', 'reservationService', 'invitationService', 'drinkOrderService', 'orderService','$cookies', '$cookieStore','$window', 'shiftService','mealOrderService', function($scope, friendsService, managerService, $location, $mdDialog, menuService, menuCategoryService, loginService, $route, restaurantsService, $window, tableService, dateFilter, drinkCategoryService, reservationService, invitationService, drinkOrderService, orderService, $cookies, $cookieStore, $window, shiftService,mealOrderService){
-		
-	
-	drinkOrderService.getNonservedLists(loginService.user.restoran).then(function(response){
-		$scope.orderLists = response.data;
-	});	
-	
-	
-	$scope.activeShift = function() {
+app.controller('cookController',['$scope', 'friendsService', 'managerService', '$location', '$mdDialog', 'menuService','menuCategoryService','loginService', '$route', 'restaurantsService', '$window', 'tableService', 'dateFilter', 'drinkCategoryService', 'reservationService', 'invitationService', 'drinkOrderService', 'orderService','$cookies', '$cookieStore','$window', 'shiftService','mealOrderService', function($scope, friendsService, managerService, $location, $mdDialog, menuService, menuCategoryService, loginService, $route, restaurantsService, $window, tableService, dateFilter, drinkCategoryService, reservationService, invitationService, drinkOrderService, orderService, $cookies, $cookieStore, $window, shiftService, mealOrderService){
 
-		var currentDateAndTime = new Date();
-		var curDateString = moment(currentDateAndTime).format('YYYY-MM-DDTHH:mm:ss.sss')+'Z';
-		
-
-		shiftService.findActiveShiftForEmployee(loginService.user.email, loginService.user.restoran, curDateString).then(function(response){
-
-			$scope.activeReon = response.data.region;
-			console.log('Region: ' + response.data.region);
-
-			tableService.getAllRestaurantTables(loginService.user.restoran).then(function(response){
-				
-				$scope.tables = response.data;
-
-				var canvas = new fabric.Canvas('canvas');
-
-				for (var i = 0; i < $scope.tables.length; i++) {
-					var color = {};
-					if ($scope.tables[i].reon == $scope.activeReon){
-						color = 'green';
-					}
-					else {
-						color = 'red';
-					}
-				
-
-
-				var table = new fabric.Circle({ radius: 30, fill: color, originX: 'center', originY: 'center'});
-				var text = new fabric.Text($scope.tables[i].number+"",{
-					fontFamily: 'Calibri',
-					fontSize: 25,
-					fill: 'white',
-					originX: 'center',
-					originY: 'center'
-				});
-
-				var group = new fabric.Group([table, text],{
-					top: $scope.tables[i].positionTop, left: $scope.tables[i].positionLeft,
-					lockMovementX: true,  lockMovementY: true, hasControls: false
-				});
-
-				group.on('mousedown', function(e) {
-
-				});
-
-				canvas.getObjects();
-				canvas.add(group);
-				canvas.selection = false;
-				canvas.renderAll();
-				canvas.calcOffset();
-			}
-
-			});
-
-
-		});
-
-	}
-
+	$scope.cookCategoryFilter = loginService.user.menuCategoryId;
 	
 	
 	shiftService.findShiftsForEmployee(loginService.user.email, loginService.user.restoran).then(function(response){
@@ -221,72 +156,28 @@ app.controller('waiterController',['$scope', 'friendsService', 'managerService',
 	}
 	
 	
-	drinkOrderService.getNonservedOrNonpaidLists(loginService.user.restoran).then(function(response){
+	mealOrderService.getNonservedLists(loginService.user.restoran).then(function(response){
 		$scope.orderLists = response.data;
 	});	
 	
+	$scope.setPreparing = function(item){
+		item.isPrepared = false;
+		mealOrderService.setPreparingForListItem(item.id, item.isPreparing).then(function(response){
+			
+		});	
+	}
 	
 	$scope.setPrepared = function(item){
-		drinkOrderService.setPreparedForListItem(item.id, item.isPrepared).then(function(response){
+		if (item.isPreparing == true) { 
+			mealOrderService.setPreparedForListItem(item.id, item.isPrepared).then(function(response){
 			
-		});	
-	}
-	
-	$scope.setServedAndPaid = function(list){
-		
-		for(var i = 0; i < list.items.length; i++) {
-			if (list.items[i].isPrepared == false){
-				list.isServed = false;
-				break;
-			} 
+			});	
 		}
-		
-		if (list.isServed == false) {
-			list.isPaid = false;
+		else {
+			item.isPrepared = false;
+			item.isPreparing = false;
 		}
-		
-		var currentDateAndTime = new Date();
-		var curDateString = moment(currentDateAndTime).format('YYYY-MM-DDTHH:mm:ss.sss')+'Z';
-		
-		drinkOrderService.setServedAndPaid(list.isServed, list.isPaid, list.id, loginService.user.email, curDateString).then(function(response){
-			
-		});	
 	}
-	
-	
-	mealOrderService.getNonservedOrNonpaidLists(loginService.user.restoran).then(function(response){
-		$scope.orderListsMeal = response.data;
-	});	
-	
-	
-	$scope.setPreparedMeal = function(item){
-		mealOrderService.setPreparedForListItem(item.id, item.isPrepared).then(function(response){
-			
-		});	
-	}
-	
-	$scope.setServedAndPaidMeal = function(list){
-		
-		for(var i = 0; i < list.items.length; i++) {
-			if (list.items[i].isPrepared == false){
-				list.isServed = false;
-				break;
-			} 
-		}
-		
-		if (list.isServed == false) {
-			list.isPaid = false;
-		}
-		
-		var currentDateAndTime = new Date();
-		var curDateString = moment(currentDateAndTime).format('YYYY-MM-DDTHH:mm:ss.sss')+'Z';
-		
-		mealOrderService.setServedAndPaid(list.isServed, list.isPaid, list.id, loginService.user.email, curDateString).then(function(response){
-			
-		});	
-	}
-	
-	
 	
 	
 }]);
