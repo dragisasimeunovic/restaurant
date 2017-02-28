@@ -53,6 +53,10 @@
     <hr />
 
     <p>Selected Value: <span class="radioValue">{{ employed }}</span></p>
+    
+    <md-select ng-change="" placeholder="Choose category" ng-model="selectedCategory" style="min-width: 200px; color: white;">
+      		<md-option ng-value="category" ng-repeat="category in categories">{{category.categoryName}}</md-option>
+	</md-select>
 
 	<md-button class="md-raised md-primary" ng-click="registerEmployed()">Add</md-button>
 

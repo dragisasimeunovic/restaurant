@@ -79,12 +79,12 @@ app.controller('registrationEmployedController', ['$scope','$location', 'registr
 		
 		var menuCategoryId = null;
 		
-		/*if (tip == "Cook") {
+		if (tip == "Cook") {
 			menuCategoryId = $scope.selectedCategory.id;
 		}
 		else{
 			menuCategoryId = null;
-		}*/
+		}
 		var restaurantId = loginService.user.restoran;
 		
 		registrationEmployedService.registerEmployed(ime, prezime,email,lozinka,tip,restaurantId,dateOfBirth,dressSize,footwearSize, menuCategoryId).then(function(response){
