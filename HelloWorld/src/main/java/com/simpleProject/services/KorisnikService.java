@@ -51,6 +51,10 @@ public class KorisnikService {
 	public Collection<Korisnik> allRestaurantEmployees() {
 		return korisnikRepository.findByTipOrTipOrTip("Waiter", "Cook", "Bartender");
 	}
+	
+	public Integer setActivated(Boolean activated, String email) {
+		return korisnikRepository.setActivatedForKorisnik(activated, email);
+	}
 
 	public Integer changeFirstLogin(String email, Integer firstLogin, String lozinka) {
 		return korisnikRepository.setFirstLoginForKorisnik(firstLogin, lozinka, email);

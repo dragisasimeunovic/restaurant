@@ -181,7 +181,9 @@ app.controller('LoginController',['$scope', 'loginService','$location', 'restaur
 						$location.path("/cookHome");
 					}
 					else{
-						$location.path("/home");
+						if (response.data.activated == true){
+							$location.path("/home");
+						}
 					}
 					
 				}else{

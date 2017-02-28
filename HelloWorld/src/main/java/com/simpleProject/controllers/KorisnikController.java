@@ -32,7 +32,9 @@ public class KorisnikController {
     )
     public ResponseEntity<Korisnik> registerKorisnik(@RequestBody Korisnik korisnik) throws MessagingException {
         Korisnik registrovanKorisnik = korisnikService.add(korisnik);
-        MailSending.sendMail("feddelegrand17@gmail.com", "Aktivacija", "http://localhost:8099/api/korisnici/activate/"+registrovanKorisnik.getEmail());
+        if (korisnik.getTip().equals("gost")){
+        	MailSending.sendMail("feddelegrand17@gmail.com", "Aktivacija", "http://localhost:8099/api/korisnici/activate/"+registrovanKorisnik.getEmail());
+        }
         return new ResponseEntity<Korisnik>(registrovanKorisnik, HttpStatus.OK);
     }
     
@@ -42,8 +44,8 @@ public class KorisnikController {
     		produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<String> emailActivationKorisnika(@PathVariable String email){
-    	String s = "opa";
-    	//Korisnik emailKorisnika1 = korisnikService.getOne(email);
+    	Integer i = korisnikService.setActivated(true, email);
+    	String s = "Account succesfully activated!";
     	return new ResponseEntity<String>(s, HttpStatus.OK);
     }
     

@@ -26,6 +26,11 @@ public interface KorisnikRepository extends JpaRepository<Korisnik, String> {
 	
 	@Transactional
 	@Modifying
+	@Query("update Korisnik k set k.activated = ?1 where k.email = ?2")
+	public Integer setActivatedForKorisnik(Boolean activated, String email);
+	
+	@Transactional
+	@Modifying
 	@Query("update Korisnik k set k.ime = ?1, k.prezime = ?2, k.dressSize = ?3, k.footwearSize = ?4 where k.email = ?5")
 	public Integer setImePrezimeDressSizeFootwearSizeForKorisnik(String ime, String prezime, String dressSize,
 			Integer footwearSize, String email);
