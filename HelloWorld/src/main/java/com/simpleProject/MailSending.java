@@ -8,6 +8,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 
 public class MailSending {
+	
 
 	public static void sendMail(String address, String subject, String message) throws MessagingException {
         JavaMailSenderImpl sender = new JavaMailSenderImpl();

@@ -71,6 +71,9 @@ app.config(function($routeProvider) {
     .when("/offers", {
         templateUrl : "views/offers.html"
     })
+    .when("/map", {
+        templateUrl : "views/map.html"
+    })
     .when("/reports", {
         templateUrl : "views/reports.html"
     })

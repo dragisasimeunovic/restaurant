@@ -1,0 +1,28 @@
+<div ng-controller="mapController">
+	<div layout="column">
+	<div flex="13">
+		<md-toolbar class="md-small-tall" style="background-color:rgb(0,0,0); opacity:0.6 ; height:20px;">
+      		<div class="md-toolbar-tools">
+        		<h2>
+          		<span style="color:white;">BSA Restaurants</span>
+        		</h2>
+        		<span flex></span>
+        		
+        		
+		</md-toolbar>
+	</div>
+	</div>
+
+   	<div layout="row">	
+   		
+  		<ng-map id="maps" zoom="15" center="[1.280095, 103.850949]">
+  			
+  			<marker draggable=true position="[1.280095, 103.850949]" 
+          		on-dragend="getCurrentLocation(e)"></marker> 
+  		</ng-map>
+        
+	</div>
+	
+	
+
+</div>
