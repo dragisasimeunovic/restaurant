@@ -29,8 +29,8 @@ public class InvitationController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Invitation> addInvitation(@RequestBody Invitation invitation) throws MessagingException {
-		MailSending.sendMail("feddelegrand17@gmail.com", "Invitation", "http://localhost:8099/#/invitationAccept");
 		Invitation savedInvitation = invitationService.addInvitation(invitation);
+		MailSending.sendMail("feddelegrand17@gmail.com", "Invitation", "http://localhost:8099/#/invitationAccept/?id="+savedInvitation.getId());
         return new ResponseEntity<Invitation>(savedInvitation, HttpStatus.OK);
     }
 	
