@@ -38,7 +38,7 @@
  		
  			<md-list-item ng-repeat="item in list.items" ng-click="" class="noright">
     			<img alt="{{ item.drink.drinkName }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
-    			<p style="color:white"> {{item.drink.drinkName}} {{item.quantity}}</p>
+    			<p style="color:white"> {{item.drink.drinkName}} {{item.quantity}} {{item.preparationDeadline | date:'dd-MM-yyyy - HH:mm:ss'}}</p>
         		
         		<md-switch ng-disabled="false" aria-label="Disabled switch" ng-change="setPrepared(item)" ng-model="item.isPrepared">
     			Prepared

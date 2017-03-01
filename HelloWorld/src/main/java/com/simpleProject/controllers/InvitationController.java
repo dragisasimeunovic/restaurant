@@ -1,5 +1,7 @@
 package com.simpleProject.controllers;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.simpleProject.MailSending;
 import com.simpleProject.model.Invitation;
 import com.simpleProject.services.InvitationService;
 
@@ -25,7 +28,8 @@ public class InvitationController {
             method   = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Invitation> addInvitation(@RequestBody Invitation invitation) {
+    public ResponseEntity<Invitation> addInvitation(@RequestBody Invitation invitation) throws MessagingException {
+		MailSending.sendMail("feddelegrand17@gmail.com", "Invitation", "http://localhost:8099/#/invitationAccept");
 		Invitation savedInvitation = invitationService.addInvitation(invitation);
         return new ResponseEntity<Invitation>(savedInvitation, HttpStatus.OK);
     }

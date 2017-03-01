@@ -74,6 +74,9 @@ app.config(function($routeProvider) {
     .when("/map", {
         templateUrl : "views/map.html"
     })
+    .when("/invitationAccept", {
+        templateUrl : "views/invitationAccept.html"
+    })
     .when("/reports", {
         templateUrl : "views/reports.html"
     })
@@ -81,6 +84,6 @@ app.config(function($routeProvider) {
         templateUrl : "views/drinkCard.html"
     });
     
-    
+   
    
 });

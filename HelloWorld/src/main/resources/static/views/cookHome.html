@@ -38,7 +38,7 @@
  		
  			<md-list-item ng-repeat="item in list.items" ng-click="" class="noright">
     			<img alt="{{ item.meal.mealName }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
-    			<p style="color:white"> {{item.meal.mealName}} {{item.quantity}}</p>
+    			<p style="color:white"> {{item.meal.mealName}} {{item.quantity}}  {{item.preparationDeadline | date:'dd-MM-yyyy - HH:mm:ss'}}</p>
         		
         		<md-switch ng-show="item.meal.idMenuCategory==cookCategoryFilter" ng-disabled="false" aria-label="Disabled switch" ng-change="setPreparing(item)" ng-model="item.isPreparing">
     			Preparing
