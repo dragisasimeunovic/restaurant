@@ -36,6 +36,12 @@ public class Restaurant implements Serializable {
 	@Column(name="ocena")
 	private Integer ocena;
 	
+	@Column(name="latitude")
+	private Double latitude;
+	
+	@Column(name="longitude")
+	private Double longitude;
+	
 	@OneToMany(mappedBy = "restaurant" , fetch = FetchType.EAGER)
 	private Collection<Tablee> tables;
 
@@ -81,6 +87,22 @@ public class Restaurant implements Serializable {
 
 	public void setTables(Collection<Tablee> tables) {
 		this.tables = tables;
+	}
+
+	public Double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+
+	public Double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
 	}
 
 	

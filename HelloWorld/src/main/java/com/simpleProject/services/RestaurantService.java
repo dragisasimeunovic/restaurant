@@ -29,6 +29,10 @@ public class RestaurantService {
 		return restaurantRepository.findOne(restaurantId);
 	}
 	
+	public Integer setLatitudeAndLongitudeForRestaurant(Double latitude, Double longitude, Integer id) {
+		return restaurantRepository.setLatitudeLongitudeForRestaurant(latitude, longitude, id);
+	}
+	
 	
 	
 }

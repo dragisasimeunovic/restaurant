@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.simpleProject.model.Menu;
+
 import com.simpleProject.model.Restaurant;
 import com.simpleProject.services.RestaurantService;
 
@@ -51,6 +51,18 @@ public class RestaurantContoller {
 	    	Restaurant restaurantById = restaurantService.getRestaurantById(restaurantId);
 	    	return new ResponseEntity<Restaurant>(restaurantById, HttpStatus.OK);
 	    }
+	  
+	  
+	  @RequestMapping(
+	            value    = "/api/restorani/changePosition/{latitude}/{longitude}/{id}",
+	            method   = RequestMethod.POST,
+	            produces = MediaType.APPLICATION_JSON_VALUE
+	    )
+	    public ResponseEntity<Integer> changeRestaurantPosition(@PathVariable Double latitude, @PathVariable Double longitude, @PathVariable Integer id) {
+			Integer i = restaurantService.setLatitudeAndLongitudeForRestaurant(latitude, longitude, id);
+	        return new ResponseEntity<Integer>(i, HttpStatus.OK);
+	    }
+	  
 	  
 }
 

@@ -15,9 +15,9 @@
 
    	<div layout="row">	
    		
-  		<ng-map id="maps" zoom="15" center="[1.280095, 103.850949]">
+  		<ng-map id="maps" zoom="15" center="[{{lat}}, {{lng}}]">
   			
-  			<marker draggable=true position="[1.280095, 103.850949]" 
+  			<marker draggable=true position="[{{lat}}, {{lng}}]" 
           		on-dragend="getCurrentLocation(e)"></marker> 
   		</ng-map>
         

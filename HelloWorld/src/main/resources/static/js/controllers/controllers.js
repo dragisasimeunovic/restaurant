@@ -592,13 +592,13 @@ app.controller('guestRestaurantsController',['$scope','restaurantsService', 'man
 		
 		$scope.sort = function() {
 			if ($scope.sortByNameChecked == true && $scope.sortByTypeChecked == true){
-				$scope.friendships = orderBy($scope.friendships, ['ime','tip']);
+				$scope.restaurants = orderBy($scope.restaurants, ['ime','tip']);
 			}
 			else if($scope.sortByNameChecked == true) {
-				$scope.friendships = orderBy($scope.friendships, 'ime');
+				$scope.restaurants = orderBy($scope.restaurants, 'ime');
 			}
 			else if ($scope.sortByTypeChecked == true) {
-				$scope.friendships = orderBy($scope.friendships, 'tip');
+				$scope.restaurants = orderBy($scope.restaurants, 'tip');
 			}
 		 };
 		

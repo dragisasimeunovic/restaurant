@@ -27,6 +27,14 @@ angular.module('Milica').factory('registrationService' , function registrationSe
 
 angular.module('Milica').factory('restaurantsService' , function restaurantsService($http){
 	
+	restaurantsService.changePositions = function(id, latitude, longitude) {
+		return $http ({
+			method: 'POST',
+			url: 'api/restorani/changePosition/' + latitude + '/' + longitude + '/' + id
+		});
+	}
+	
+	
 	restaurantsService.getAllRestaurants = function(){
 		
 		return $http ({
@@ -189,7 +197,9 @@ angular.module('Milica').factory('registrationRestaurantService' , function regi
 				"id" : id,
 				"ime" : name,
 				"tip" : type,
-				"ocena" : ocena
+				"ocena" : ocena,
+				"latitude" : 1.280095,
+				"longitude" : 103.850949
 			}
 			
 		});
