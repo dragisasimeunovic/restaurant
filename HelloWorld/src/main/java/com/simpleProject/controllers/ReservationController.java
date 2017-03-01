@@ -33,6 +33,25 @@ public class ReservationController {
     }
 	
 	@RequestMapping(
+            value    = "/api/reservation/addReservationById/{id}/{email:.+}",
+            method   = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Reservation> addReservationByID(@PathVariable Integer id, @PathVariable String email) {
+		Reservation reservation = reservationService.getReservationById(id);
+		Reservation r = new Reservation();
+		r.setId(null);
+		r.setComingTime(reservation.getComingTime());
+		r.setGuestId(email);
+		r.setLeavingTime(reservation.getLeavingTime());
+		r.setReservedTable(reservation.getReservedTable());
+		r.setRestaurantId(reservation.getRestaurantId());
+		
+		Reservation savedReservation = reservationService.addReservation(r);
+        return new ResponseEntity<Reservation>(savedReservation, HttpStatus.OK);
+    }
+	
+	@RequestMapping(
             value    = "/api/reservation/getByGuestIdAndComingTime/{guestId:.+}/{comingTime}",
             method   = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE

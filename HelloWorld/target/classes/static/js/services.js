@@ -652,6 +652,14 @@ angular.module('Milica').factory('friendsService' , function friendsService($htt
 
 angular.module('Milica').factory('reservationService' , function reservationService($http){
 	
+	reservationService.addReservationByIdOfOther = function(idReservation, guestEmail) {
+		return $http({
+			method: 'POST',
+			url: 'api/reservation/addReservationById/' + idReservation + '/' + guestEmail
+		});
+	}
+	
+	
 	reservationService.addReservation = function(guestId, restaurantId, reservedTable, comingTime, leavingTime){
 		return $http({
 			method: 'POST',

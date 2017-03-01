@@ -27,7 +27,7 @@ public class Invitation implements Serializable{
     private String senderId;
 	
 	@Column(name = "reservationId")
-    private String reservationId;
+    private Integer reservationId;
 	
 	@Column(name = "accepted")
     private Boolean accepted;
@@ -55,13 +55,8 @@ public class Invitation implements Serializable{
 		this.senderId = senderId;
 	}
 
-	public String getReservationId() {
-		return reservationId;
-	}
-
-	public void setReservationId(String reservationId) {
-		this.reservationId = reservationId;
-	}
+	
+	
 
 	public String getRecieverId() {
 		return recieverId;
@@ -77,6 +72,14 @@ public class Invitation implements Serializable{
 
 	public void setAccepted(Boolean accepted) {
 		this.accepted = accepted;
+	}
+
+	public Integer getReservationId() {
+		return reservationId;
+	}
+
+	public void setReservationId(Integer reservationId) {
+		this.reservationId = reservationId;
 	}
 
 	

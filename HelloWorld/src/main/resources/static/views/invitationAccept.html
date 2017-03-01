@@ -1,6 +1,83 @@
 <div ng-controller="invitationController">
-<h1> Zdravo! </h1>
 
 
+<div layout = "row">
+    		<div layout ="column" flex = 50>
+    		<h5>Drinks</h5>
+   		<md-list ng-repeat = "category in categories">
+ 			<md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky"> {{category.drinkCategoryName}} 
+ 			</md-subheader>
+ 		
+ 		
+ 			<md-list-item ng-repeat="drink in category.drinks" ng-click="" class="noright">
+    			<img alt="{{ drink.drinkName }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
+    			<p style="color:white"> {{drink.drinkName}} {{drink.price}}</p>
+    		
+    			<md-icon ng-init md-svg-src="images/plus-one.svg" ng-click="addToOrderList(drink)" aria-label="Add to List" class="md-secondary md-hue-3" ></md-icon>
+  			
+  			</md-list-item>
+ 		
+ 		</md-list>
+ 		
+ 		<h5>Meals</h5>
+   		<md-list ng-repeat = "category in menuCategories">
+ 			<md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky"> {{category.categoryName}} 
+ 			</md-subheader>
+ 		
+ 		
+ 			<md-list-item ng-repeat="meal in category.meals" ng-click="" class="noright">
+    			<img alt="{{ meal.mealName }}" ng-src="images/pozadina2.jpg" class="md-avatar" />
+    			<p style="color:white"> {{meal.mealName}} {{meal.price}}</p>
+    		
+    			<md-icon ng-init md-svg-src="images/plus-one.svg" ng-click="addToOrderListMeal(meal)" aria-label="Add to List" class="md-secondary md-hue-3" ></md-icon>
+  			
+  			</md-list-item>
+ 		
+ 		</md-list>
+ 		
+ 		</div>
+ 		<div flex = 50>
+ 		<h5>Ordered drinks</h5>
+ 		<md-list>
+ 			<md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky"> Ordered - Quantity - Price
+ 		
+ 			</md-subheader>
+ 		
+ 		
+ 			<md-list-item ng-repeat="order in orderList" ng-click="" class="noright">
+    			<img alt="{{ order.drink.drinkName}}" ng-src="images/pozadina2.jpg" class="md-avatar" />
+    			<p style="color:white"> {{order.drinkName}} - {{order.brojac}} - {{order.cena}}</p>
+    		
+  				<md-icon md-svg-src="images/garbage.svg" ng-click="deleteFromOrderList(order)" aria-label="Delete groceries" class="md-secondary md-hue-3" ></md-icon>
+  			
+  			</md-list-item>
+ 		
+ 		</md-list>
+ 		
+ 		<h5>Ordered meals</h5>
+ 		<md-list>
+ 			<md-subheader style="background-color:black; color:white; opacity:0.3;" class="md-no-sticky"> Ordered - Quantity - Price
+ 		
+ 			</md-subheader>
+ 		
+ 		
+ 			<md-list-item ng-repeat="order in orderListMeal" ng-click="" class="noright">
+    			<img alt="{{ order.meal.mealName}}" ng-src="images/pozadina2.jpg" class="md-avatar" />
+    			<p style="color:white"> {{order.mealName}} - {{order.brojac}} - {{order.cena}}</p>
+    		
+  				<md-icon md-svg-src="images/garbage.svg" ng-click="deleteFromOrderListMeal(order)" aria-label="Delete groceries" class="md-secondary md-hue-3" ></md-icon>
+  			
+  			</md-list-item>
+ 		
+ 		</md-list>
+ 		
+ 		</div>
+ 		</div>
+ 		
+ 		<md-checkbox ng-model="prepared" aria-label="Prepared" style="color: white;">       
+        		Prepared before I come : {{prepared}}
+        </md-checkbox>
+
+<md-button class="md-raised md-primary" ng-click="accept()">Accept</md-button>
 <md-button class="md-raised md-primary" ng-click="backToLogin()">Login</md-button>
 </div>
