@@ -560,6 +560,13 @@ angular.module('Milica').factory('tableService' , function tableService($http){
 		});
 	}
 	
+	tableService.getTableByRestaurantIdAndNumberWhichIsNotReserved = function(restaurantId, number, cT, lT){
+		return $http({
+			method: 'GET',
+			url: '/api/restaurant/getRestaurantTableNotReserved/' + restaurantId +'/'+number+'/'+cT+'/'+lT
+		});
+	}
+	
 
 	
 	return tableService;

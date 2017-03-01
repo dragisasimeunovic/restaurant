@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.simpleProject.model.Reservation;
 import com.simpleProject.model.Restaurant;
 import com.simpleProject.model.Tablee;
+import com.simpleProject.services.ReservationService;
 import com.simpleProject.services.RestaurantService;
 import com.simpleProject.services.TableeService;
 
@@ -25,6 +27,9 @@ public class TableeController {
 	
 	@Autowired
 	private RestaurantService restaurantService;
+	
+	@Autowired
+	private ReservationService reservationService;
 	
 	@RequestMapping(
             value    = "/api/restaurant/addTable",
@@ -57,6 +62,22 @@ public class TableeController {
     	Tablee restaurantTable = tableeService.getTableByIdRestaurantAndNumber(restaurantId, tableNumber);
     	return new ResponseEntity<Tablee>(restaurantTable, HttpStatus.OK);
     }
+	
+	@RequestMapping(
+    		value = "/api/restaurant/getRestaurantTableNotReserved/{restaurantId}/{tableNumber}/{comingTime}/{leavingTime}",
+    		method = RequestMethod.GET,
+    		produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Tablee> getTableByIdRestaurantAndNumberNotReserved(@PathVariable Integer restaurantId, @PathVariable String tableNumber, @PathVariable String comingTime, @PathVariable String leavingTime){
+    	Tablee restaurantTable = tableeService.getTableByIdRestaurantAndNumber(restaurantId, tableNumber);
+    	Reservation reservation =  reservationService.isTableAllreadyReserved(restaurantId, restaurantTable, comingTime, leavingTime);
+    	if (reservation!=null) {
+    		restaurantTable = null;
+    	}
+    	return new ResponseEntity<Tablee>(restaurantTable, HttpStatus.OK);
+    }
+	
+	
 	
 	
 }

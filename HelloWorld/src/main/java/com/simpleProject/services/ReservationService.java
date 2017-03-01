@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.simpleProject.model.Reservation;
+import com.simpleProject.model.Tablee;
 import com.simpleProject.repository.ReservationRepository;
 
 @Service
@@ -39,6 +40,16 @@ public class ReservationService {
 
 	public Integer cancelReservation(String guestId, Integer restaurantId, String comingTime, String leavingTime) {
 		return reservationRepository.deleteByGuestIdAndRestaurantIdAndComingTimeAndLeavingTime(guestId, restaurantId, comingTime, leavingTime);
+	}
+
+	public Reservation isTableAllreadyReserved(Integer restaurantId, Tablee restaurantTable, String comingTime,
+			String leavingTime) {
+		return reservationRepository.findByRestaurantIdAndReservedTableAndComingTimeLessThanAndLeavingTimeGreaterThanOrRestaurantIdAndReservedTableAndComingTimeGreaterThanAndComingTimeLessThanAndLeavingTimeGreaterThanOrRestaurantIdAndReservedTableAndComingTimeLessThanAndLeavingTimeLessThanAndLeavingTimeGreaterThanOrRestaurantIdAndReservedTableAndComingTimeGreaterThanAndLeavingTimeLessThan
+				(restaurantId, restaurantTable, comingTime, leavingTime, 
+						restaurantId, restaurantTable,comingTime, leavingTime, leavingTime, 
+						restaurantId, restaurantTable,comingTime, leavingTime, comingTime,
+						restaurantId, restaurantTable,comingTime, leavingTime);
+
 	}
 	
 }

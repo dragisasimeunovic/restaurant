@@ -65,13 +65,17 @@ app.controller('reservationController',['$scope', 'friendsService', 'managerServ
 		/*console.log(bpTime);*/
 		var currentDateAndTime = new Date();
 		var bpMoment = moment(bpTime);
-		var endDate = moment(bpMoment).subtract(90, 'm').toDate();
+		var endDate = moment(bpMoment).subtract($scope.stayingHours - 1, 'h').toDate();
 		
 		
 		var endDateString = moment(endDate).format('YYYY-MM-DDTHH:mm:ss.sss')+'Z';
 		console.log('New: ' +endDateString);
-		var curDateString = moment(currentDateAndTime).format('YYYY-MM-DDTHH:mm:ss.sss')+'Z';
+		var curDateString = moment(bpTime).format('YYYY-MM-DDTHH:mm:ss.sss')+'Z';
 		console.log('Cur: ' + curDateString);
+		
+		
+		
+		
 		
 		
 	}
@@ -368,19 +372,54 @@ app.controller('reservationController',['$scope', 'friendsService', 'managerServ
 
     		   		  				return false;
     		   		  			}
+    		   		  		var dateString = dateFilter($scope.comingDate, 'yyyy-MM-ddT');//dobar
+   		  					var timeString = dateFilter($scope.comingTime, 'HH:mm:00.000');
+   		  					var bpTime = dateString + timeString + 'Z';
+   		  			
+   		  					var bpMoment = moment(bpTime);
+   		  					var endDate = moment(bpMoment).add($scope.stayingHours - 1, 'h').toDate();
+   		  					var endDateString = moment(endDate).format('YYYY-MM-DDTHH:mm:ss.sss')+'Z'; 
     		   		  			
-    		   		  			tableService.getTableByRestaurantIdAndNumber($scope.selectedRestaurant.id, $scope.tableNumber+"").then(function(response){
+    		   		  			tableService.getTableByRestaurantIdAndNumberWhichIsNotReserved($scope.selectedRestaurant.id, $scope.tableNumber+"", bpTime, endDateString).then(function(response){
+    		   		  				console.log('Sta vraca: ' + response.data.id);
+    		   		  				if (angular.isUndefined(response.data.id)){
+    		   		  					alert('Already reserved');
+    		   		  				}
+    		   		  				else {
+    		   		  					if(containsObject(response.data, reservedTables) == true) {
+    		   		  						alert('Already reserved das dasd asd');
+    		   		  					}
+    		   		  					else {
+    		   		  						reservedTables.push(response.data);
+    		   		  					}
+    		   		  				}
+    		   		  			});
+    		   		  			
+    		   		  			$mdDialog.hide();
+    		   		  			
+    		   		  			/*tableService.getTableByRestaurantIdAndNumber($scope.selectedRestaurant.id, $scope.tableNumber+"").then(function(response){
     		   		  				
     		   		  				if(containsObject(response.data, reservedTables) == true) {
     		   		  					alert('Already reserved');
     		   		  				}
     		   		  				else {
+    		   		  					var dateString = dateFilter($scope.comingDate, 'yyyy-MM-ddT');//dobar
+    		   		  					var timeString = dateFilter($scope.comingTime, 'HH:mm:00.000');
+    		   		  					var bpTime = dateString + timeString + 'Z';
+    		   		  			
+    		   		  					var bpMoment = moment(bpTime);
+    		   		  					var endDate = moment(bpMoment).add($scope.stayingHours - 1, 'h').toDate();
+    		   		  					var endDateString = moment(endDate).format('YYYY-MM-DDTHH:mm:ss.sss')+'Z'; 
+    		   		  				
+    		   		  					alert(bpTime)
+    		   		  					alert(endDateString);
+    		   		  					
     		   		  					reservedTables.push(response.data);
     		   		  				}
     		   		  				
     		   		  			$mdDialog.hide();
     		   		  				
-    		   		  			});
+    		   		  			});*/
     		   		  			
     		   		  		}
     		   		  		
