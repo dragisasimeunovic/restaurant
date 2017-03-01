@@ -7,6 +7,11 @@ Tehnologija: Spring + AngularJS <br/>
 ## Upustvo za pokretanje projekta
 
 1. Klonirati repozitorijum ili skinuti u .zip formatu (u slucaju .zip formatara, raspakovati nakon skidanja) <br/>
-2. U eclipse-u napraviti novi java projekat <br/>
-3. Iskljuciti opciju "use default location" <br/>
-4. Kliknuti na browse, pronaci folder gde je kloniran repozitorijum (ili raspakovan), i izabrati taj folder, i kliknuti finish <br/>
+2. Importovati projekat u eclipse (Existing Maven project) <br/>
+3. Pokrenuti projekat iz klase u kojoj se nalazi main metoda (klasa WebAppInitializer) <br/>
+4. U web browseru kucati http://localhost:8099/ <br/>
+5. Svaki sledeci korak je vezan za upravljanje aplikacijom (registracija, logovanje,...) <br/>
+
+
+
+
