@@ -306,8 +306,13 @@ app.controller('profileGuestController',['$scope', 'loginService','registrationS
 	
 	
 	$scope.goToRestaurantOrder = function(reservation){
-		orderService.activeReservation = reservation;
-		$location.path("/orderRestaurant");
+		var currentDateAndTime = new Date();
+		var curDateString = moment(currentDateAndTime).format('YYYY-MM-DDTHH:mm:ss.sss')+'Z';
+		
+		if (curDateString > reservation.comingTime && curDateString < reservation.leavingTime){
+			orderService.activeReservation = reservation;
+			$location.path("/orderRestaurant");
+		}
 		
 	}
 	

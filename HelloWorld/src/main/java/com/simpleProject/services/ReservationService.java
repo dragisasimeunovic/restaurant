@@ -30,7 +30,7 @@ public class ReservationService {
 	}
 	
 	public Collection<Reservation> getByGuestIdAndComingTime(String guestId, String comingTime){
-		return reservationRepository.findByGuestIdAndComingTimeGreaterThan(guestId, comingTime);
+		return reservationRepository.findByGuestIdAndLeavingTimeGreaterThan(guestId, comingTime);
 	}
 	
 	public Collection<Reservation> getAllTermReservations(String guestId, Integer restaurantId, String comingTime, String leavingTime) {

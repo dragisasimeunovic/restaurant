@@ -10,7 +10,7 @@ import com.simpleProject.model.Reservation;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Integer>{
 
-	public Collection<Reservation> findByGuestIdAndComingTimeGreaterThan(String guestId, String comingTime);
+	public Collection<Reservation> findByGuestIdAndLeavingTimeGreaterThan(String guestId, String comingTime);
 	public Collection<Reservation> findByGuestIdAndRestaurantIdAndComingTimeAndLeavingTime(String guestId, Integer restaurantId, String comingTime, String leavingTime);
 	
 	@Transactional
