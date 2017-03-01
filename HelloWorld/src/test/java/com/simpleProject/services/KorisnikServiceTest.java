@@ -50,6 +50,8 @@ public class KorisnikServiceTest {
 		assertTrue(korisnik.getActivated());
 	}
 	
+	
+	
 	@Test
 	@Transactional
 	@Rollback(true)

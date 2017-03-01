@@ -32,7 +32,7 @@ public class KorisnikController {
     )
     public ResponseEntity<Korisnik> registerKorisnik(@RequestBody Korisnik korisnik) throws MessagingException {
         Korisnik registrovanKorisnik = korisnikService.add(korisnik);
-        if (korisnik.getTip().equals("gost")){
+        if (korisnik.getTip() != null && korisnik.getTip().equals("gost")){
         	MailSending.sendMail("feddelegrand17@gmail.com", "Aktivacija", "http://localhost:8099/api/korisnici/activate/"+registrovanKorisnik.getEmail());
         }
         return new ResponseEntity<Korisnik>(registrovanKorisnik, HttpStatus.OK);
