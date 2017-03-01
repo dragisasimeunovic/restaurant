@@ -4,7 +4,7 @@ Clanovi tima: Dragisa Simeunovic, Milica Bucko, Ljubisa Avakumovic <br/>
 
 Tehnologija: Spring + AngularJS <br/>
 
-## Upustvo za pokretanje projekta
+## Uputstvo za pokretanje projekta
 
 1. Klonirati repozitorijum ili skinuti u .zip formatu (u slucaju .zip formatara, raspakovati nakon skidanja) <br/>
 2. Importovati projekat u eclipse (Existing Maven project) <br/>
@@ -12,6 +12,19 @@ Tehnologija: Spring + AngularJS <br/>
 4. U web browseru kucati http://localhost:8099/ <br/>
 5. Svaki sledeci korak je vezan za upravljanje aplikacijom (registracija, logovanje,...) <br/>
 
+
+## Uputstvo za testiranje projekta (JUnit testovi)
+
+1. Otvoriti paket src/test/java
+2. Za klase u kojima su implementirani JUnit testovi otvoriti paket com.simpleProject.services
+3. Desni klik na bilo koju od klasa i obabir Run As > JUnit test ili pokretanje svake pojedinacne metode na isti nacin
+
+
+## Uputstvo za testiranje projekta (Integracioni testovi)
+
+1. Otvoriti paket src/test/java
+2. Za klase u kojima su implementirani integracioni testovi otvoriti paket com.simpleProject.controllers
+3. Desni klik na bilo koju od klasa i obabir Run As > JUnit test ili pokretanje svake pojedinacne metode na isti nacin
 
 
 
