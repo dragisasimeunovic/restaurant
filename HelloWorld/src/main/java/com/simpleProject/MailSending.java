@@ -32,7 +32,7 @@ public class MailSending {
         mailMessage.setContent(message, "text/html");
 
         Transport transport = mailSession.getTransport("smtp");
-        transport.connect( "smtp.gmail.com", "feddelegrand17@gmail.com", "zero76tiesto");
+        transport.connect( "smtp.gmail.com", "feddelegrand17@gmail.com", "sdasdasdsadwew1");
         transport.sendMessage(mailMessage, mailMessage.getAllRecipients());
         transport.close();
    }
